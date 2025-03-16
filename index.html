@@ -73,84 +73,54 @@
            type="text/javascript" async src="https://tenor.com/embed.js"></script>
 
 
-<!DOCTYPE html>
-<html>
-<head>
-<title>Heart Audio Button with Text</title>
-<style>
-  #heartButton {
-    position: absolute;
-    top: 20px;
+
+   
+ <style>
+  #playPauseButton {
+    position: fixed;
+    top: 10px;
     left: 50%;
     transform: translateX(-50%);
-    width: 50px;
-    height: 50px;
-    background-color: transparent;
+    font-size: 3em;
     border: none;
+    background: none;
     cursor: pointer;
-    font-size: 0;
-    padding: 0;
+    z-index: 1000;
   }
 
-  #heartButton::before,
-  #heartButton::after {
-    position: absolute;
-    content: "";
-    left: 25px;
-    top: 0;
-    width: 25px;
-    height: 40px;
-    background: red;
-    border-radius: 25px 25px 0 0;
-    transform: rotate(-45deg);
-    transform-origin: 0 100%;
-  }
-
-  #heartButton::after {
-    left: 0;
-    transform: rotate(45deg);
-    transform-origin: 100% 100%;
-  }
-
-  #heartText {
-    position: absolute;
-    top: 80px; /* Adjust as needed */
+  #pressMeText {
+    position: fixed;
+    top: 80px;
     left: 50%;
     transform: translateX(-50%);
     font-size: 1.2em;
-    color: #333; /* Dark gray text */
-    font-family: sans-serif; /* Or your preferred font */
+    color: #333;
+    z-index: 999;
+  }
+
+  #myAudio {
+    display: none;
   }
 </style>
-</head>
-<body>
 
-<button id="heartButton"></button>
-<div id="heartText">Touch heart</div>
-
+<button id="playPauseButton">❤️</button>
+<div id="pressMeText">Press Me</div>
 <audio id="myAudio" src="Dekho Na Dekho Na _🥀New Hindi Black Screen Status❤️Sad Song Status _Iam__ayaz019(MP3_160K).mp3"></audio>
 
 <script>
-  const heartButton = document.getElementById('heartButton');
-  const myAudio = document.getElementById('myAudio');
+  const audio = document.getElementById("myAudio");
+  const playPauseButton = document.getElementById("playPauseButton");
+  let isPlaying = false;
 
-  heartButton.addEventListener('click', function() {
-    if (myAudio.paused) {
-      myAudio.play();
+  playPauseButton.addEventListener("click", () => {
+    if (isPlaying) {
+      audio.pause();
+      isPlaying = false;
+      playPauseButton.textContent = "❤️";
     } else {
-      myAudio.pause();
+      audio.play();
+      isPlaying = true;
+      playPauseButton.textContent = "⏸️";
     }
   });
-
-  heartButton.addEventListener('touchstart', function() {
-    if (myAudio.paused) {
-      myAudio.play();
-    } else {
-      myAudio.pause();
-    }
-  });
-
 </script>
-
-</body>
-  </html>
