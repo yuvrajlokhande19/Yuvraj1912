@@ -35,52 +35,24 @@
     </div>
   </body>
 </html>
-<!DOCTYPE html>
-<html>
-<head>
-<title>Big Note</title>
 <style>
-body {
-  font-family: 'Comic Sans MS', cursive, sans-serif;
-  background-color: #f0f0f0; 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  margin: 0;
-}
-
 .note {
+  font-family: 'Comic Sans MS', cursive, sans-serif;
   background-color: white;
   border: 2px solid #ccc;
   padding: 50px;
-  width: 80%; 
-  max-width: 800px; 
+  width: 80%;
+  max-width: 800px;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  color: #f08080; 
-  font-size: 1.2em; 
-  line-height: 1.6; 
-  text-align: justify; 
+  color: #f08080; /* Light red text color */
+  font-size: 1.2em;
+  line-height: 1.6;
+  text-align: justify;
+  margin: 20px auto; /* Center the note horizontally */
 }
+</style>
 
-.note::before {
-  content: "Happy birthday to the one who's miles away but close to my heart. 😊❤️Wishing you a day filled with joy and love, even from afar";
- 
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAQAAAAnOwc2AAAAkElEQVR4AY3BPQ7CUBBF0Y82tQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh
-    2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQ
-    h2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQ
-    h2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2
-    pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQ
-    h2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2
-    pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQ
-    h2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQ
-    h2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2
-    pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2p
-    Qh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh
-    2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2
+<div class="note">
+  Your large note content goes here. You can write a lot of text, and it will wrap nicely within the defined width. This is a big note, designed to look like a letter, with the specified Comic Sans font and light red text. Feel free to add more paragraphs and customize the content as needed.
+</div>
