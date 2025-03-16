@@ -70,11 +70,26 @@
   </body>
 </html>
 
-<audio id="myAudio" src="Dekho Na Dekho Na _🥀New Hindi Black Screen Status❤️Sad Song Status _Iam__ayaz019(MP3_160K).mp3"></audio>
+<style>
+  #playPauseButton {
+    position: fixed; /* Fixed positioning to keep it at the top */
+    top: 10px; /* Adjust top spacing as needed */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Center horizontally */
+    font-size: 3em; /* Increased size */
+    border: none;
+    background: none;
+    cursor: pointer;
+    z-index: 1000; /* Ensure it's on top of other content */
+  }
 
-<button id="playPauseButton" style="font-size: 2em; border: none; background: none; cursor: pointer;">
-  ❤️
-</button>
+  #myAudio {
+    display: none; /* Hide the audio element itself */
+  }
+</style>
+
+<button id="playPauseButton">❤️</button>
+<audio id="myAudio" src="your-music-file.mp3"></audio>
 
 <script>
   const audio = document.getElementById("myAudio");
@@ -85,12 +100,11 @@
     if (isPlaying) {
       audio.pause();
       isPlaying = false;
-      playPauseButton.textContent = "❤️"; // Heart emoji when paused
+      playPauseButton.textContent = "🎶";
     } else {
       audio.play();
       isPlaying = true;
-      playPauseButton.textContent = "💕"; // Pause emoji when playing
+      playPauseButton.textContent = "💖";
     }
   });
 </script>
-
