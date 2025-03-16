@@ -23,35 +23,45 @@
 <style>
 .diary-note {
   font-family: 'Comic Sans MS', cursive, sans-serif;
-  background-color: #f8f8f0; /* Light beige for diary look */
+  background-color: #f8f8f0;
   border: 2px solid #ccc;
-  padding: 30px;
-  width: 80%;
-  max-width: 600px; /* Adjusted max-width for diary style */
+  padding: 20px; /* Reduced padding for phone view */
+  width: 90%; /* Increased width for phone view */
+  max-width: 400px; /* Adjusted max-width for phone view */
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   color: #f08080;
-  font-size: 1.5em; /* Increased font size */
-  line-height: 1.7;
-  text-align: center; /* Center text */
+  font-size: 1.1em; /* Further reduced font size for phone view */
+  line-height: 1.6;
+  text-align: center;
   margin: 20px auto;
-  position: relative; /* For date and page number positioning */
+  position: relative;
 }
 
 .diary-note .date {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  font-size: 0.8em;
+  top: 5px; /* Adjusted positioning for phone view */
+  left: 5px;
+  font-size: 0.7em; /* Further reduced font size for phone view */
   color: #888;
 }
 
 .diary-note .page-number {
   position: absolute;
-  bottom: 10px;
-  right: 10px;
-  font-size: 0.8em;
+  bottom: 5px;
+  right: 5px;
+  font-size: 0.7em;
   color: #888;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 600px) {
+  .diary-note {
+    width: 95%; /* Even wider on very small screens */
+    max-width: 350px; /* Further reduce max-width if needed */
+    padding: 15px; /* Further reduce padding */
+    font-size: 1em; /* Adjust font size further if needed */
+  }
 }
 </style>
 
@@ -60,3 +70,4 @@
   This is a diary entry..
   <div class="page-number">Page 1</div>
 </div>
+
