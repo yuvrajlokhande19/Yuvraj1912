@@ -35,3 +35,53 @@
     </div>
   </body>
 </html>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Big Note</title>
+<style>
+body {
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  background-color: #f0f0f0; /* Light gray background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.note {
+  background-color: white;
+  border: 2px solid #ccc;
+  padding: 50px;
+  width: 80%; /* Adjust width as needed */
+  max-width: 800px; /* Maximum width */
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  color: #f08080; /* Light red text color */
+  font-size: 1.2em; /* Increase font size for readability */
+  line-height: 1.6; /* Improve line spacing */
+  text-align: justify; /* Justify text */
+}
+
+/* Optional: Add a subtle paper texture */
+.note::before {
+  content: "Happy birthday to the one who's miles away but close to my heart. 😊❤️Wishing you a day filled with joy and love, even from afar";
+ 
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAQAAAAnOwc2AAAAkElEQVR4AY3BPQ7CUBBF0Y82tQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh
+    2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQ
+    h2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQ
+    h2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2
+    pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQ
+    h2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2
+    pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQ
+    h2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQ
+    h2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2
+    pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2p
+    Qh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh
+    2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2pQh2
