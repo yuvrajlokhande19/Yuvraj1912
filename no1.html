@@ -72,23 +72,34 @@
 
 <style>
   #playPauseButton {
-    position: fixed; /* Fixed positioning to keep it at the top */
-    top: 10px; /* Adjust top spacing as needed */
-    left: 50%; /* Center horizontally */
-    transform: translateX(-50%); /* Center horizontally */
-    font-size: 3em; /* Increased size */
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 3em;
     border: none;
     background: none;
     cursor: pointer;
-    z-index: 1000; /* Ensure it's on top of other content */
+    z-index: 1000;
   }
 
   #myAudio {
-    display: none; /* Hide the audio element itself */
+    display: none;
+  }
+
+  #touchMeText {
+    position: fixed;
+    top: 80px; /* Adjust as needed, based on button size */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.2em; /* Adjust font size */
+    color: #333; /* Adjust text color */
+    z-index: 999; /* Place it below the button */
   }
 </style>
 
 <button id="playPauseButton">❤️</button>
+<div id="touchMeText">Touch Me</div>
 <audio id="myAudio" src="Dekho Na Dekho Na _🥀New Hindi Black Screen Status❤️Sad Song Status _Iam__ayaz019(MP3_160K).mp3"></audio>
 
 <script>
@@ -100,11 +111,11 @@
     if (isPlaying) {
       audio.pause();
       isPlaying = false;
-      playPauseButton.textContent = "🎶";
+      playPauseButton.textContent = "❤️";
     } else {
       audio.play();
       isPlaying = true;
-      playPauseButton.textContent = "💖";
+      playPauseButton.textContent = "⏸️";
     }
   });
 </script>
