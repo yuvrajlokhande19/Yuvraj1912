@@ -9,48 +9,56 @@
   </head>
   <body>
     <div class="container">
-         <!DOCTYPE html>
-<html>
-<head>
-<title>Centered Text Box</title>
-<style>
-  body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-    background-color: #f4f4f4; /* Light background */
+        <style>
+.diary-note {
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  background-color: #f8f8f0;
+  border: 2px solid #ccc;
+  padding: 20px; /* Reduced padding for phone view */
+  width: 90%; /* Increased width for phone view */
+  max-width: 400px; /* Adjusted max-width for phone view */
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  color: #f08080;
+  font-size: 1.1em; /* Further reduced font size for phone view */
+  line-height: 1.6;
+  text-align: center;
+  margin: 20px auto;
+  position: relative;
+}
+
+.diary-note .date {
+  position: absolute;
+  top: 5px; /* Adjusted positioning for phone view */
+  left: 5px;
+  font-size: 0.7em; /* Further reduced font size for phone view */
+  color: #888;
+}
+
+.diary-note .page-number {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  font-size: 0.7em;
+  color: #888;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 600px) {
+  .diary-note {
+    width: 95%; /* Even wider on very small screens */
+    max-width: 350px; /* Further reduce max-width if needed */
+    padding: 15px; /* Further reduce padding */
+    font-size: 1em; /* Adjust font size further if needed */
   }
-
-  .text-box {
-    width: 60%; /* Adjust width as needed */
-    max-width: 500px;
-    padding: 20px;
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    font-family: 'Roboto', sans-serif; /* Use a good sans-serif font */
-    font-size: 1.1em;
-    text-align: center;
-    background-color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-
-  /* Google Fonts link */
-  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
-
+}
 </style>
-</head>
-<body>
 
-  <div class="text-box">
-    Hum dono ko hum jaise bohot milenge  
-    Lekin hum dono ko hum dono
-    kabhi nhi mil sakenge 👀.
-  </div>
-
-</body>
-</html>
+<div class="diary-note">
+  <div class="date">Date: 2024-10-27</div>
+  This is a diary entry. Today, I wanted to write a note. The text is now centered and smaller, optimized for phone viewing. I hope you like the diary look.
+  <div class="page-number">Page 1</div>
+</div>
       <h1>Soch le ache se! 🙄</h1>
       <p>Mauke baar baar nhi milte 🤞🏻.</p>
 
