@@ -72,7 +72,7 @@
 
 
    
- <style>
+<style>
   #playPauseButton {
     position: fixed;
     top: 10px;
@@ -85,24 +85,24 @@
     z-index: 1000;
   }
 
-  #pressMeText {
-    position: fixed;
-    top: 80px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 1.2em;
-    color: #333;
-    z-index: 999;
-  }
-
   #myAudio {
     display: none;
+  }
+
+  #touchMeText {
+    position: fixed;
+    top: 80px; /* Adjust as needed, based on button size */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.2em; /* Adjust font size */
+    color: #333; /* Adjust text color */
+    z-index: 999; /* Place it below the button */
   }
 </style>
 
 <button id="playPauseButton">❤️</button>
-<div id="pressMeText">Press Heart</div>
-<audio id="AUR - KABHI KABHI -2 (mp3cut.net) (1).mp3"></audio>
+<div id="touchMeText">Touch Me</div>
+<audio id="myAudio" src=""></audio>
 
 <script>
   const audio = document.getElementById("myAudio");
@@ -117,7 +117,7 @@
     } else {
       audio.play();
       isPlaying = true;
-      playPauseButton.textContent = "🎶";
+      playPauseButton.textContent = "⏸️";
     }
   });
 </script>
