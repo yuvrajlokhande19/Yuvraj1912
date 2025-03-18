@@ -1,1 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ask palak 5</title>
+
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="container">
+        <style>
+.diary-note {
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  background-color: #f80000;
+  border: 2px solid #ccc;
+  padding: 20px; /* Reduced padding for phone view */
+  width: 90%; /* Increased width for phone view */
+  max-width: 400px; /* Adjusted max-width for phone view */
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  color: #f08080;
+  font-size: 1.1em; /* Further reduced font size for phone view */
+  line-height: 1.6;
+  text-align: center;
+  margin: 20px auto;
+  position: relative;
+}
+
+.diary-note .date {
+  position: absolute;
+  top: 5px; /* Adjusted positioning for phone view */
+  left: 5px;
+  font-size: 0.7em; /* Further reduced font size for phone view */
+  color: #888;
+}
+
+.diary-note .page-number {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  font-size: 0.7em;
+  color: #888;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 600px) {
+  .diary-note {
+    width: 100%; /* Even wider on very small screens */
+    max-width: 350px; /* Further reduce max-width if needed */
+    padding: 15px; /* Further reduce padding */
+    font-size: 1em; /* Adjust font size further if needed */
+  }
+}
+</style>
+
+<div class="diary-note">
+  <div class="date">Date:-03-23</div>
+  Kuch kehhna tha tumse tum sunna chahogi kya;
+  zindagi ek chota sa safar hai
+  tum saath chalna chahogi kya;
+  jis din neend na aaye
+  tum apni god me sulaogi kya
+  maine gawaya aoni har ek pyari cheez ko;
+  tum phir bhi vo pyari cheez banna chahogi kya!!
+  <div class="page-number">Page 1</div>
+</div>
+
+      <p>Are you a dream?"💖</p>
+
+      <div class="btn">
+        <a href="no6.html">Yes!</a>
+      </div>
+    </div>
+  </body>
+</html>
+
+<style>
+  #playPauseButton {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 3em;
+    border: none;
+    background: none;
+    cursor: pointer;
+    z-index: 1000;
+  }
+
+  #myAudio {
+    display: none;
+  }
+
+  #touchMeText {
+    position: fixed;
+    top: 80px; /* Adjust as needed, based on button size */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.2em; /* Adjust font size */
+    color: #333; /* Adjust text color */
+    z-index: 999; /* Place it below the button */
+  }
+</style>
+
+<button id="playPauseButton">❤️</button>
+<div id="touchMeText">Touch this heart</div>
+<audio id="myAudio" src="Dil Besabar.mp3"></audio>
+
+<script>
+  const audio = document.getElementById("myAudio");
+  const playPauseButton = document.getElementById("playPauseButton");
+  let isPlaying = false;
+
+  playPauseButton.addEventListener("click", () => {
+    if (isPlaying) {
+      audio.pause();
+      isPlaying = false;
+      playPauseButton.textContent = "❤️";
+    } else {
+      audio.play();
+      isPlaying = true;
+      playPauseButton.textContent = "🩶";
+    }
+  });
+</script>
 
