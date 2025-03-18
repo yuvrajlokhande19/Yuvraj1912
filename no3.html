@@ -9,12 +9,80 @@
   </head>
   <body>
     <div class="container">
+
+      <!DOCTYPE html>
+<html>
+<head>
+<title>Audio Player Top Center</title>
+<style>
+.audio-controls {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 1000;
+  text-align: center;
+}
+
+.audio-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+#pressMeText {
+  margin-top: 5px;
+}
+</style>
+</head>
+<body>
+
+<div class="audio-controls">
+  <audio id="myAudio" src="Hawayein.mp3"></audio>
+  <button class="audio-button" id="playPauseButton">▶️</button>
+  <div id="pressMeText">Press Me</div>
+</div>
+
+<script>
+const audio = document.getElementById("myAudio");
+const playPauseButton = document.getElementById("playPauseButton");
+const pressMeText = document.getElementById("pressMeText");
+
+playPauseButton.addEventListener("click", () => {
+  if (audio.paused) {
+    audio.play();
+    playPauseButton.textContent = "⏸️";
+    pressMeText.textContent = "";
+
+  } else {
+    audio.pause();
+    playPauseButton.textContent = "▶️";
+    pressMeText.textContent = "Press Me";
+
+  }
+});
+
+audio.addEventListener('ended', ()=>{
+    playPauseButton.textContent = "▶️";
+    pressMeText.textContent = "Press Me";
+})
+
+</script>
+
+</body>
+</html>
+
+      
      <div class="tenor-gif-embed" data-postid="15098807828074209921"
        data-share-method="host" data-aspect-ratio="0.903614" data-width="100%"><a
       href="https://tenor.com/view/sad-gif-15098807828074209921">Sad GIF</a>from <a
     href="https://tenor.com/search/sad-gifs">Sad GIFs</a></div> <script type="text/javascript"
     async src="https://tenor.com/embed.js"></script>
-     <p>💖It's funny how paths cross. Even if you don't believe in destiny, 
+   
+      <p>💖It's funny how paths cross. Even if you don't believe in destiny, 
        sometimes it feels like something brought us together. Like a quiet nudge, 
        placing us in the same space, at the same time. Regardless of the label, 
        the result is the same: we met."💖.</p>
