@@ -105,7 +105,7 @@
   const yesButton = document.getElementById('yes-button');
   const touchMeButton = document.getElementById('touch-me-button');
 
-  const emojiFlowers = ['🌸', '🌷', '🌹', '🌻', '🌼', '🌺', '💐', '🥀'];
+  const emojiFlowers = ['🌼🌼','🌸', '🌷🪷', '🌹🌼', '🌻', '🌼', '🌺', '💐', '🥀'];
   const preDefinedSentences = [
     "I love you deeply",
     "I adore you",
@@ -146,8 +146,8 @@
     if (depth === 1) {
       createFlower(endX, endY, container);
     } else {
-      createBranch(endX, endY, length * 0.6, angle + 30 + Math.random() * 20, thickness * 1.2, depth - 1, container);
-      createBranch(endX, endY, length * 0.6, angle - 30 - Math.random() * 20, thickness * 1.2, depth - 1, container);
+      createBranch(endX, endY, length * 0.6, angle + 20 + Math.random() * 20, thickness * 1.1, depth - 1, container);
+      createBranch(endX, endY, length * 0.6, angle - 30 - Math.random() * 20, thickness * 1.1, depth - 1, container);
     }
   }
 
@@ -204,7 +204,7 @@
   });
 
   yesButton.addEventListener('click', () => {
-    window.location.href = "next_page.html";
+    window.location.href = "no7.html";
   });
 </script>
 </body>
