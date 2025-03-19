@@ -17,93 +17,203 @@
             min-height: 100vh;
             margin: 0;
             padding-top: 50px;
-            background-color: #f4f4f4;
+            background-color: #f9f9f9;
             color: #333;
         }
 
         #timer {
-            font-size: 3em;
+            font-size: 2.5em;
             margin-bottom: 20px;
             text-align: center;
             width: 90%;
             max-width: 400px;
             font-weight: 700;
+            color: #555;
         }
 
         #dateInput {
             padding: 12px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             width: 80%;
             max-width: 300px;
             border: 1px solid #ddd;
-            border-radius: 5px;
+            border-radius: 8px;
             font-size: 1em;
             font-family: 'Roboto', sans-serif;
+            cursor: pointer;
         }
 
-        #yesButton {
+        #customDatePicker {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            width: 90%;
+            max-width: 350px;
+        }
+
+        #customDatePicker select {
+            padding: 12px;
+            margin: 5px;
+            width: 48%;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+
+        #customDatePicker button {
             padding: 12px 25px;
             background-color: #007bff;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 1em;
+            margin-top: 20px;
             font-weight: 700;
         }
 
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
         #resultContainer {
-            display: none; /* Initially hidden */
+            display: none;
             background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            margin-top: 25px;
             text-align: center;
-            width: 80%;
+            width: 90%;
             max-width: 400px;
         }
 
-        #resultYesButton {
-            padding: 10px 20px;
-            background-color: #4CAF50;
+      
+        
+
+        #agreeButton {
+            padding: 12px 25px;
+            background-color: #007bff;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
-            margin-top: 15px;
+            margin-top: 20px;
+            font-weight: 700;
         }
     </style>
 </head>
 <body>
 
-    <div id="timer">Enter your birthday below</div>
+    <div id="timer">Enter your birthday, my queen💝</div>
 
-    <input type="date" id="dateInput">
+    <input type="text" id="dateInput" placeholder="Select Date (YYYY-MM-DD)" readonly>
 
-    <button id="yesButton">Show My Age</button>
+    <div id="customDatePicker">
+        <select id="yearSelect"></select>
+        <select id="monthSelect"></select>
+        <select id="daySelect"></select>
+        <button id="setDateButton">Set Date</button>
+    </div>
+
+    <div id="overlay"></div>
 
     <div id="resultContainer">
         <p id="resultText"></p>
-        <button id="resultYesButton">Yes</button>
     </div>
 
+    <button id="okButton">OK</button>
+    <button id="agreeButton">Agree</button>
+
     <script>
-        const timerDisplay = document.getElementById('timer');
         const dateInput = document.getElementById('dateInput');
-        const yesButton = document.getElementById('yesButton');
+        const customDatePicker = document.getElementById('customDatePicker');
+        const overlay = document.getElementById('overlay');
+        const yearSelect = document.getElementById('yearSelect');
+        const monthSelect = document.getElementById('monthSelect');
+        const daySelect = document.getElementById('daySelect');
+        const setDateButton = document.getElementById('setDateButton');
         const resultContainer = document.getElementById('resultContainer');
         const resultText = document.getElementById('resultText');
-        const resultYesButton = document.getElementById('resultYesButton');
+        const okButton = document.getElementById('okButton');
+        const agreeButton = document.getElementById('agreeButton');
+
+
+        // Populate year dropdown
+        const currentYear = new Date().getFullYear();
+        for (let i = currentYear - 100; i <= currentYear; i++) {
+            const option = document.createElement('option');
+            option.value = i;
+            option.textContent = i;
+            yearSelect.appendChild(option);
+        }
+
+        // Populate month dropdown
+        const months = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+        months.forEach((month, index) => {
+            const option = document.createElement('option');
+            option.value = month;
+            option.textContent = month;
+            monthSelect.appendChild(option);
+        });
+
+        // Populate day dropdown
+        function populateDays(year, month) {
+            daySelect.innerHTML = '';
+            const daysInMonth = new Date(year, month, 0).getDate();
+            for (let i = 1; i <= daysInMonth; i++) {
+                const day = i < 10 ? '0' + i : i;
+                const option = document.createElement('option');
+                option.value = day;
+                option.textContent = day;
+                daySelect.appendChild(option);
+            }
+        }
+
+        populateDays(yearSelect.value, monthSelect.value);
+
+        yearSelect.addEventListener('change', () => populateDays(yearSelect.value, monthSelect.value));
+        monthSelect.addEventListener('change', () => populateDays(yearSelect.value, monthSelect.value));
+
+        dateInput.addEventListener('click', () => {
+            customDatePicker.style.display = 'block';
+            overlay.style.display = 'block';
+        });
+
+        setDateButton.addEventListener('click', () => {
+            const year = yearSelect.value;
+            const month = monthSelect.value;
+            const day = daySelect.value;
+            dateInput.value = `${year}-${month}-${day}`;
+            customDatePicker.style.display = 'none';
+            overlay.style.display = 'none';
+            calculateAge();
+        });
+
+        overlay.addEventListener('click', () => {
+            customDatePicker.style.display = 'none';
+            overlay.style.display = 'none';
+        });
 
         function calculateAge() {
             const birthDate = new Date(dateInput.value);
             const now = new Date();
 
-            if (isNaN(birthDate.getTime())) {
-                alert("Please enter a valid birthday.");
-                return;
-            }
+            if (isNaN(birthDate.getTime())) return;
 
             const ageInMilliseconds = now - birthDate;
             const ageDate = new Date(ageInMilliseconds);
@@ -112,20 +222,15 @@
             const months = ageDate.getUTCMonth();
             const days = Math.floor(ageInMilliseconds / (1000 * 60 * 60 * 24));
 
-            resultText.textContent = `You are approximately:\n${years} years\n${months} months\n${days} days old. Bohot jaldi Badi hogyi 💝`;
-            resultContainer.style.display = 'block'; // Show the result container
+            resultText.textContent = `You're ${years} years, ${months} months, and ${days} days old today, my queen May This Year Make You
+            More buetifull💝💝.`;
+            resultContainer.style.display = 'block';
+            okButton.style.display = 'block';
+            agreeButton.style.display = 'block';
         }
 
-        yesButton.addEventListener('click', () => {
-            if (dateInput.value) {
-                calculateAge();
-            } else {
-                alert("Please enter your birthday first.");
-            }
-        });
-
-        resultYesButton.addEventListener('click', () => {
-            window.location.href = "nextpage.html"; // Redirect to nextpage.html
+        agreeButton.addEventListener('click', () => {
+            window.location.href = "no8.html";
         });
     </script>
 </body>
