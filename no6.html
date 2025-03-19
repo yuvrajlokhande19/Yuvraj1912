@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Beautiful Emoji Flower Tree</title>
+<title>Stylized Wire Tree</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <style>
   body {
@@ -20,10 +20,8 @@
 
   .branch {
     position: absolute;
-    background: linear-gradient(to bottom, #8B4513, #A0522D);
-    transform-origin: top center;
-    border-radius: 50% / 15%;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    background-color: #A0522D;
   }
 
   .flower {
@@ -47,15 +45,15 @@
     pointer-events: none;
   }
 
-  .leaf {
+  .popup {
     position: absolute;
-    background: linear-gradient(to bottom, #90EE90, #ADFF2F);
-    padding: 10px 15px;
-    border-radius: 8px;
-    pointer-events: none;
-    white-space: nowrap;
-    font-size: 18px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    font-size: 24px;
+    z-index: 11;
+    display: none;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
   }
 
   #yes-button {
@@ -86,17 +84,6 @@
     font-size: 24px;
     cursor: pointer;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-  }
-
-  .popup {
-    position: absolute;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    font-size: 24px;
-    z-index: 11;
-    display: none;
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
   }
 </style>
 </head>
@@ -139,10 +126,10 @@
 
     const branch = document.createElement('div');
     branch.classList.add('branch');
-    branch.style.left = `${x}px`;
+    branch.style.left = `${x - thickness / 2}px`;
     branch.style.top = `${y}px`;
-    branch.style.width = `${length}px`;
-    branch.style.height = `${thickness}px`;
+    branch.style.width = `${thickness}px`;
+    branch.style.height = `${length}px`;
     branch.style.transform = `rotate(${angle}deg)`;
 
     treeContainer.appendChild(branch);
@@ -183,12 +170,10 @@
     popup.style.left = `${x}px`;
     popup.style.top = `${y}px`;
     treeContainer.appendChild(popup);
+    popup.style.display = 'block';
     setTimeout(() => {
-      popup.style.display = 'block';
-      setTimeout(() => {
         popup.remove();
-      }, 2000);
-    }, 10);
+    }, 2000);
   }
 
   let initialLength = 200;
@@ -199,4 +184,13 @@
   touchMeButton.addEventListener("click", () => {
     const text = preDefinedSentences[Math.floor(Math.random() * preDefinedSentences.length)];
     const x = Math.random() * window.innerWidth * 0.6 + window.innerWidth * 0.2;
-    const y = Math
+    const y = Math.random() * window.innerHeight * 0.6 + window.innerHeight * 0.1;
+    createPopup(x, y, text);
+  });
+
+  yesButton.addEventListener('click', () => {
+    window.location.href = "next_page.html";
+  });
+</script>
+</body>
+</html>
