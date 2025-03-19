@@ -3,138 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Animated Book</title>
+    <title>Countdown Timer</title>
     <style>
         body {
-            background-color: #e0b0ff; /* Light purple background */
             font-family: sans-serif;
-            margin: 0;
-            padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: flex-start; /* Align from the top */
+            min-height: 100vh; /* Ensure full viewport height */
+            margin: 0;
+            padding-top: 50px; /* Add some padding at the top */
         }
 
-        #yessButton {
-            background-color: #fff;
+        #timer {
+            font-size: 3em; /* Larger font size for mobile */
+            margin-bottom: 20px;
+            text-align: center;
+            width: 90%; /* Adjust for mobile width */
+            max-width: 400px; /* Maximum width */
+        }
+
+        #dateInput {
+            padding: 10px;
+            margin-bottom: 10px;
+            width: 80%; /* Adjust for mobile width */
+            max-width: 300px;
+        }
+
+        #yesButton {
             padding: 10px 20px;
-            border: 2px solid #800080;
-            border-radius: 5px;
-            margin-top: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
             cursor: pointer;
-            font-weight: bold;
-            color: #800080;
         }
 
-        #book-container {
-            position: relative;
-            width: 80%; /* Adjust for mobile view */
-            max-width: 600px;
-            height: 400px;
-            margin: 20px auto;
-            perspective: 1500px;
+        #daysElapsed {
+            margin-top: 10px;
+            text-align: center;
         }
-
-        .page {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-color: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transform-origin: left center;
-            transition: transform 0.8s ease-in-out;
-            backface-visibility: hidden; /* Important for realistic flip */
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-
-        .page:nth-child(odd) {
-            z-index: 1; /* Odd pages on top */
-        }
-
-        .page:nth-child(even) {
-            z-index: 0; /* Even pages behind */
-            transform: rotateY(180deg); /* Initial back page */
-        }
-
-        .page.flipped {
-            transform: rotateY(0deg);
-        }
-
-        .page.flipped-back {
-            transform: rotateY(-180deg);
-        }
-
-        .page.back {
-            background-color: #f0f0f0; /* Slightly different back page */
-        }
-
-        .page h2 {
-            margin-top: 0;
-        }
-        .page p{
-            line-height: 1.6;
-        }
-
     </style>
 </head>
 <body>
 
-    <button id="yessButton">WordPress Yess</button>
+    <div id="timer">Enter a date below</div>
 
-    <div id="book-container">
-        <div class="page" id="cover">
-            <h2>My Animated Book</h2>
-            <p>A demonstration of flipping pages.</p>
-        </div>
-        <div class="page back" id="page1">
-            <h2>Index</h2>
-            <p>Page 1: Introduction</p>
-            <p>Page 2: Content</p>
-        </div>
-        <div class="page" id="page2">
-            <h2>Introduction</h2>
-            <p>This is the first page of our animated book. We are going to explore how to create a simple flip animation using CSS transforms. This demonstration aims to be responsive and work well on mobile devices.</p>
-            <p>We will utilize perspective to give the pages a realistic 3D look. The transition property will smoothly animate the page flips.</p>
-        </div>
-        <div class="page back" id="page3">
-            <h2>Content</h2>
-            <p>Here is some more content for the second page. We'll be adding more text to fill this page and demonstrate how the layout adjusts to different screen sizes. Responsive design is key for a good user experience.</p>
-            <p>Remember that the back pages are initially rotated 180 degrees. Flipping them back involves rotating them to 0 degrees.</p>
-        </div>
-    </div>
+    <input type="date" id="dateInput">
+
+    <button id="yesButton">Yes</button>
+
+    <div id="daysElapsed"></div>
 
     <script>
-        const pages = document.querySelectorAll('.page');
-        let currentPage = 0;
+        const timerDisplay = document.getElementById('timer');
+        const dateInput = document.getElementById('dateInput');
+        const yesButton = document.getElementById('yesButton');
+        const daysElapsedDisplay = document.getElementById('daysElapsed');
 
-        function flipPage(direction) {
-            if (direction === 'next' && currentPage < pages.length - 1) {
-                pages[currentPage].classList.add('flipped');
-                pages[currentPage + 1].classList.add('flipped');
-                currentPage += 2;
-            } else if (direction === 'prev' && currentPage > 1) {
-                pages[currentPage - 1].classList.remove('flipped');
-                pages[currentPage - 2].classList.remove('flipped');
-                currentPage -= 2;
+        function updateTimer() {
+            const selectedDate = new Date(dateInput.value);
+            const now = new Date();
+
+            if (isNaN(selectedDate.getTime())) {
+                timerDisplay.textContent = "Enter a date below";
+                daysElapsedDisplay.textContent = ""; // Clear elapsed days
+                return;
+            }
+
+            const timeDifference = selectedDate - now;
+
+            if (timeDifference > 0) {
+                const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+                timerDisplay.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+                daysElapsedDisplay.textContent = ""; // Clear elapsed days
+            } else {
+                const elapsedDays = Math.floor(Math.abs(timeDifference) / (1000 * 60 * 60 * 24));
+                timerDisplay.textContent = "Time elapsed!";
+                daysElapsedDisplay.textContent = `Days elapsed: ${elapsedDays}`;
             }
         }
 
-        document.addEventListener('click', (event) => {
-            const rect = document.getElementById('book-container').getBoundingClientRect();
-            const centerX = rect.left + rect.width / 2;
-
-            if (event.clientX > centerX) {
-                flipPage('next');
-            } else {
-                flipPage('prev');
-            }
+        dateInput.addEventListener('change', () => {
+            setInterval(updateTimer, 1000);
+            updateTimer(); // Initial update
         });
 
-        document.getElementById('yessButton').addEventListener('click', function() {
-            window.location.href = "no8.html"; // Redirect to nextpage.html
+        yesButton.addEventListener('click', () => {
+             if (dateInput.value) {
+                window.location.href = "nextpage.html";
+            } else{
+                alert("Please enter a date first");
+            }
         });
     </script>
 </body>
