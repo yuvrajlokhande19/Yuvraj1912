@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Small Wire Tree</title>
+<title>Enchanting Wire Tree</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <style>
   body {
     margin: 0;
     overflow: hidden;
-    background: linear-gradient(to bottom, pink, lightpink);
+    background: linear-gradient(to bottom, #ffe0f0, #ffb6c1); /* More refined pink gradient */
     touch-action: manipulation;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Georgia', serif; /* Elegant font */
   }
 
   #tree-container {
@@ -24,22 +24,23 @@
   .branch {
     position: absolute;
     border-radius: 50%;
-    background-color: #A0522D;
+    background: linear-gradient(to bottom, #8B4513, #A0522D); /* Realistic branch gradient */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Subtle depth */
   }
 
   .flower {
     position: absolute;
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
     cursor: pointer;
     transition: transform 0.3s ease, opacity 0.3s ease;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 18px;
-    background: rgba(255, 255, 255, 0.8);
+    font-size: 20px;
+    background: rgba(255, 255, 255, 0.85); /* Slightly more opaque flower */
     border-radius: 50%;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
   }
 
   .flower.falling {
@@ -50,13 +51,13 @@
 
   .popup {
     position: absolute;
-    background: white;
-    padding: 15px;
-    border-radius: 8px;
-    font-size: 18px;
+    background: rgba(255, 255, 255, 0.95); /* Nearly opaque popup */
+    padding: 18px;
+    border-radius: 10px;
+    font-size: 20px;
     z-index: 11;
     display: none;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.35);
   }
 
   #yes-button {
@@ -64,42 +65,44 @@
     top: 20px;
     left: 50%;
     transform: translateX(-50%);
-    padding: 12px 25px;
+    padding: 14px 28px;
     background: linear-gradient(to bottom, #3CB371, #2E8B57);
     color: white;
     border: none;
-    border-radius: 8px;
-    font-size: 18px;
+    border-radius: 10px;
+    font-size: 20px;
     cursor: pointer;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     z-index: 10;
   }
 
   #touch-me-button {
     position: absolute;
-    top: 80px; /* Position below yes button */
+    top: 80px;
     left: 50%;
     transform: translateX(-50%);
-    padding: 18px 35px;
+    padding: 20px 40px;
     background: linear-gradient(to bottom, #4682B4, #4169E1);
     color: white;
     border: none;
-    border-radius: 8px;
-    font-size: 20px;
+    border-radius: 10px;
+    font-size: 22px;
     cursor: pointer;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     z-index: 10;
   }
 
   #instruction {
     position: absolute;
-    top: 140px; /* Position below touch me button */
+    top: 140px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 10px;
-    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 18px;
     z-index: 10;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
   }
 </style>
 </head>
@@ -117,25 +120,25 @@
 
   const emojiFlowers = ['🌸', '🌷', '🌹', '🌻', '🌼', '🌺', '💐', '🥀'];
   const preDefinedSentences = [
-    "You are a radiant star",
-    "Your smile is pure magic",
-    "You fill my world with joy",
-    "You're my dream come true",
-    "You are the poetry of my soul",
-    "Your heart is a treasure",
-    "You are my eternal muse",
-    "You are a symphony of beauty",
-    "You are my sweetest melody",
-    "You are the light of my life",
-    "You are my heart's desire",
-    "You are the essence of love",
-    "You are my forever love",
-    "You are a rare gem",
-    "You are the sunshine in my soul",
-    "Your presence is a gift",
-    "You are my inspiration",
-    "You are the reason for my happiness",
-    "You are my guiding star"
+    "You are a celestial dream",
+    "Your eyes hold starlight",
+    "You paint my days with joy",
+    "You're my heart's sweet song",
+    "Your soul is pure poetry",
+    "Your spirit is golden",
+    "You are my guiding star",
+    "You are a masterpiece",
+    "You are my heart's true north",
+    "You are the dawn of hope",
+    "You are my deepest wish",
+    "You are love's own echo",
+    "You are my forever haven",
+    "You are a rare diamond",
+    "You are my soul's sunshine",
+    "Your smile is a blessing",
+    "You are my inspiration's flame",
+    "You are my heart's delight",
+    "You are my destiny's whisper"
   ];
 
   function createBranch(x, y, length, angle, thickness, depth) {
@@ -155,20 +158,20 @@
     const endY = y + length * Math.sin(angle * Math.PI / 180);
 
     if (depth === 1) {
-      for (let i = 0; i < 5; i++) {
-        createFlower(endX + Math.random() * 20 - 10, endY + Math.random() * 20 - 10);
+      for (let i = 0; i < 6; i++) { // Adjusted flower count
+        createFlower(endX + Math.random() * 25 - 12.5, endY + Math.random() * 25 - 12.5);
       }
     } else {
-      createBranch(endX, endY, length * 0.6, angle + 25 + Math.random() * 15, thickness * 0.7, depth - 1);
-      createBranch(endX, endY, length * 0.6, angle - 25 - Math.random() * 15, thickness * 0.7, depth - 1);
+      createBranch(endX, endY, length * 0.65, angle + 22 + Math.random() * 12, thickness * 0.75, depth - 1); // Adjusted branch parameters
+      createBranch(endX, endY, length * 0.65, angle - 22 - Math.random() * 12, thickness * 0.75, depth - 1);
     }
   }
 
   function createFlower(x, y) {
     const flower = document.createElement('div');
     flower.classList.add('flower');
-    flower.style.left = `${x - 12.5}px`;
-    flower.style.top = `${y - 12.5}px`;
+    flower.style.left = `${x - 15}px`;
+    flower.style.top = `${y - 15}px`;
     flower.textContent = emojiFlowers[Math.floor(Math.random() * emojiFlowers.length)];
     treeContainer.appendChild(flower);
 
@@ -193,12 +196,4 @@
     }, 2000);
   }
 
-  let initialLength = 120;
-  let initialThickness = 25;
-
-  createBranch(window.innerWidth / 2, window.innerHeight * 0.9, initialLength, -90, initialThickness, 6);
-
-  touchMeButton.addEventListener("click", () => {
-    const text = preDefinedSentences[Math.floor(Math.random() * preDefinedSentences.length)];
-    const x = Math.random() * window.innerWidth * 0.6 + window.innerWidth * 0.2;
-    const y = Math.random() * window.innerHeight * 0.6 + window.innerHeight * 0.1;
+  let initial
