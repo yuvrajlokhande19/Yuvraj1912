@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Animated Flower Tree</title>
+<title>Emoji Flower Tree</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <style>
   body {
@@ -9,6 +9,7 @@
     overflow: hidden;
     background-color: lightblue;
     touch-action: manipulation;
+    font-family: sans-serif;
   }
 
   #tree-container {
@@ -27,15 +28,12 @@
     position: absolute;
     width: 40px;
     height: 40px;
-    border-radius: 50%;
     cursor: pointer;
     transition: transform 0.3s ease, opacity 0.3s ease;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 12px;
-    background-color: pink;
-    text-align: center;
+    font-size: 24px;
   }
 
   .flower.falling {
@@ -44,53 +42,98 @@
     pointer-events: none;
   }
 
-  .flower.text-container {
+  .leaf {
     position: absolute;
-    background-color: white;
-    padding: 5px;
+    background-color: lightgreen;
+    padding: 10px;
     border-radius: 5px;
-    display: none;
     pointer-events: none;
-    z-index: 10;
-    width: max-content;
+    white-space: nowrap;
   }
 
-  #instruction {
+  #yes-button {
     position: absolute;
-    top: 10px;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
+    padding: 15px 30px;
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 10;
+  }
+
+  #small-tree-container {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      width: 150px;
+      height: 200px;
+  }
+
+  #leaf-input-container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
     background-color: rgba(255, 255, 255, 0.8);
     padding: 10px;
     border-radius: 5px;
     z-index: 10;
   }
 
-  #yes-button {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    padding: 10px 20px;
-    background-color: green;
+  #leaf-input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+
+  #add-leaf-button {
+    padding: 5px 10px;
+    background-color: #4CAF50;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 3px;
     cursor: pointer;
-    z-index: 10;
   }
 </style>
 </head>
 <body>
 <div id="tree-container">
-  <div id="instruction">Touch the flowers!</div>
-  <button id="yes-button">Yes</button>
+  <button id="yes-button">YES!</button>
+  <div id="small-tree-container"></div>
+  <div id="leaf-input-container">
+    <input type="text" id="leaf-input" placeholder="Enter a sentence">
+    <button id="add-leaf-button">Add Leaf</button>
+  </div>
 </div>
 
 <script>
   const treeContainer = document.getElementById('tree-container');
   const yesButton = document.getElementById('yes-button');
+  const smallTreeContainer = document.getElementById("small-tree-container");
+  const leafInput = document.getElementById("leaf-input");
+  const addLeafButton = document.getElementById("add-leaf-button");
 
-  function createBranch(x, y, length, angle, thickness, depth) {
+  const emojiFlowers = ['🌸', '🌷', '🌹', '🌻', '🌼', '🌺', '💐', '🥀'];
+  const preDefinedSentences = [
+    "I love you",
+    "I like you",
+    "You are pretty",
+    "You are amazing",
+    "You are wonderful",
+    "You are special",
+    "You are kind",
+    "You are beautiful",
+    "You are loved",
+    "You are sweet",
+    "You are charming",
+    "You are the best"
+  ];
+
+  function createBranch(x, y, length, angle, thickness, depth, container) {
     if (depth <= 0) return;
 
     const branch = document.createElement('div');
@@ -100,42 +143,42 @@
     branch.style.width = `${length}px`;
     branch.style.height = `${thickness}px`;
     branch.style.transform = `rotate(${angle}deg)`;
-
-    treeContainer.appendChild(branch);
+    container.appendChild(branch);
 
     const endX = x + length * Math.cos(angle * Math.PI / 180);
     const endY = y + length * Math.sin(angle * Math.PI / 180);
 
     if (depth === 1) {
-      createFlower(endX, endY);
+      createFlower(endX, endY, container);
     } else {
-      createBranch(endX, endY, length * 0.75, angle + 25 + Math.random() * 25, thickness * 0.9, depth - 1);
-      createBranch(endX, endY, length * 0.75, angle - 25 - Math.random() * 25, thickness * 0.9, depth - 1);
+      createBranch(endX, endY, length * 0.75, angle + 25 + Math.random() * 25, thickness * 0.9, depth - 1, container);
+      createBranch(endX, endY, length * 0.75, angle - 25 - Math.random() * 25, thickness * 0.9, depth - 1, container);
     }
   }
 
-  function createFlower(x, y) {
+  function createFlower(x, y, container) {
     const flower = document.createElement('div');
     flower.classList.add('flower');
     flower.style.left = `${x - 20}px`;
     flower.style.top = `${y - 20}px`;
-
-    const textContainer = document.createElement('div');
-    textContainer.classList.add('flower.text-container');
-    textContainer.textContent = `Word ${Math.floor(Math.random() * 100)}`;
-
-    flower.appendChild(textContainer);
-    treeContainer.appendChild(flower);
+    flower.textContent = emojiFlowers[Math.floor(Math.random() * emojiFlowers.length)];
+    container.appendChild(flower);
 
     flower.addEventListener('click', () => {
       flower.classList.add('falling');
-      textContainer.style.display = 'block';
-      textContainer.style.left = `${x}px`;
-      textContainer.style.top = `${y - 50}px`;
       setTimeout(() => {
         flower.remove();
       }, 300);
     });
+  }
+
+  function createLeaf(x, y, text) {
+    const leaf = document.createElement('div');
+    leaf.classList.add('leaf');
+    leaf.style.left = `${x}px`;
+    leaf.style.top = `${y}px`;
+    leaf.textContent = text;
+    treeContainer.appendChild(leaf);
   }
 
   let initialLength = 250;
@@ -145,10 +188,24 @@
     initialThickness = 20;
   }
 
-  createBranch(window.innerWidth / 2, window.innerHeight, initialLength, -90, initialThickness, 9);
+  createBranch(window.innerWidth / 2, window.innerHeight, initialLength, -90, initialThickness, 9, treeContainer);
+  createBranch(75, 190, 80, -90, 8, 5, smallTreeContainer);
+
+  addLeafButton.addEventListener("click", () => {
+    let text = leafInput.value.trim();
+    if (!text) {
+      text = preDefinedSentences[Math.floor(Math.random() * preDefinedSentences.length)];
+    }
+    if (text) {
+      const x = Math.random() * window.innerWidth;
+      const y = Math.random() * window.innerHeight * 0.8;
+      createLeaf(x, y, text);
+      leafInput.value = "";
+    }
+  });
 
   yesButton.addEventListener('click', () => {
-    window.location.href = "next_page.html"; // Replace with your next page URL
+    window.location.href = "next_page.html";
   });
 </script>
 </body>
