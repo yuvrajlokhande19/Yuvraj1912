@@ -1,1 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Book</title>
+    <style>
+        body {
+            background-color: #e0b0ff; /* Light purple background */
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
+        #yessButton {
+            background-color: #fff;
+            padding: 10px 20px;
+            border: 2px solid #800080;
+            border-radius: 5px;
+            margin-top: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #800080;
+        }
+
+        #book-container {
+            position: relative;
+            width: 80%; /* Adjust for mobile view */
+            max-width: 600px;
+            height: 400px;
+            margin: 20px auto;
+            perspective: 1500px;
+        }
+
+        .page {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transform-origin: left center;
+            transition: transform 0.8s ease-in-out;
+            backface-visibility: hidden; /* Important for realistic flip */
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .page:nth-child(odd) {
+            z-index: 1; /* Odd pages on top */
+        }
+
+        .page:nth-child(even) {
+            z-index: 0; /* Even pages behind */
+            transform: rotateY(180deg); /* Initial back page */
+        }
+
+        .page.flipped {
+            transform: rotateY(0deg);
+        }
+
+        .page.flipped-back {
+            transform: rotateY(-180deg);
+        }
+
+        .page.back {
+            background-color: #f0f0f0; /* Slightly different back page */
+        }
+
+        .page h2 {
+            margin-top: 0;
+        }
+        .page p{
+            line-height: 1.6;
+        }
+
+    </style>
+</head>
+<body>
+
+    <button id="yessButton">WordPress Yess</button>
+
+    <div id="book-container">
+        <div class="page" id="cover">
+            <h2>My Animated Book</h2>
+            <p>A demonstration of flipping pages.</p>
+        </div>
+        <div class="page back" id="page1">
+            <h2>Index</h2>
+            <p>Page 1: Introduction</p>
+            <p>Page 2: Content</p>
+        </div>
+        <div class="page" id="page2">
+            <h2>Introduction</h2>
+            <p>This is the first page of our animated book. We are going to explore how to create a simple flip animation using CSS transforms. This demonstration aims to be responsive and work well on mobile devices.</p>
+            <p>We will utilize perspective to give the pages a realistic 3D look. The transition property will smoothly animate the page flips.</p>
+        </div>
+        <div class="page back" id="page3">
+            <h2>Content</h2>
+            <p>Here is some more content for the second page. We'll be adding more text to fill this page and demonstrate how the layout adjusts to different screen sizes. Responsive design is key for a good user experience.</p>
+            <p>Remember that the back pages are initially rotated 180 degrees. Flipping them back involves rotating them to 0 degrees.</p>
+        </div>
+    </div>
+
+    <script>
+        const pages = document.querySelectorAll('.page');
+        let currentPage = 0;
+
+        function flipPage(direction) {
+            if (direction === 'next' && currentPage < pages.length - 1) {
+                pages[currentPage].classList.add('flipped');
+                pages[currentPage + 1].classList.add('flipped');
+                currentPage += 2;
+            } else if (direction === 'prev' && currentPage > 1) {
+                pages[currentPage - 1].classList.remove('flipped');
+                pages[currentPage - 2].classList.remove('flipped');
+                currentPage -= 2;
+            }
+        }
+
+        document.addEventListener('click', (event) => {
+            const rect = document.getElementById('book-container').getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+
+            if (event.clientX > centerX) {
+                flipPage('next');
+            } else {
+                flipPage('prev');
+            }
+        });
+
+        document.getElementById('yessButton').addEventListener('click', function() {
+            window.location.href = "no8.html"; // Redirect to nextpage.html
+        });
+    </script>
+</body>
+</html>
