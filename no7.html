@@ -3,55 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Countdown Timer</title>
+    <title>Birthday Countdown</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: sans-serif;
+            font-family: 'Montserrat', sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start; /* Align from the top */
-            min-height: 100vh; /* Ensure full viewport height */
+            justify-content: flex-start;
+            min-height: 100vh;
             margin: 0;
-            padding-top: 50px; /* Add some padding at the top */
+            padding-top: 50px;
+            background-color: #f4f4f4;
+            color: #333;
         }
 
         #timer {
-            font-size: 3em; /* Larger font size for mobile */
+            font-size: 3em;
             margin-bottom: 20px;
             text-align: center;
-            width: 90%; /* Adjust for mobile width */
-            max-width: 400px; /* Maximum width */
+            width: 90%;
+            max-width: 400px;
+            font-weight: 700;
         }
 
         #dateInput {
-            padding: 10px;
-            margin-bottom: 10px;
-            width: 80%; /* Adjust for mobile width */
+            padding: 12px;
+            margin-bottom: 15px;
+            width: 80%;
             max-width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: 'Roboto', sans-serif;
         }
 
         #yesButton {
-            padding: 10px 20px;
-            background-color: #4CAF50;
+            padding: 12px 25px;
+            background-color: #007bff;
             color: white;
             border: none;
+            border-radius: 5px;
             cursor: pointer;
+            font-size: 1em;
+            font-weight: 700;
         }
 
         #daysElapsed {
-            margin-top: 10px;
+            margin-top: 20px;
             text-align: center;
+            font-size: 1.1em;
         }
     </style>
 </head>
 <body>
 
-    <div id="timer">Enter a date below</div>
+    <div id="timer">Enter your birthday below</div>
 
     <input type="date" id="dateInput">
 
-    <button id="yesButton">Yes</button>
+    <button id="yesButton">Show My Age</button>
 
     <div id="daysElapsed"></div>
 
@@ -61,43 +75,30 @@
         const yesButton = document.getElementById('yesButton');
         const daysElapsedDisplay = document.getElementById('daysElapsed');
 
-        function updateTimer() {
-            const selectedDate = new Date(dateInput.value);
+        function calculateAge() {
+            const birthDate = new Date(dateInput.value);
             const now = new Date();
 
-            if (isNaN(selectedDate.getTime())) {
-                timerDisplay.textContent = "Enter a date below";
-                daysElapsedDisplay.textContent = ""; // Clear elapsed days
+            if (isNaN(birthDate.getTime())) {
+                alert("Please enter a valid birthday.");
                 return;
             }
 
-            const timeDifference = selectedDate - now;
+            const ageInMilliseconds = now - birthDate;
+            const ageDate = new Date(ageInMilliseconds);
 
-            if (timeDifference > 0) {
-                const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+            const years = Math.abs(ageDate.getUTCFullYear() - 1970);
+            const months = ageDate.getUTCMonth();
+            const days = Math.floor(ageInMilliseconds / (1000 * 60 * 60 * 24));
 
-                timerDisplay.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-                daysElapsedDisplay.textContent = ""; // Clear elapsed days
-            } else {
-                const elapsedDays = Math.floor(Math.abs(timeDifference) / (1000 * 60 * 60 * 24));
-                timerDisplay.textContent = "Time elapsed!";
-                daysElapsedDisplay.textContent = `Days elapsed: ${elapsedDays}`;
-            }
+            alert(`You are approximately:\n${years} years\n${months} months\n${days} days old.`);
         }
 
-        dateInput.addEventListener('change', () => {
-            setInterval(updateTimer, 1000);
-            updateTimer(); // Initial update
-        });
-
         yesButton.addEventListener('click', () => {
-             if (dateInput.value) {
-                window.location.href = "nextpage.html";
-            } else{
-                alert("Please enter a date first");
+            if (dateInput.value) {
+                calculateAge();
+            } else {
+                alert("Please enter your birthday first.");
             }
         });
     </script>
