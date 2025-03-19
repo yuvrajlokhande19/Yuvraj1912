@@ -81,6 +81,17 @@
     cursor: pointer;
     z-index: 10;
   }
+
+  .popup {
+    position: absolute;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    font-size: 24px;
+    z-index: 11;
+    display: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
 </style>
 </head>
 <body>
@@ -135,8 +146,8 @@
     if (depth === 1) {
       createFlower(endX, endY, container);
     } else {
-      createBranch(endX, endY, length * 0.75, angle + 25 + Math.random() * 25, thickness * 0.9, depth - 1, container);
-      createBranch(endX, endY, length * 0.75, angle - 25 - Math.random() * 25, thickness * 0.9, depth - 1, container);
+      createBranch(endX, endY, length * 0.6, angle + 30 + Math.random() * 20, thickness * 1.2, depth - 1, container);
+      createBranch(endX, endY, length * 0.6, angle - 30 - Math.random() * 20, thickness * 1.2, depth - 1, container);
     }
   }
 
@@ -165,20 +176,31 @@
     treeContainer.appendChild(leaf);
   }
 
-  let initialLength = 250;
-  let initialThickness = 25;
-  if (window.innerWidth < 600) {
-    initialLength = 200;
-    initialThickness = 20;
+  function createPopup(x, y, text){
+      const popup = document.createElement('div');
+      popup.classList.add('popup');
+      popup.textContent = text;
+      popup.style.left = `${x}px`;
+      popup.style.top = `${y}px`;
+      treeContainer.appendChild(popup);
+      setTimeout(()=>{
+          popup.style.display = 'block';
+          setTimeout(()=>{
+              popup.remove()
+          }, 2000)
+      }, 10)
   }
 
-  createBranch(window.innerWidth / 2, window.innerHeight, initialLength, -90, initialThickness, 9, treeContainer);
+  let initialLength = 150;
+  let initialThickness = 30;
+
+  createBranch(window.innerWidth / 2, window.innerHeight * 0.8, initialLength, -90, initialThickness, 6, treeContainer);
 
   touchMeButton.addEventListener("click", () => {
     const text = preDefinedSentences[Math.floor(Math.random() * preDefinedSentences.length)];
-    const x = Math.random() * window.innerWidth;
-    const y = Math.random() * window.innerHeight * 0.8;
-    createLeaf(x, y, text);
+    const x = Math.random() * window.innerWidth * .6 + window.innerWidth * .2;
+    const y = Math.random() * window.innerHeight * 0.6 + window.innerHeight * 0.1;
+    createPopup(x, y, text);
   });
 
   yesButton.addEventListener('click', () => {
