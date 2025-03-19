@@ -243,3 +243,53 @@ WE need one another in life to be happy
     </script>
 </body>
 </html>
+
+<style>
+  #playPauseButton {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 3em;
+    border: none;
+    background: none;
+    cursor: pointer;
+    z-index: 1000;
+  }
+
+  #myAudio {
+    display: none;
+  }
+
+  #touchMeText {
+    position: fixed;
+    top: 60px; /* Adjust as needed, based on button size */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.2em; /* Adjust font size */
+    color: #333; /* Adjust text color */
+    z-index: 999; /* Place it below the button */
+  }
+</style>
+
+<button id="playPauseButton">❤️</button>
+<div id="touchMeText">Touch this heart</div>
+<audio id="myAudio" src="Dil Besabar.mp3"></audio>
+
+<script>
+  const audio = document.getElementById("myAudio");
+  const playPauseButton = document.getElementById("playPauseButton");
+  let isPlaying = false;
+
+  playPauseButton.addEventListener("click", () => {
+    if (isPlaying) {
+      audio.pause();
+      isPlaying = false;
+      playPauseButton.textContent = "❤️";
+    } else {
+      audio.play();
+      isPlaying = true;
+      playPauseButton.textContent = "💝";
+    }
+  });
+</script>
