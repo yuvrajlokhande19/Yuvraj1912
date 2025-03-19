@@ -14,8 +14,8 @@
             justify-content: flex-start;
             min-height: 100vh;
             margin: 0;
-            padding-top: 70px; /* Increased padding to accommodate fixed button */
-            position: relative; /* Needed for absolute positioning of button */
+            padding-top: 70px;
+            position: relative;
         }
 
         #notebookPage {
@@ -24,7 +24,7 @@
             width: 90%;
             max-width: 800px;
             min-height: 400px;
-            margin-bottom: 80px; /* Increased margin to prevent overlap with fixed button */
+            margin-bottom: 80px;
             padding: 20px;
             box-sizing: border-box;
             border: 1px solid #ccc;
@@ -33,11 +33,12 @@
             font-family: 'Caveat', cursive;
             font-size: 1.2em;
             line-height: 1.5;
-            color: #00008b; /* Darker blue for gel pen */
+            color: #00008b;
             resize: none;
             overflow-y: auto;
             white-space: pre-wrap;
             word-wrap: break-word;
+            pointer-events: none;
         }
 
         #notebookPage:focus {
@@ -47,25 +48,25 @@
         }
 
         .audio-button {
-            position: fixed; /* Fix button to top */
+            position: fixed;
             top: 20px;
-            left: 50%; /* Center horizontally initially */
-            transform: translateX(-50%); /* Precise centering */
+            left: 50%;
+            transform: translateX(-50%);
             background-color: #fff;
             border: 2px solid #007bff;
-            border-radius: 25px; /* Make it round */
-            padding: 10px 15px; /* Slightly more horizontal padding */
-            padding-left: 30px; /* Make space for the icon */
+            border-radius: 25px;
+            padding: 10px 15px;
+            padding-left: 30px;
             padding-right: 30px;
             cursor: pointer;
             font-size: 1em;
             color: #007bff;
-            transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
-            z-index: 1001; /* Ensure button is above other elements */
+            transition: background-color 0.3s ease, color 0.3s ease;
+            z-index: 1001;
             box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
-            display: flex; /* Use flexbox for icon alignment */
-            align-items: center; /* Vertically center icon and text */
-            gap: 8px; /* Space between icon and text */
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .audio-button:hover {
@@ -85,70 +86,45 @@
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            margin-top: 20px; /* Add space above the button */
+            margin-top: 20px;
             font-weight: 700;
             font-size: 1.1em;
             transition: background-color 0.3s ease;
-            width: 150px; /* Give it a fixed width */
-            text-align: center; /* Center the text */
+            width: 150px;
+            text-align: center;
         }
 
         #yesButton:hover {
             background-color: #0056b3;
         }
 
-        /* Style for the music note icon */
         .icon {
-            width: 20px; /* Fixed size for the icon */
+            width: 20px;
             height: 20px;
-            background-size: contain; /* Ensure the whole icon is visible */
+            background-size: contain;
             background-repeat: no-repeat;
-            display: inline-block; /* Allows setting width and height */
+            display: inline-block;
         }
 
         .play-icon {
-            background-image: url('https://unpkg.com/lucide-static@latest/icons/play.svg'); /* Replace with actual play icon URL */
         }
 
         .pause-icon {
-            background-image: url('https://unpkg.com/lucide-static@latest/icons/pause.svg'); /* Replace with actual pause icon URL */
         }
 
-
-        @media (max-width: 600px) {
-            #notebookPage {
-                width: 95%;
-                max-width: 100%;
-                min-height: 300px;
-                font-size: 1em;
-                padding: 15px;
-            }
-            .audio-button {
-                font-size: 0.9em;
-                padding: 8px 25px;
-                padding-left: 28px;
-            }
-            .icon {
-                width: 18px;
-                height: 18px;
-            }
-            body {
-                padding-top: 60px; /* Adjust top padding for smaller screens */
-            }
-            #yesButton{
-                width: 90%;
-                max-width: 300px;
-            }
-        }
     </style>
 </head>
 <body>
 
     <button id="audioButton" class="audio-button">
-        <span class="icon play-icon"></span> <span id="audioButtonText">Play Music</span>
+        <span class="icon play-icon">&#x25B6;</span> <span id="audioButtonText">Play Music</span>
     </button>
 
-    <textarea id="notebookPage" placeholder="Start writing here..."></textarea>
+    <textarea id="notebookPage">Hey, you know, I just wanted to tell you how much I like you.
+        You're really pretty, and I think you're cute too. It makes me happy just looking at you. 
+        You always seem to know how to make me smile, and I love how you make me feel. I'm so lucky to have you in my life,
+        and I hope we can have lots of fun together. You're special, and I'm glad we met.
+</textarea>
 
     <button id="yesButton">Yes</button>
 
@@ -158,7 +134,7 @@
         const audioButtonText = document.getElementById('audioButtonText');
         const yesButton = document.getElementById('yesButton');
 
-        const audio = new Audio('kabhi-kabhi.mp3'); // Replace with your music file URL
+        let audio = new Audio('kabhi-kabhi.mp3'); // Add your music file path here
         let isPlaying = false;
 
         // Auto-resize textarea
@@ -178,23 +154,20 @@
                 isPlaying = false;
                 audioButtonText.textContent = 'Play Music';
                 audioButton.classList.remove('playing');
-                audioButton.querySelector('.icon').classList.remove('pause-icon');
-                audioButton.querySelector('.icon').classList.add('play-icon');
+                audioButton.querySelector('.icon').textContent = '\u25B6';
             } else {
                 audio.play().catch(error => {
                     console.error("Playback failed:", error);
-                    alert("Failed to play music.  Check if the audio source is available.");
-                    isPlaying = false; // Reset state
-                    audioButtonText.textContent = 'Play';
-                    audioButton.classList.remove('💝');
-                    audioButton.querySelector('.icon').classList.remove('pause-icon');
-                    audioButton.querySelector('.icon').classList.add('play-icon');
+                    alert("Failed to play music. Check if the audio source is available and the file type is supported.");
+                    isPlaying = false;
+                    audioButtonText.textContent = 'Play Music';
+                    audioButton.classList.remove('playing');
+                    audioButton.querySelector('.icon').textContent = '\u25B6';
                 });
                 isPlaying = true;
                 audioButtonText.textContent = 'Pause Music';
                 audioButton.classList.add('playing');
-                audioButton.querySelector('.icon').classList.remove('play-icon');
-                audioButton.querySelector('.icon').classList.add('pause-icon');
+                audioButton.querySelector('.icon').textContent = '\u23F8';
             }
         });
 
@@ -202,14 +175,14 @@
             isPlaying = false;
             audioButtonText.textContent = 'Play Music';
             audioButton.classList.remove('playing');
-            audioButton.querySelector('.icon').classList.remove('pause-icon');
-            audioButton.querySelector('.icon').classList.add('play-icon');
+            audioButton.querySelector('.icon').textContent = '\u25B6';
         });
 
         yesButton.addEventListener('click', () => {
-            window.location.href = "no9.html";
+            window.location.href = "nextpage.html";
         });
+
+
     </script>
 </body>
 </html>
-
