@@ -49,6 +49,7 @@
     border-radius: 5px;
     pointer-events: none;
     white-space: nowrap;
+    font-size: 20px;
   }
 
   #yes-button {
@@ -66,71 +67,54 @@
     z-index: 10;
   }
 
-  #small-tree-container {
-      position: absolute;
-      bottom: 10px;
-      left: 10px;
-      width: 150px;
-      height: 200px;
-  }
-
-  #leaf-input-container {
+  #touch-me-button {
     position: absolute;
-    top: 20px;
-    left: 20px;
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 10px;
-    border-radius: 5px;
-    z-index: 10;
-  }
-
-  #leaf-input {
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-  }
-
-  #add-leaf-button {
-    padding: 5px 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px 40px;
     background-color: #4CAF50;
     color: white;
     border: none;
-    border-radius: 3px;
+    border-radius: 10px;
+    font-size: 24px;
     cursor: pointer;
+    z-index: 10;
   }
 </style>
 </head>
 <body>
 <div id="tree-container">
   <button id="yes-button">YES!</button>
-  <div id="small-tree-container"></div>
-  <div id="leaf-input-container">
-    <input type="text" id="leaf-input" placeholder="Enter a sentence">
-    <button id="add-leaf-button">Add Leaf</button>
-  </div>
+  <button id="touch-me-button">Touch Me</button>
 </div>
 
 <script>
   const treeContainer = document.getElementById('tree-container');
   const yesButton = document.getElementById('yes-button');
-  const smallTreeContainer = document.getElementById("small-tree-container");
-  const leafInput = document.getElementById("leaf-input");
-  const addLeafButton = document.getElementById("add-leaf-button");
+  const touchMeButton = document.getElementById('touch-me-button');
 
   const emojiFlowers = ['🌸', '🌷', '🌹', '🌻', '🌼', '🌺', '💐', '🥀'];
   const preDefinedSentences = [
-    "I love you",
-    "I like you",
-    "You are pretty",
-    "You are amazing",
-    "You are wonderful",
-    "You are special",
-    "You are kind",
-    "You are beautiful",
-    "You are loved",
-    "You are sweet",
-    "You are charming",
-    "You are the best"
+    "I love you deeply",
+    "I adore you",
+    "You are incredibly pretty",
+    "You are exceptionally amazing",
+    "You are wonderfully unique",
+    "You are truly special to me",
+    "You are remarkably kind",
+    "You are breathtakingly beautiful",
+    "You are deeply loved by me",
+    "You are incredibly sweet and kind",
+    "You are charming beyond measure",
+    "You are simply the best person I know",
+    "You make my heart smile",
+    "You brighten my day",
+    "You are my sunshine",
+    "You are my everything",
+    "You are my favorite person",
+    "You are the reason I smile",
+    "You are my soulmate"
   ];
 
   function createBranch(x, y, length, angle, thickness, depth, container) {
@@ -189,19 +173,12 @@
   }
 
   createBranch(window.innerWidth / 2, window.innerHeight, initialLength, -90, initialThickness, 9, treeContainer);
-  createBranch(75, 190, 80, -90, 8, 5, smallTreeContainer);
 
-  addLeafButton.addEventListener("click", () => {
-    let text = leafInput.value.trim();
-    if (!text) {
-      text = preDefinedSentences[Math.floor(Math.random() * preDefinedSentences.length)];
-    }
-    if (text) {
-      const x = Math.random() * window.innerWidth;
-      const y = Math.random() * window.innerHeight * 0.8;
-      createLeaf(x, y, text);
-      leafInput.value = "";
-    }
+  touchMeButton.addEventListener("click", () => {
+    const text = preDefinedSentences[Math.floor(Math.random() * preDefinedSentences.length)];
+    const x = Math.random() * window.innerWidth;
+    const y = Math.random() * window.innerHeight * 0.8;
+    createLeaf(x, y, text);
   });
 
   yesButton.addEventListener('click', () => {
