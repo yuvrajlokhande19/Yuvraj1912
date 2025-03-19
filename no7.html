@@ -52,10 +52,26 @@
             font-weight: 700;
         }
 
-        #daysElapsed {
+        #resultContainer {
+            display: none; /* Initially hidden */
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             margin-top: 20px;
             text-align: center;
-            font-size: 1.1em;
+            width: 80%;
+            max-width: 400px;
+        }
+
+        #resultYesButton {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
         }
     </style>
 </head>
@@ -67,13 +83,18 @@
 
     <button id="yesButton">Show My Age</button>
 
-    <div id="daysElapsed"></div>
+    <div id="resultContainer">
+        <p id="resultText"></p>
+        <button id="resultYesButton">Yes</button>
+    </div>
 
     <script>
         const timerDisplay = document.getElementById('timer');
         const dateInput = document.getElementById('dateInput');
         const yesButton = document.getElementById('yesButton');
-        const daysElapsedDisplay = document.getElementById('daysElapsed');
+        const resultContainer = document.getElementById('resultContainer');
+        const resultText = document.getElementById('resultText');
+        const resultYesButton = document.getElementById('resultYesButton');
 
         function calculateAge() {
             const birthDate = new Date(dateInput.value);
@@ -91,7 +112,8 @@
             const months = ageDate.getUTCMonth();
             const days = Math.floor(ageInMilliseconds / (1000 * 60 * 60 * 24));
 
-            alert(`You are approximately:\n${years} years\n${months} months\n${days} days old.`);
+            resultText.textContent = `You are approximately:\n${years} years\n${months} months\n${days} days old. Bohot jaldi Badi hogyi 💝`;
+            resultContainer.style.display = 'block'; // Show the result container
         }
 
         yesButton.addEventListener('click', () => {
@@ -100,6 +122,10 @@
             } else {
                 alert("Please enter your birthday first.");
             }
+        });
+
+        resultYesButton.addEventListener('click', () => {
+            window.location.href = "nextpage.html"; // Redirect to nextpage.html
         });
     </script>
 </body>
