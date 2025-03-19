@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: #f0f0f0;
+            background-color: #e6e6fa; /* Light purple lavender */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -19,7 +19,7 @@
         }
 
         #notebookPage {
-            background-image: linear-gradient(to bottom, transparent 0%, transparent 8%, #ddd 8%, #ddd 92%, transparent 92%, transparent 100%);
+            background-image: linear-gradient(to bottom, transparent 0%, transparent 8%, #d3d3d3 8%, #d3d3d3 92%, transparent 92%, transparent 100%); /* Lighter lines for lavender */
             background-size: 100% 25px;
             width: 90%;
             max-width: 800px;
@@ -27,7 +27,7 @@
             margin-bottom: 80px;
             padding: 20px;
             box-sizing: border-box;
-            border: 1px solid #ccc;
+            border: 1px solid #ccc; /* Lighter border */
             border-radius: 10px;
             box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
             font-family: 'Caveat', cursive;
@@ -55,18 +55,20 @@
             background-color: #fff;
             border: 2px solid #007bff;
             border-radius: 25px;
-            padding: 10px 15px;
-            padding-left: 30px;
-            padding-right: 30px;
+            padding: 15px; /* Increased padding to make the button bigger*/
             cursor: pointer;
-            font-size: 1em;
+            font-size: 1.5em; /* Increased font size for the emoji */
             color: #007bff;
             transition: background-color 0.3s ease, color 0.3s ease;
             z-index: 1001;
             box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
             display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: center; /* Center the emoji */
+            width: 50px; /* Give it a fixed width */
+            height: 50px; /* Give it a fixed height */
+            text-align: center; /* center the content */
+            overflow: hidden;  /* hide extra padding */
         }
 
         .audio-button:hover {
@@ -107,41 +109,108 @@
         }
 
         .play-icon {
+           /* background-image: url('https://unpkg.com/lucide-static@latest/icons/play.svg'); */ /* Removed image, using text now */
         }
 
         .pause-icon {
+            /* background-image: url('https://unpkg.com/lucide-static@latest/icons/pause.svg'); */
         }
 
+        #musicFile {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1002;
+            opacity: 0;
+            cursor: pointer;
+            width: 200px;
+            height: 50px;
+        }
+
+        #pressMeButton {
+            padding: 12px 25px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-weight: 700;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease;
+            width: 150px;
+            text-align: center;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1003;
+        }
+
+        #pressMeButton:hover {
+            background-color: #0056b3;
+        }
+
+
+        @media (max-width: 600px) {
+            #notebookPage {
+                width: 95%;
+                max-width: 100%;
+                min-height: 300px;
+                font-size: 1em;
+                padding: 15px;
+            }
+            .audio-button {
+                font-size: 1.2em; /* Keep the emoji size the same on small screens */
+                padding: 12px;  /* Adjust padding as necessary */
+                width: 45px;
+                height: 45px;
+
+            }
+            .icon {
+                width: 18px;
+                height: 18px;
+            }
+            body {
+                padding-top: 60px;
+            }
+            #yesButton{
+                width: 90%;
+                max-width: 300px;
+            }
+            #musicFile {
+                width: 180px;
+            }
+        }
     </style>
 </head>
 <body>
 
     <button id="audioButton" class="audio-button">
-        <span class="icon play-icon">&#x25B6;</span> <span id="audioButtonText">Play Music</span>
+        &#x25B6;
     </button>
+    <input type="file" id="kabhi-kabhi" accept="audio/*">
 
-    <textarea id="notebookPage">Hey, you know, I just wanted to tell you how much I like you.
+    <textarea id="notebookPage">Hey, you know, I just wanted to tell you how much I like you.!
         You're really pretty, and I think you're cute too. It makes me happy just looking at you. 
         You always seem to know how to make me smile, and I love how you make me feel. I'm so lucky to have you in my life,
-        and I hope we can have lots of fun together. You're special, and I'm glad we met.
+        and I hope we can have lots of fun together. You're special, and I'm glad we met.O_O
 </textarea>
 
     <button id="yesButton">Yes</button>
+    <button id="pressMeButton">OK!✨</button>
 
     <script>
         const notebookPage = document.getElementById('notebookPage');
         const audioButton = document.getElementById('audioButton');
-        const audioButtonText = document.getElementById('audioButtonText');
         const yesButton = document.getElementById('yesButton');
+        const musicFile = document.getElementById('musicFile');
+        const pressMeButton = document.getElementById('pressMeButton');
 
-        let audio = new Audio('kabhi-kabhi.mp3'); // Add your music file path here
+        let audio = new Audio('your_music_file.mp3'); // Add your music file path here
         let isPlaying = false;
 
-        // Auto-resize textarea
-        notebookPage.addEventListener('input', () => {
-            notebookPage.style.height = 'auto';
-            notebookPage.style.height = `${notebookPage.scrollHeight}px`;
-        });
 
         window.addEventListener('load', () => {
             notebookPage.style.height = 'auto';
@@ -152,37 +221,44 @@
             if (isPlaying) {
                 audio.pause();
                 isPlaying = false;
-                audioButtonText.textContent = 'Play Music';
                 audioButton.classList.remove('playing');
-                audioButton.querySelector('.icon').textContent = '\u25B6';
+                audioButton.textContent = '\u25B6';
             } else {
                 audio.play().catch(error => {
                     console.error("Playback failed:", error);
                     alert("Failed to play music. Check if the audio source is available and the file type is supported.");
                     isPlaying = false;
-                    audioButtonText.textContent = 'Play Music';
                     audioButton.classList.remove('playing');
-                    audioButton.querySelector('.icon').textContent = '\u25B6';
+                    audioButton.textContent = '\u25B6';
                 });
                 isPlaying = true;
-                audioButtonText.textContent = 'Pause Music';
                 audioButton.classList.add('playing');
-                audioButton.querySelector('.icon').textContent = '\u23F8';
+                audioButton.textContent = '\u23F8';
             }
         });
 
         audio.addEventListener('ended', () => {
             isPlaying = false;
-            audioButtonText.textContent = 'Play Music';
+            audioButton.textContent = '\u25B6';
             audioButton.classList.remove('playing');
-            audioButton.querySelector('.icon').textContent = '\u25B6';
         });
 
         yesButton.addEventListener('click', () => {
             window.location.href = "nextpage.html";
         });
 
+        musicFile.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            const url = URL.createObjectURL(file);
+            audio.src = url;
+            audioButton.textContent = '\u25B6';
+            isPlaying = false;
+            audioButton.classList.remove('playing');
+        });
 
+        pressMeButton.addEventListener('click', () => {
+            window.location.href = "no9.html";
+        });
     </script>
 </body>
 </html>
