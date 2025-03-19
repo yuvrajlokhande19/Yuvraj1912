@@ -2,6 +2,7 @@
 <html>
 <head>
 <title>Animated Flower Tree</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
   body {
     margin: 0;
@@ -32,6 +33,7 @@
     justify-content: center;
     align-items: center;
     font-size: 10px;
+    background-color: pink;
   }
 
   .flower.falling {
@@ -77,8 +79,8 @@
     if (depth === 1) {
       createFlower(endX, endY);
     } else {
-      createBranch(endX, endY, length * 0.7, angle + 20 + Math.random() * 20, thickness * 0.8, depth - 1);
-      createBranch(endX, endY, length * 0.7, angle - 20 - Math.random() * 20, thickness * 0.8, depth - 1);
+      createBranch(endX, endY, length * 0.75, angle + 20 + Math.random() * 25, thickness * 0.8, depth - 1);
+      createBranch(endX, endY, length * 0.75, angle - 20 - Math.random() * 25, thickness * 0.8, depth - 1);
     }
   }
 
@@ -87,7 +89,6 @@
     flower.classList.add('flower');
     flower.style.left = `${x - 10}px`;
     flower.style.top = `${y - 10}px`;
-    flower.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 70%)`;
 
     const textContainer = document.createElement('div');
     textContainer.classList.add('flower.text-container');
@@ -106,9 +107,13 @@
       }, 300);
     });
   }
-
+  //Adjust initial tree size for mobile
+  let initialLength = 200;
+  if (window.innerWidth < 600){
+    initialLength = 150;
+  }
   // Initial tree generation
-  createBranch(window.innerWidth / 2, window.innerHeight, 200, -90, 20, 8);
+  createBranch(window.innerWidth / 2, window.innerHeight, initialLength, -90, 20, 9);
 </script>
 </body>
 </html>
