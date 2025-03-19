@@ -18,7 +18,7 @@
     height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: flex-end; /* Align tree to bottom center */
+    align-items: flex-end;
   }
 
   .branch {
@@ -61,7 +61,7 @@
 
   #yes-button {
     position: absolute;
-    bottom: 20px;
+    top: 20px;
     left: 50%;
     transform: translateX(-50%);
     padding: 12px 25px;
@@ -72,13 +72,14 @@
     font-size: 18px;
     cursor: pointer;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+    z-index: 10;
   }
 
   #touch-me-button {
     position: absolute;
-    top: 50%;
+    top: 80px; /* Position below yes button */
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
     padding: 18px 35px;
     background: linear-gradient(to bottom, #4682B4, #4169E1);
     color: white;
@@ -87,6 +88,18 @@
     font-size: 20px;
     cursor: pointer;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+  }
+
+  #instruction {
+    position: absolute;
+    top: 140px; /* Position below touch me button */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 10;
   }
 </style>
 </head>
@@ -94,6 +107,7 @@
 <div id="tree-container">
   <button id="yes-button">YES!</button>
   <button id="touch-me-button">Touch Me</button>
+  <div id="instruction">Touch the flowers!</div>
 </div>
 
 <script>
@@ -188,12 +202,3 @@
     const text = preDefinedSentences[Math.floor(Math.random() * preDefinedSentences.length)];
     const x = Math.random() * window.innerWidth * 0.6 + window.innerWidth * 0.2;
     const y = Math.random() * window.innerHeight * 0.6 + window.innerHeight * 0.1;
-    createPopup(x, y, text);
-  });
-
-  yesButton.addEventListener('click', () => {
-    window.location.href = "next_page.html";
-  });
-</script>
-</body>
-</html>
