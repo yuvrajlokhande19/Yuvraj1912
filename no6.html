@@ -2,12 +2,13 @@
 <html>
 <head>
 <title>Animated Flower Tree</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <style>
   body {
     margin: 0;
     overflow: hidden;
     background-color: lightblue;
+    touch-action: manipulation;
   }
 
   #tree-container {
@@ -24,16 +25,17 @@
 
   .flower {
     position: absolute;
-    width: 20px;
-    height: 20px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     cursor: pointer;
     transition: transform 0.3s ease, opacity 0.3s ease;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 10px;
+    font-size: 12px;
     background-color: pink;
+    text-align: center;
   }
 
   .flower.falling {
@@ -50,15 +52,43 @@
     display: none;
     pointer-events: none;
     z-index: 10;
+    width: max-content;
   }
 
+  #instruction {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 10;
+  }
+
+  #yes-button {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 10;
+  }
 </style>
 </head>
 <body>
-<div id="tree-container"></div>
+<div id="tree-container">
+  <div id="instruction">Touch the flowers!</div>
+  <button id="yes-button">Yes</button>
+</div>
 
 <script>
   const treeContainer = document.getElementById('tree-container');
+  const yesButton = document.getElementById('yes-button');
 
   function createBranch(x, y, length, angle, thickness, depth) {
     if (depth <= 0) return;
@@ -79,20 +109,20 @@
     if (depth === 1) {
       createFlower(endX, endY);
     } else {
-      createBranch(endX, endY, length * 0.75, angle + 20 + Math.random() * 25, thickness * 0.8, depth - 1);
-      createBranch(endX, endY, length * 0.75, angle - 20 - Math.random() * 25, thickness * 0.8, depth - 1);
+      createBranch(endX, endY, length * 0.75, angle + 25 + Math.random() * 25, thickness * 0.9, depth - 1);
+      createBranch(endX, endY, length * 0.75, angle - 25 - Math.random() * 25, thickness * 0.9, depth - 1);
     }
   }
 
   function createFlower(x, y) {
     const flower = document.createElement('div');
     flower.classList.add('flower');
-    flower.style.left = `${x - 10}px`;
-    flower.style.top = `${y - 10}px`;
+    flower.style.left = `${x - 20}px`;
+    flower.style.top = `${y - 20}px`;
 
     const textContainer = document.createElement('div');
     textContainer.classList.add('flower.text-container');
-    textContainer.textContent = `Flower ${Math.floor(Math.random() * 100)}`;
+    textContainer.textContent = `Word ${Math.floor(Math.random() * 100)}`;
 
     flower.appendChild(textContainer);
     treeContainer.appendChild(flower);
@@ -101,19 +131,25 @@
       flower.classList.add('falling');
       textContainer.style.display = 'block';
       textContainer.style.left = `${x}px`;
-      textContainer.style.top = `${y - 30}px`;
+      textContainer.style.top = `${y - 50}px`;
       setTimeout(() => {
         flower.remove();
       }, 300);
     });
   }
-  //Adjust initial tree size for mobile
-  let initialLength = 200;
-  if (window.innerWidth < 600){
-    initialLength = 150;
+
+  let initialLength = 250;
+  let initialThickness = 25;
+  if (window.innerWidth < 600) {
+    initialLength = 200;
+    initialThickness = 20;
   }
-  // Initial tree generation
-  createBranch(window.innerWidth / 2, window.innerHeight, initialLength, -90, 20, 9);
+
+  createBranch(window.innerWidth / 2, window.innerHeight, initialLength, -90, initialThickness, 9);
+
+  yesButton.addEventListener('click', () => {
+    window.location.href = "next_page.html"; // Replace with your next page URL
+  });
 </script>
 </body>
 </html>
