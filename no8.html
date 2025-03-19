@@ -158,7 +158,7 @@
         const audioButtonText = document.getElementById('audioButtonText');
         const yesButton = document.getElementById('yesButton');
 
-        const audio = new Audio('https://www.bensound.com/bensound-music/bensound-happyrock.mp3'); // Replace with your music file URL
+        const audio = new Audio('kabhi-kabhi.mp3'); // Replace with your music file URL
         let isPlaying = false;
 
         // Auto-resize textarea
@@ -185,8 +185,8 @@
                     console.error("Playback failed:", error);
                     alert("Failed to play music.  Check if the audio source is available.");
                     isPlaying = false; // Reset state
-                    audioButtonText.textContent = 'Play Music';
-                    audioButton.classList.remove('playing');
+                    audioButtonText.textContent = 'Play';
+                    audioButton.classList.remove('💝');
                     audioButton.querySelector('.icon').classList.remove('pause-icon');
                     audioButton.querySelector('.icon').classList.add('play-icon');
                 });
@@ -207,7 +207,7 @@
         });
 
         yesButton.addEventListener('click', () => {
-            window.location.href = "nextpage.html";
+            window.location.href = "no9.html";
         });
     </script>
 </body>
