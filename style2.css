@@ -1,0 +1,73 @@
+body {
+    background-color: #e0b0ff; /* Light purple background */
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#yessButton {
+    background-color: #fff;
+    padding: 10px 20px;
+    border: 2px solid #800080;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #800080;
+}
+
+#book-container {
+    position: relative;
+    width: 80%; /* Adjust for mobile view */
+    max-width: 600px;
+    height: 400px;
+    margin: 20px auto;
+    perspective: 1500px;
+}
+
+.page {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform-origin: left center;
+    transition: transform 0.8s ease-in-out;
+    backface-visibility: hidden; /* Important for realistic flip */
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.page:nth-child(odd) {
+    z-index: 1; /* Odd pages on top */
+}
+
+.page:nth-child(even) {
+    z-index: 0; /* Even pages behind */
+    transform: rotateY(180deg); /* Initial back page */
+}
+
+.page.flipped {
+    transform: rotateY(0deg);
+}
+
+.page.flipped-back {
+    transform: rotateY(-180deg);
+}
+
+.page.back {
+    background-color: #f0f0f0; /* Slightly different back page */
+}
+
+.page h2 {
+    margin-top: 0;
+}
+
+.page p {
+    line-height: 1.6;
+}
