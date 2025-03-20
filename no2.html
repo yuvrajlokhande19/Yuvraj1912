@@ -41,8 +41,8 @@
 <body>
 
 <div class="audio-controls">
-  <audio id="myAudio" src="Hawayein.mp3"></audio>
-  <button class="audio-button" id="playPauseButton">▶️</button>
+  <audio id="myAudio" src="dil besabar new.mp3"></audio>
+  <button class="audio-button" id="playPauseButton">💛</button>
   <div id="pressMeText">Press Me</div>
 </div>
 
@@ -54,7 +54,7 @@ const pressMeText = document.getElementById("pressMeText");
 playPauseButton.addEventListener("click", () => {
   if (audio.paused) {
     audio.play();
-    playPauseButton.textContent = "⏸️";
+    playPauseButton.textContent = "💗";
     pressMeText.textContent = "";
 
   } else {
@@ -66,7 +66,7 @@ playPauseButton.addEventListener("click", () => {
 });
 
 audio.addEventListener('ended', ()=>{
-    playPauseButton.textContent = "▶️";
+    playPauseButton.textContent = "💛";
     pressMeText.textContent = "Press Me";
 })
 
