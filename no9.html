@@ -1,1 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Surprise</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #000;
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        #play-song-button {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+            z-index: 1000;
+        }
+
+        #play-song-button:hover {
+            background-color: #007ba7;
+            opacity: 0.9;
+        }
+
+        #touch-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 16px 32px;
+            font-size: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease;
+            z-index: 1000;
+        }
+
+        #touch-button:hover {
+            background-color: #45a049;
+        }
+
+        #fireworks-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        #balloon-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 200;
+        }
+
+        .balloon {
+            position: absolute;
+            width: 15px;
+            height: 25px;
+            border-radius: 50%;
+            background-color: red;
+            bottom: -50px;
+            animation: floatUp 8s infinite;
+            opacity: 0;
+            transform-origin: bottom;
+            pointer-events: none;
+        }
+
+        @keyframes floatUp {
+            from {
+                transform: translateY(0) scale(1);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(-100vh) scale(1.2);
+                opacity: 0.8;
+            }
+        }
+
+        #birthday-message-container {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 500;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        #birthday-message {
+            font-size: 2.5em;
+            color: #fff;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 16px rgba(255, 255, 255, 0.6);
+            opacity: 0;
+            transition: opacity 1s ease, text-shadow 1s ease;
+            white-space: nowrap;
+            font-family: 'Caveat', cursive;
+            padding: 10px 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .neon {
+            color: #fff;
+            text-shadow:
+                0 0 5px #fff,
+                0 0 10px #fff,
+                0 0 20px #fff,
+                0 0 30px #0fa,
+                0 0 40px #0fa,
+                0 0 50px #0fa,
+                0 0 60px #0fa,
+                0 0 70px #0fa;
+        }
+
+        #next-button {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+            z-index: 1000;
+        }
+
+        #next-button:hover {
+            background-color: #007ba7;
+            opacity: 0.9;
+        }
+
+        #display-area {
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 400;
+            color: white;
+            font-size: 1.2em;
+            text-align: center;
+            padding: 10px;
+            opacity: 0;
+            transition: opacity 1s ease;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+
+        @media screen and (max-width: 768px) {
+            #touch-button {
+                padding: 12px 24px;
+                font-size: 18px;
+            }
+            #birthday-message {
+                font-size: 2em;
+            }
+            .balloon {
+                width: 10px;
+                height: 20px;
+            }
+            #display-area{
+                font-size: 1em;
+                max-width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button id="play-song-button">Play Song</button>
+    <button id="touch-button">Touch Me</button>
+    <div id="fireworks-container"></div>
+    <div id="balloon-container"></div>
+    <div id="birthday-message-container">
+        <div id="birthday-message" class="neon">Happy Birthday!</div>
+    </div>
+    <div id="display-area"></div>
+    <button id="next-button">Next Page</button>
+    <script>
+        const playSongButton = document.getElementById('play-song-button');
+        const touchButton = document.getElementById('touch-button');
+        const fireworksContainer = document.getElementById('fireworks-container');
+        const balloonContainer = document.getElementById('balloon-container');
+        const birthdayMessage = document.getElementById('birthday-message');
+        const nextButton = document.getElementById('next-button');
+        let fireworksInterval;
+        let balloonsInterval;
+        let songPlaying = false;
+        const displayArea = document.getElementById('display-area');
+
+        const audio = new Audio('your-song-path.mp3');
+
+        playSongButton.addEventListener('click', () => {
+            if (songPlaying) {
+                audio.pause();
+                songPlaying = false;
+                playSongButton.textContent = 'Play Song';
+            } else {
+                audio.play().then(() => {
+                    songPlaying = true;
+                    playSongButton.textContent = 'Pause Song';
+                }).catch(error => {
+                    console.error("Playback failed:", error);
+                    alert("Failed to play song. Check the path and ensure autoplay is allowed.");
+                });
+            }
+        });
+
+        function createFirework() {
+            const firework = document.createElement('div');
+            firework.style.position = 'absolute';
+            firework.style.left = Math.random() * window.innerWidth + 'px';
+            firework.style.bottom = '0px';
+            firework.style.width = '10px';
+            firework.style.height = '10px';
+            firework.style.backgroundColor = '#fff';
+            firework.style.borderRadius = '50%';
+            fireworksContainer.appendChild(firework);
+
+            const particlesCount = 80 + Math.random() * 60;
+            const particles = [];
+
+            for (let i = 0; i < particlesCount; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'absolute';
+                particle.style.width = '4px';
+                particle.style.height = '4px';
+                particle.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                particle.style.borderRadius = '50%';
+                particle.style.left = '0px';
+                particle.style.top = '0px';
+                firework.appendChild(particle);
+
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 6 + 3;
+                const velocityX = Math.cos(angle) * speed;
+                const velocityY = Math.sin(angle) * speed;
+                const gravity = 0.05;
+                let life = 2 + Math.random() * 1.5;
+
+                particles.push({
+                    element: particle,
+                    velocityX: velocityX,
+                    velocityY: velocityY,
+                    gravity: gravity,
+                    life: life,
+                    opacity: 1,
+                    decayRate: 0.03 + Math.random() * 0.02
+                });
+            }
+
+            function updateParticles() {
+                let alive = false;
+
+                for (let i = 0; i < particles.length; i++) {
+                    const particle = particles[i];
+                    particle.velocityX *= 0.99;
+                    particle.velocityY += particle.gravity;
+                    particle.element.style.left = parseFloat(particle.element.style.left) + particle.velocityX + 'px';
+                    particle.element.style.top = parseFloat(particle.element.style.top) + particle.velocityY + 'px';
+                    particle.life -= particle.decayRate;
+                    particle.opacity = Math.max(0, particle.life / (2 + Math.random() * 1.5));
+                    particle.element.style.opacity = particle.opacity;
+
+                    if (particle.life > 0) {
+                        alive = true;
+                    } else {
+                        particle.element.remove();
+                        particles.splice(i, 1);
+                        i--;
+                    }
+                }
+
+                if (alive) {
+                    requestAnimationFrame(updateParticles);
+                }
+            }
+
+            updateParticles();
+        }
+
+        function createBalloon() {
+            const balloon = document.createElement('div');
+            balloon.className = 'balloon';
+            balloon.style.left = Math.random() * window.innerWidth + 'px';
+            balloon.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 50%)`;
+            const animationDuration = 6 + Math.random() * 4;
+            balloon.style.animationDuration = `${animationDuration}s`;
+            balloon.style.opacity = 0;
+
+            const delay = Math.random() * 2;
+            balloon.style.animationDelay = `${delay}s`;
+
+            balloonContainer.appendChild(balloon);
+
+            setTimeout(() => {
+                balloon.style.opacity = 0.8;
+            }, delay * 1000);
+
+            setTimeout(() => {
+                balloon.remove();
+            }, (animationDuration + delay) * 1000);
+        }
+
+        touchButton.addEventListener('click', () => {
+            touchButton.style.display = 'none';
+            fireworksInterval = setInterval(createFirework, 200);
+            balloonsInterval = setInterval(createBalloon, 800);
+            let text = `
+                Coder's Text:
+                Happy Birthday!
+                Best wishes on your special day!
+                May your day be filled with joy and laughter.
+                Wishing you a fantastic birthday celebration!
+                Hope you have a wonderful birthday!
+            `;
+            displayArea.textContent = text;
+            displayArea.style.opacity = 1;
+            setTimeout(() => {
+                nextButton.style.opacity = 1;
+            }, 2000);
+        });
+
+        nextButton.addEventListener('click', () => {
+            window.location.href = 'nextpage.html';
+        });
+    </script>
+</body>
+</html>
 
