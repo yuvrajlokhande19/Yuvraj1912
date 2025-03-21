@@ -1,1 +1,216 @@
-new
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ask palak </title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="container">
+
+</body>
+</html>
+
+</body>
+</html>
+      <p>The MOON🌙 is beautiful, isn't it palak 👀?.</p>
+
+      <div class="btn">
+        <a href="no1.html">Yes</a>
+        <a href="index.html">maybe</a>
+      </div>
+
+     <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hidden Note</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+            margin: 0;
+            overflow-y: auto; /* Enable vertical scrolling */
+        }
+
+        .letter-cover {
+            font-size: 5em;
+            cursor: pointer;
+            margin-top: 50px;
+        }
+
+        .letter-cover.hidden {
+            display: none;
+        }
+
+        .text-container {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            max-width: 90%; /* Make it responsive */
+            max-height: 80%;
+            overflow-y: auto;
+            font-family: 'Caveat', cursive;
+            font-size: 1.2em;  /* Responsive font size */
+            color: black;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .text-container.show {
+            display: block;
+        }
+
+        @media (max-width: 480px) {
+            .text-container {
+                font-size: 1em; /* Smaller font on very small screens */
+                padding: 10px;
+                max-width: 95%;
+            }
+            .letter-cover{
+                font-size: 4em;
+            }
+        }
+
+        .scroll-down {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .scroll-down a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+       .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 2em;
+            cursor: pointer;
+            color: #555;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
+
+    </style>
+</head>
+<body>
+    <div class="letter-cover" id="letterCover">✉️</div>
+    <div class="scroll-down">
+        <a href="#content"><strong>Press Me</strong></a>
+    </div>
+
+    <div class="text-container" id="textContainer">
+        <span class="close-button" id="closeButton">❌</span>
+        <p>Isn't it Amazing🩶 na how one day someone walks into your life👀 and you can't stop thinking about that person{YOU❤️},
+    tula mahit ahe palak?👀meeting you was like listening to a song🎶 for first time and knowing it would be my favorite!✨.If someone
+    asks me about my happiest memory so I remember The prittiest girl i met ❤️‍🩹.
+    You are the reason I believe in Magic✨ like butterflies🦋 can't see their own wings,
+    but everyone else admires their beauty! You are the same✨💝.(press yes-no and volume up ⬆️). . . . ..</p>
+    </div>
+
+    <audio id="myAudio"  style="width: 100%;" preload="auto">
+        <source src="kabhi-kabhi.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div id="content" style="margin-top: 200px; padding: 20px;">
+        
+    </div>
+
+    <script>
+        const letterCover = document.getElementById('letterCover');
+        const textContainer = document.getElementById('textContainer');
+        const myAudio = document.getElementById('myAudio');
+        const closeButton = document.getElementById('closeButton');
+
+        letterCover.addEventListener('click', () => {
+            letterCover.classList.add('hidden');
+            textContainer.classList.add('show');
+            myAudio.play();
+        });
+
+        closeButton.addEventListener('click', () => {
+            letterCover.classList.remove('hidden');
+            textContainer.classList.remove('show');
+            myAudio.pause();
+            myAudio.currentTime = 0;
+        });
+
+    </script>
+</body>
+</html>
+
+
+<div class="tenor-gif-embed" data-postid="24483566"
+  data-share-method="host" data-aspect-ratio="0.96875" 
+  data-width="80%"><a href="https://tenor.com/view/boba-gif-24483566">Boba Sticker</a>from 
+  <a href="https://tenor.com/search/boba-stickers">Boba Stickers</a></div> <script type="text/javascript" 
+  async src="https://tenor.com/embed.js"></script>
+
+
+   
+<style>
+  #playPauseButton {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 3em;
+    border: none;
+    background: none;
+    cursor: pointer;
+    z-index: 1000;
+  }
+
+  #myAudio {
+    display: none;
+  }
+
+  #touchMeText {
+    position: fixed;
+    top: 80px; /* Adjust as needed, based on button size */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.2em; /* Adjust font size */
+    color: #333; /* Adjust text color */
+    z-index: 999; /* Place it below the button */
+  }
+</style>
+
+<button id="playPauseButton">❤️</button>
+<div id="touchMeText">Touch this heart</div>
+<audio id="myAudio" src="kabhi-kabhi.mp3"></audio>
+
+<script>
+  const audio = document.getElementById("myAudio");
+  const playPauseButton = document.getElementById("playPauseButton");
+  let isPlaying = false;
+
+  playPauseButton.addEventListener("click", () => {
+    if (isPlaying) {
+      audio.pause();
+      isPlaying = false;
+      playPauseButton.textContent = "❤️";
+    } else {
+      audio.play();
+      isPlaying = true;
+      playPauseButton.textContent = "🩶";
+    }
+  });
+</script>
