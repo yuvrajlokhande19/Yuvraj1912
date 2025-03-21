@@ -21,7 +21,7 @@
         <a href="index.html">maybe</a>
       </div>
 
-    <!DOCTYPE html>
+   <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -123,6 +123,21 @@
             margin-top: 20px;
         }
 
+        .ok-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+        }
+
+        .ok-button:hover {
+            background-color: #222;
+        }
+
         @import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
 
     </style>
@@ -135,12 +150,13 @@
 
     <div class="text-container" id="textContainer">
         <span class="close-button" id="closeButton">❌</span>
-        <p>Dear recipient,</p>
-        <p>This is a secret note just for you.</p>
-        <p>I hope you enjoy the song that accompanies this message.</p>
-        <p>With warm regards,</p>
-        <p>Your secret admirer.</p>
+        <p>Isn't it Amazing🩶 na how one day someone walks into your life👀 and you can't stop thinking about that person{YOU❤️},
+    tula mahit ahe palak?👀meeting you was like listening to a song🎶 for first time and knowing it would be my favorite!✨</p>
+        <p>If someone asks me about my happiest memory so I remember The prittiest girl i met ❤️‍🩹.
+    You are the reason I believe in Magic✨ like butterflies🦋 can't see their own wings,
+    but everyone else admires their beauty! You are the same✨💝.(press yes-no and volume up ⬆️). . . . .</p>
         <audio id="myAudio"  preload="auto"></audio>
+        <button class="ok-button" id="okButton">OK</button>
     </div>
 
     <div id="content" style="margin-top: 200px; padding: 20px;">
@@ -151,11 +167,12 @@
         const textContainer = document.getElementById('textContainer');
         const myAudio = document.getElementById('myAudio');
         const closeButton = document.getElementById('closeButton');
+        const okButton = document.getElementById('okButton');
 
         letterCover.addEventListener('click', () => {
             letterCover.classList.add('hidden');
             textContainer.classList.add('show');
-            myAudio.src = "agar tum kaho.mp3";
+            myAudio.src = "iraady.mp3";
             myAudio.play();
         });
 
@@ -166,9 +183,14 @@
             myAudio.src = "";
         });
 
+        okButton.addEventListener('click', () => {
+            window.location.href = "next.html";
+        });
+
     </script>
 </body>
 </html>
+
 
 
 
