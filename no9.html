@@ -1,1 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>letter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #ffe4e1;
+            display: flex;
+            flex-direction: column; /* Changed to column for better mobile layout */
+            align-items: center;
+            justify-content: center; /* Added to center content vertically */
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            padding-bottom: 70px; /* Add padding at the bottom for fixed button */
+            box-sizing: border-box; /* Include padding in body's total width/height */
+            position: relative; /* Needed for absolute positioning of button */
+        }
+
+        .letter-box {
+            position: relative;
+            width: 90%;
+            max-width: 400px;
+            height: auto;
+            aspect-ratio: 4 / 3;
+            background-color: #fff;
+            border: 2px solid #d3d3d3;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center; /* Center content within the letterbox */
+            align-items: center;
+            text-align: center;
+            margin-bottom: 80px; /* Increased margin to prevent overlap with button */
+            font-size: 3em;
+            line-height: 1;
+        }
+
+        .touch-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 15px 30px;
+            background-color: #ffb6c1;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .touch-button:hover {
+            background-color: #ffa07a;
+            transform: scale(1.1);
+        }
+
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border: 2px solid #d3d3d3;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            display: none;
+            text-align: center;
+            font-size: 1em;
+            animation: fadeIn 0.3s ease-in-out;
+            max-width: 80%;
+            max-height: 80%;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .popup h2 {
+            font-family: 'Caveat', cursive;
+            color: #000;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .popup p {
+            font-family: 'Caveat', cursive;
+            color: #000;
+            font-size: 1.2em;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .popup .signature {
+            font-family: 'Caveat', cursive;
+            color: #000;
+            font-size: 1.5em;
+            text-align: right;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        #nextButton {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 10px 20px;
+            background-color: #ffb6c1;
+            color: #fff;
+            border: none;
+            border-radius: 0;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            box-shadow: 0px -2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #nextButton:hover {
+            background-color: #ffa07a;
+        }
+
+        #closePopup {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #888;
+            border: none;
+            background: none;
+            padding: 5px;
+            line-height: 1;
+        }
+
+        #closePopup:hover {
+            color: #666;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="letter-box">
+        &#128230; <button class="touch-button" id="touchButton">Touch Me</button>
+    </div>
+
+    <div class="popup" id="invitationPopup">
+        <button id="closePopup">&#10060;</button>
+        <h2>Hey palak!</h2>
+        <p>Guess what? It's my birthday soon, and I'm throwing a party!  It would mean the world to me if you could come celebrate with me.  We'll have tons of fun, yummy food, and great music!</p>
+        <p>Date: [Date]</p>
+        <p>Time: [Time]</p>
+        <p>Location: [Location]</p>
+        <p>Let me know if you can make it by [RSVP Date] so I can get a headcount.  You can text me at [Your Phone Number] or email me at [Your Email Address].</p>
+        <p class="signature">Can't wait to see you!</p>
+        <p class="signature">Love, [Yuvraj]</p>
+    </div>
+
+    <button id="nextButton">Next</button>
+
+    <audio id="birthdaySong" src="Farq Hai.mp3"></audio>
+
+    <script>
+        const touchButton = document.getElementById('touchButton');
+        const invitationPopup = document.getElementById('invitationPopup');
+        const nextButton = document.getElementById('nextButton');
+        const birthdaySong = document.getElementById('birthdaySong');
+        const closePopupBtn = document.getElementById('closePopup');
+
+        touchButton.addEventListener('click', () => {
+            invitationPopup.style.display = 'block';
+            birthdaySong.play();
+        });
+
+        nextButton.addEventListener('click', () => {
+             window.location.href = "new.html";
+        });
+
+        closePopupBtn.addEventListener('click', () => {
+            invitationPopup.style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === invitationPopup) {
+                invitationPopup.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
 
