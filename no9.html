@@ -3,182 +3,297 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Birthday Greeting</title>
+    <title>Greeting Card</title>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            background: linear-gradient(135deg, #fff 0%, #000 100%);
-            color: #fff;
+            background-color: #f0f0f0;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             min-height: 100vh;
             margin: 0;
             font-family: 'Caveat', cursive;
-            padding-bottom: 70px;
-            box-sizing: border-box;
+        }
+
+        .card-container {
+            perspective: 1500px;
+            width: 95%;
+            max-width: 800px;
+            height: auto;
+            transform: rotate(-3deg);
+        }
+
+        .card {
+            width: 100%;
+            height: 100%;
             position: relative;
-            text-align: center;
+            transition: transform 1.2s;
+            transform-style: preserve-3d;
         }
 
-        .letter-emoji-button {
-            font-size: 5em;
-            cursor: pointer;
-            border: none;
-            background: none;
-            padding: 0;
-            transition: transform 0.2s ease;
-            margin-bottom: 10px; /* Reduced default margin-bottom */
+        .card.flipped {
+            transform: rotateY(-180deg);
         }
 
-        .letter-emoji-button:hover {
-            transform: scale(1.1);
-        }
-
-        .popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #fff;
-            color: #000;
-            padding: 20px;
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backface-visibility: hidden;
             border-radius: 10px;
+            border: 3px solid #d3d3d3;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            display: none;
-            text-align: center;
-            font-size: 1.0em;
-            animation: fadeIn 0.3s ease-in-out;
-            max-width: 85%;
-            max-height: 100%;
-            overflow-y: auto;
-            position: relative;
+            background-color: #ffe4e1;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+        .card-front {
+            background-color: #ffe4e1;
+            color: #ff69b4;
+            font-size: 1.8em;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
-        .popup h2 {
-            font-size: 1.0em;
+        .heart-emoji {
+            font-size: 3em;
             margin-bottom: 10px;
-            font-family: 'Caveat', cursive;
+            animation: heartbeat 1.5s infinite;
         }
 
-        .popup p {
-            font-size: 1.3em;
-            line-height: 1.5;
-            margin-bottom: 15px;
-            text-align: center;
-            font-family: 'Caveat', cursive;
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
 
-        .popup .signature {
-            font-size: 1.5em;
-            text-align: center;
+        .press-me-text {
+            font-size: 1.2em;
             font-weight: bold;
-            margin-top: 20px;
-            font-family: 'Caveat', cursive;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: row;
+            background-color: #ffe4e1;
+            border-radius: 10px;
+            overflow: hidden;
+            border-left: 1px dotted black;
+        }
+
+        .page {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            border: 2px solid #d3d3d3;
+            border-radius: 0px;
+            background-color: #f5b7b1;
+            overflow: auto;
+            margin: 0;
+            border-right: 1px dotted black;
+        }
+
+        .page:last-child {
+            border-right: none;
+        }
+
+        .left-page {
+        }
+
+        .right-page {
+        }
+
+        .wishes-content {
+            font-size: 1.2em;
+            color: #ffdb58;
+            font-weight: bold;
+            text-align: center;
+            line-height: 1.4;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .image-container {
+            width: 90%;
+            height: auto;
+            max-height: 90%;
+            border: 4px solid #8b4513;
+            border-radius: 10px;
+            outline: 2px dashed #d3d3d3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            margin: auto;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
         }
 
         #nextButton {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            padding: 15px 20px;
-            background-color: #fffacd;
-            color: #000;
-            border: 2px solid #000;
-            border-radius: 10px;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #ffb6c1;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 1.5em;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
-            text-align: center;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-            font-family: 'Caveat', cursive;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 300px;
         }
 
         #nextButton:hover {
-            background-color: #ffffba;
-            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.4);
-            transform: translateY(-2px);
+            background-color: #ffa07a;
         }
 
-        #closePopup {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 1.5em;
-            cursor: pointer;
-            color: #888;
-            border: none;
-            background: none;
-            padding: 5px;
-            line-height: 1;
-        }
+        @media (max-width: 480px) {
+            html, body {
+                overflow-x: hidden;
+                width: 100%;
+            }
 
-        #closePopup:hover {
-            color: #666;
-        }
+            body {
+                position: relative;
+            }
 
-        .touch-me-text {
-            font-size: 1.2em;
-            color: #fff;
-            margin-top: 5px; /* Added margin to separate emoji and text */
-            font-family: 'Caveat', cursive;
-        }
+            .card-container {
+                width: 98%;
+                transform: rotate(0);
+            }
 
+            .card {
+                width: 100%;
+                 height: auto;
+            }
+
+            .card-face {
+                width: 100%;
+                height: auto;
+            }
+
+            .card-front {
+                font-size: 1.4em;
+                 padding: 20px;
+            }
+
+            .heart-emoji {
+                font-size: 2.5em;
+            }
+
+            .press-me-text {
+                font-size: 1em;
+            }
+
+            .card-back {
+                flex-direction: column;
+                border-left: 1px dotted black;
+                 width: 100%;
+                 height: auto;
+            }
+
+            .page {
+                width: 100%;
+                margin: 10px 0;
+                padding: 10px;
+                border-left: none;
+                border-right: none;
+                border-bottom: 1px dotted black;
+                 height: auto;
+            }
+
+            .page:last-child {
+                border-bottom: none;
+            }
+
+            .left-page, .right-page {
+                margin: 0;
+                border-bottom:  1px dotted black;
+                 width: 100%;
+                 height: auto;
+            }
+           .image-container{
+             width: 95%;
+             height: auto;
+           }
+
+            .wishes-content {
+                font-size: 1.1em;
+            }
+
+            .image-container {
+                width: 95%;
+                max-height: 95%;
+            }
+
+            #nextButton {
+                width: 90%;
+                max-width: 300px;
+            }
+        }
     </style>
 </head>
 <body>
-    <button class="letter-emoji-button" id="openPopup">&#9993;</button>  <div class="touch-me-text">Touch Me</div>
-    <div class="popup" id="birthdayPopup">
-        <button id="closePopup">&#10060;</button>
-        <h2>Happy Birthday!</h2>
-        <p>Wishing you a day filled with joy, laughter, and all your favorite things. May this year bring you happiness and success!
-        Wishing you a day filled with joy, laughter, and all your favorite things. May this year bring you happiness and success!
-        Wishing you a day filled with joy, laughter, and all your favorite things. May this year bring you happiness and success!</p>
-        <p class="signature">Best wishes,</p>
-        <p class="signature">Your Friend yuvraj</p>
+    <div class="card-container">
+        <div class="card" id="myCard">
+            <div class="card-face card-front" id="cardFront">
+                <div class="heart-emoji">💖</div>
+                <div class="press-me-text">Touch Me</div>
+            </div>
+            <div class="card-face card-back">
+                <div class="page left-page">
+                    <div class="wishes-content">
+                        <p>Happy Birthday!</p>
+                        <p>May your day be filled with love and joy.</p>
+                        <p>Wishing you all the best!</p>
+                    </div>
+                </div>
+                <div class="page right-page">
+                    <div class="image-container">
+                        <img src="birthday.jpg" alt="Birthday Image">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <button id="nextButton">Next</button>
 
-    <audio id="birthdaySong" src="Ajab Si.mp3"></audio>
+    <audio id="birthdaySong" src="happy_birthday.mp3"></audio>
 
     <script>
-        const openPopupBtn = document.getElementById('openPopup');
-        const birthdayPopup = document.getElementById('birthdayPopup');
-        const nextButton = document.getElementById('nextButton');
+        const card = document.getElementById('myCard');
+        const cardFront = document.getElementById('cardFront');
         const birthdaySong = document.getElementById('birthdaySong');
-        const closePopupBtn = document.getElementById('closePopup');
+        const nextButton = document.getElementById('nextButton');
 
-        openPopupBtn.addEventListener('click', () => {
-            birthdayPopup.style.display = 'block';
+        cardFront.addEventListener('click', () => {
+            card.classList.add('flipped');
             birthdaySong.play();
         });
 
         nextButton.addEventListener('click', () => {
-            window.location.href = "greeting.html";
-        });
-
-        closePopupBtn.addEventListener('click', () => {
-            birthdayPopup.style.display = 'none';
-        });
-
-        window.addEventListener('click', (event) => {
-            if (event.target === birthdayPopup) {
-                birthdayPopup.style.display = 'none';
-            }
+            window.location.href = "new.html";
         });
     </script>
 </body>
 </html>
-
