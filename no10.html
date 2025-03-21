@@ -110,6 +110,8 @@
             box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
             transition: transform 0.3s ease;
             margin-bottom: 1rem;
+            font-size: 8em; /* Increased size of the emoji */
+            line-height: 1; /* Adjust line height to vertically center the emoji */
         }
 
         #moonPhase img:hover {
@@ -132,40 +134,15 @@
             color: #eee;
         }
 
-        #astrologyNews {
+        #moonFacts {
             margin-bottom: 1.5rem;
         }
 
-        #astrologyNews ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        #astrologyNews li {
-            margin-bottom: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            font-size: 1.1rem;
+        #moonFacts p{
+             font-size: 1.1rem;
             line-height: 1.8;
             color: #eee;
-        }
-
-        #astrologyNews li:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-            margin-bottom: 0;
-        }
-
-        #astrologyNews a {
-            color: #b4c6ff;
-            text-decoration: none;
-            transition: color 0.2s ease;
-            font-weight: 500;
-        }
-
-        #astrologyNews a:hover {
-            color: #d0e1ff;
+            text-align: center;
         }
 
         .card {
@@ -270,7 +247,7 @@
 
         <div id="birthdateInput">
             <label for="datePicker" class="form-label">Select Your Birthdate:</label>
-            <input type="date" id="datePicker" class="form-control">
+            <input type="date" id="datePicker" class="form-control" placeholder="YYYY-MM-DD">
             <button id="submitButton" class="btn btn-primary mt-3">Explore the Cosmos</button>
         </div>
 
@@ -288,21 +265,20 @@
             <p id="birthFlower"></p>
         </div>
 
-        <div id="astrologyNews">
-            <h2>Astrology News</h2>
-            <ul id="newsList" class="list-group">
-            </ul>
+        <div id="moonFacts" class="text-center">
+            <h2>Interesting Moon Fact</h2>
+            <p id="moonFactText"></p>
         </div>
         <div class="card">
             <div class="card-body">
                 <h2 class="card-title">About this App</h2>
                 <p class="card-text">
-                    This web application allows you to discover the celestial conditions on your birthdate.  Enter your birthdate to see the phase of the moon, and  astrology news.
+                    This web application allows you to discover the celestial conditions on your birthdate.  Enter your birthdate to see the phase of the moon, and some interesting information about it.
                 </p>
             </div>
         </div>
         <div class="next-page-button">
-            <a href="no11.html">next page</a>
+            <a href="newpage.html">Go to next page</a>
         </div>
     </div>
 
@@ -311,27 +287,27 @@
         const submitButton = document.getElementById("submitButton");
         const moonImage = document.getElementById("moonImage");
         const moonPhaseName = document.getElementById("moonPhaseName");
-        const  dayOfWeekDisplay = document.getElementById("dayOfWeek");
+        const dayOfWeekDisplay = document.getElementById("dayOfWeek");
         const zodiacSignDisplay = document.getElementById("zodiacSign");
         const birthStoneDisplay = document.getElementById("birthStone");
         const birthFlowerDisplay = document.getElementById("birthFlower");
-        const newsList = document.getElementById("newsList");
+        const moonFactText = document.getElementById("moonFactText");
         const body = document.querySelector("body");
 
         // --- Background Music (Tone.js) ---
-        const music = new Audio('agar tum kaho new.mp3'); // Replace with your music file
+        const music = new Audio('Jaadui.mp3'); // Replace with your music file
         music.loop = true;
         let musicPlaying = false;
 
         const moonPhases = [
-            { name: "New Moon", imageUrl: "https://moon-watch.com/images/moon-phases/new-moon.png" },
-            { name: "Waxing Crescent", imageUrl: "https://moon-watch.com/images/moon-phases/waxing-crescent.png" },
-            { name: "First Quarter", imageUrl: "https://moon-watch.com/images/moon-phases/first-quarter.png" },
-            { name: "Waxing Gibbous", imageUrl: "https://moon-watch.com/images/moon-phases/waxing-gibbous.png" },
-            { name: "Full Moon", imageUrl: "https://moon-watch.com/images/moon-phases/full-moon.png" },
-            { name: "Waning Gibbous", imageUrl: "https://moon-watch.com/images/moon-phases/waning-gibbous.png" },
-            { name: "Last Quarter", imageUrl: "https://moon-watch.com/images/moon-phases/last-quarter.png" },
-            { name: "Waning Crescent", imageUrl: "https://moon-watch.com/images/moon-phases/waning-crescent.png" },
+            { name: "New Moon", imageUrl: "🌑" },
+            { name: "Waxing Crescent", imageUrl: "🌒" },
+            { name: "First Quarter", imageUrl: "🌓" },
+            { name: "Waxing Gibbous", imageUrl: "🌔" },
+            { name: "Full Moon", imageUrl: "🌕" },
+            { name: "Waning Gibbous", imageUrl: "🌖" },
+            { name: "Last Quarter", imageUrl: "🌗" },
+            { name: "Waning Crescent", imageUrl: "🌘" },
         ];
 
         // Simplified Moon Phase Calculation
@@ -342,35 +318,6 @@
         }
 
 
-
-        // Function to fetch astrology news
-        async function getAstrologyNews() {
-            const apiUrl = `https://www.astrology.com/us/editorial/rss/daily-horoscope.xml`;
-
-            try {
-                const response = await fetch(apiUrl);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                const text = await response.text();
-                const xmlDoc = new DOMParser().parseFromString(text, "text/xml");
-                const items = xmlDoc.querySelectorAll("item");
-
-                newsList.innerHTML = "";
-                items.forEach(item => {
-                    const title = item.querySelector("title").textContent;
-                    const link = item.querySelector("link").textContent;
-                    const pubDate = item.querySelector("pubDate").textContent;
-
-                    const listItem = document.createElement("li");
-                    listItem.innerHTML = `<a href="${link}" target="_blank">${title}</a><br><span class="text-muted">${pubDate}</span>`;
-                    newsList.appendChild(listItem);
-                });
-            } catch (error) {
-                console.error("Error fetching astrology news:", error);
-                newsList.innerHTML = "<li>News unavailable.</li>";
-            }
-        }
 
         function getDayOfWeek(date) {
             const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -396,14 +343,29 @@
 
         function getBirthStone(month) {
             const stones = ["Garnet", "Amethyst", "Aquamarine", "Diamond", "Emerald", "Pearl",
-                            "Ruby", "Peridot", "Sapphire", "Opal", "Topaz", "Tanzanite"];
+                "Ruby", "Peridot", "Sapphire", "Opal", "Topaz", "Tanzanite"];
             return stones[month];
         }
 
         function getBirthFlower(month) {
             const flowers = ["Carnation", "Violet", "Daffodil", "Daisy", "Lily of the Valley", "Rose",
-                             "Water Lily", "Gladiolus", "Aster", "Marigold", "Chrysanthemum", "Poinsettia"];
+                "Water Lily", "Gladiolus", "Aster", "Marigold", "Chrysanthemum", "Poinsettia"];
             return flowers[month];
+        }
+
+        const moonFacts = [
+                "The Moon has no atmosphere.",
+                "The Moon is tidally locked to Earth, showing us the same side always.",
+                "The Moon's surface is covered in craters.",
+                "The Moon is moving away from Earth at a rate of about 3.8 cm per year.",
+                "A person weighs less on the Moon than on Earth.",
+                "The Moon is thought to have formed from a giant impact between Earth and another Mars-sized body.",
+                "The Moon influences Earth's tides.",
+                "The Moon is the fifth largest moon in our solar system.",
+            ];
+
+        function getRandomMoonFact() {
+            return moonFacts[Math.floor(Math.random() * moonFacts.length)];
         }
 
         submitButton.addEventListener("click", () => {
@@ -436,12 +398,15 @@
             birthStoneDisplay.textContent = `Birth Stone: ${birthStone}`;
             birthFlowerDisplay.textContent = `Birth Flower: ${birthFlower}`;
 
+            const moonFact = getRandomMoonFact();
+            moonFactText.textContent = moonFact;
 
-            getAstrologyNews();
         });
 
         // Initial news load
-        getAstrologyNews();
+        const initialMoonFact = getRandomMoonFact();
+        moonFactText.textContent = initialMoonFact;
+
     </script>
 </body>
 </html>
