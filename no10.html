@@ -21,7 +21,7 @@
         <a href="index.html">maybe</a>
       </div>
 
-   <!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -72,6 +72,7 @@
             line-height: 1.6;
             text-align: center;
             box-sizing: border-box;
+            padding-top: 30px; /* Add padding at the top to make space for close button. */
         }
 
         .text-container.show {
@@ -138,6 +139,10 @@
             background-color: #222;
         }
 
+        p {
+            font-weight: bold;
+        }
+
         @import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
 
     </style>
@@ -150,11 +155,11 @@
 
     <div class="text-container" id="textContainer">
         <span class="close-button" id="closeButton">❌</span>
-        <p>Isn't it Amazing🩶 na how one day someone walks into your life👀 and you can't stop thinking about that person{YOU❤️},
-    tula mahit ahe palak?👀meeting you was like listening to a song🎶 for first time and knowing it would be my favorite!✨</p>
-        <p>If someone asks me about my happiest memory so I remember The prittiest girl i met ❤️‍🩹.
-    You are the reason I believe in Magic✨ like butterflies🦋 can't see their own wings,
-    but everyone else admires their beauty! You are the same✨💝.(press yes-no and volume up ⬆️). . . . .</p>
+        <p>Dear recipient,</p>
+        <p>This is a secret note just for you.</p>
+        <p>I hope you enjoy the song that accompanies this message.</p>
+        <p>With warm regards,</p>
+        <p>Your secret admirer.</p>
         <audio id="myAudio"  preload="auto"></audio>
         <button class="ok-button" id="okButton">OK</button>
     </div>
@@ -172,7 +177,7 @@
         letterCover.addEventListener('click', () => {
             letterCover.classList.add('hidden');
             textContainer.classList.add('show');
-            myAudio.src = "iraady.mp3";
+            myAudio.src = "Jaadui.mp3";
             myAudio.play();
         });
 
@@ -184,12 +189,13 @@
         });
 
         okButton.addEventListener('click', () => {
-            window.location.href = "next.html";
+            window.location.href = "no1.html";
         });
 
     </script>
 </body>
 </html>
+
 
 
 
