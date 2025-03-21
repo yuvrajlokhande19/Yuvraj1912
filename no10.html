@@ -1,211 +1,435 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ask palak </title>
-    <link rel="stylesheet" href="./style.css" />
-  </head>
-  <body>
-    <div class="container">
-
-</body>
-</html>
-
-</body>
-</html>
-      <p>The MOON🌙 is beautiful, isn't it palak 👀?.</p>
-
-      <div class="btn">
-        <a href="no1.html">Yes</a>
-        <a href="index.html">maybe</a>
-      </div>
-
-  <!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hidden Note</title>
+    <title>Celestial Birthdate Explorer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQGjJgo6hjy8tq1iG3KmK0ixZqRjFvR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f8f8;
+            margin: 0;
+            background-color: #0c111b;
+            font-family: 'Spectral', serif;
+            color: #eee;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
             min-height: 100vh;
-            margin: 0;
-            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1200px;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background-color: rgba(255, 255, 255, 0.06);
+            border-radius: 1rem;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             position: relative;
         }
 
-        .letter-cover {
-            font-size: 5em;
-            cursor: pointer;
-            margin-top: 50px;
-            z-index: 2;
-        }
-
-        .letter-cover.hidden {
-            display: none;
-        }
-
-        .text-container {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            padding: 20px;
-            border: 1px solid #ccc;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            max-width: 95%;
-            max-height: 90%;
-            overflow-y: auto;
-            font-family: 'Caveat', cursive;
-            font-size: 1.2em;
-            color: black;
-            line-height: 1.6;
+        h1, h2 {
+            font-family: 'Spectral', serif;
+            color: #f5f5f5;
             text-align: center;
-            box-sizing: border-box;
-            padding-top: 30px; /* Add padding at the top to make space for close button. */
+            margin-bottom: 1.5rem;
+            font-weight: 600;
         }
 
-        .text-container.show {
-            display: block;
+        h2 {
+            font-size: 1.8rem;
+            margin-top: 2.5rem;
         }
 
-        @media (max-width: 480px) {
-            .text-container {
-                font-size: 1em;
-                padding: 15px;
-                max-width: 90%;
-                max-height: 60%;
-                width: 100%;
-                height: 100%;
-                top: 0;
-                left: 0;
-                transform: translate(0, 0);
-                overflow-y: auto;
-            }
-
-            .letter-cover {
-                font-size: 10em;
-            }
-        }
-
-        .scroll-down {
-            margin-top: 20px;
+        #birthdateInput {
+            margin-bottom: 1.5rem;
             text-align: center;
-            z-index: 2;
         }
 
-        .scroll-down a {
-            text-decoration: none;
-            color: #333;
-            font-weight: bold;
+        .form-control {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #eee;
+            font-family: 'Inter', sans-serif;
+            border-radius: 0.75rem;
+            padding: 0.8rem;
         }
 
-        .close-button {
-            position: absolute;
-            top: 10.2px;
-            right: 14px;
-            font-size: 0.6em;
-            cursor: pointer;
-            color: #555;
+        .form-control:focus {
+            background-color: rgba(255, 255, 255, 0.2);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
         }
 
-        #myAudio {
-            width: calc(100% - 40px);
-            margin-top: 20px;
+        #datePicker {
+            width: 100%;
+            max-width: 320px;
+            margin: 0 auto;
         }
 
-        .ok-button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #333;
-            color: white;
+        .btn-primary {
+            background-color: #6f2da8;
             border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1.2em;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            padding: 0.8rem 1.8rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
         }
 
-        .ok-button:hover {
-            background-color: #222;
+        .btn-primary:hover {
+            background-color: #4e1e7c;
+            transform: scale(1.04);
         }
 
-        p {
-            font-weight: bold;
+        .btn-primary:active {
+            transform: scale(1);
+            box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
         }
 
-        @import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
+        #moonPhase {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
 
+        #moonPhase img {
+            width: 150px;
+            height: auto;
+            border-radius: 50%;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        #moonPhase img:hover {
+            transform: scale(1.1);
+        }
+
+        #weatherInfo {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding: 1.2rem;
+            background-color: rgba(255, 255, 255, 0.04);
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+        }
+
+        #weatherInfo p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #eee;
+        }
+
+        #news астрономия {
+            margin-bottom: 1.5rem;
+        }
+
+        #news астрономия ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #news астрономия li {
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #eee;
+        }
+
+        #news астрономия li:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 0;
+        }
+
+        #news астрономия a {
+            color: #b4c6ff;
+            text-decoration: none;
+            transition: color 0.2s ease;
+            font-weight: 500;
+        }
+
+        #news астрономия a:hover {
+            color: #d0e1ff;
+        }
+
+        .card {
+            background-color: rgba(255, 255, 255, 0.04);
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            color: #f5f5f5;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .card-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #eee;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 98%;
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.6rem;
+            }
+
+            #moonPhase img {
+                width: 120px;
+            }
+
+            #datePicker {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            h2 {
+                font-size: 1.4rem;
+            }
+
+            .card-title {
+                font-size: 1.2rem;
+            }
+
+            .card-text {
+                font-size: 1rem;
+            }
+        }
+
+        .next-page-button {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .next-page-button a {
+            background-color: #6f2da8;
+            border: none;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            padding: 0.8rem 1.8rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .next-page-button a:hover {
+            background-color: #4e1e7c;
+            transform: scale(1.04);
+        }
+
+        .next-page-button a:active {
+            transform: scale(1);
+            box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+        }
     </style>
 </head>
 <body>
-    <div class="letter-cover" id="letterCover">✉️</div>
-    <div class="scroll-down">
-        <a href="#content"><strong>Press letter</strong></a>
-    </div>
+    <div class="container">
+        <h1>Celestial Birthdate Explorer</h1>
 
-    <div class="text-container" id="textContainer">
-        <span class="close-button" id="closeButton">❌</span>
-        <p> Isn't it Amazing🩶 na how one day someone walks into your life👀 and you can't stop thinking about that person{YOU❤️},
-    tula mahit ahe palak?👀meeting you was like listening to a song🎶 for first time and knowing it would be my favorite!✨.</p>
-        <p>If someone
-    asks me about my happiest memory so I remember The prittiest girl i met ❤️‍🩹.
-    You are the reason I believe in Magic✨ like butterflies🦋 can't see their own wings,
-    but everyone else admires their beauty! You are the same✨💝.(press yes-no and volume up ⬆️). . . . .</p>
-        <audio id="myAudio"  preload="auto"></audio>
-        <button class="ok-button" id="okButton">OK</button>
-    </div>
+        <div id="birthdateInput">
+            <label for="datePicker" class="form-label">Select Your Birthdate:</label>
+            <input type="date" id="datePicker" class="form-control">
+            <button id="submitButton" class="btn btn-primary mt-3">Explore the Cosmos</button>
+        </div>
 
-    <div id="content" style="margin-top: 200px; padding: 20px;">
+        <div id="moonPhase" class="text-center">
+            <h2>Your Moon Phase</h2>
+            <img id="moonImage" src="" alt="Moon Phase">
+            <p id="moonPhaseName" class="mt-2"></p>
+        </div>
+
+        <div id="weatherInfo" class="text-center">
+            <h2>Weather on Your Birthdate</h2>
+            <p id="weatherDescription"></p>
+            <p id="temperature"></p>
+            <p id="location"></p>
+        </div>
+
+        <div id="news астрономия">
+            <h2>Astronomy News</h2>
+            <ul id="newsList" class="list-group">
+            </ul>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">About this App</h2>
+                <p class="card-text">
+                    This web application allows you to discover the celestial conditions on your birthdate.  Enter your birthdate to see the phase of the moon, the weather conditions, and read relevant astronomy news.
+                </p>
+            </div>
+        </div>
+        <div class="next-page-button">
+            <a href="no11.html">Go to next page</a>
+        </div>
     </div>
 
     <script>
-        const letterCover = document.getElementById('letterCover');
-        const textContainer = document.getElementById('textContainer');
-        const myAudio = document.getElementById('myAudio');
-        const closeButton = document.getElementById('closeButton');
-        const okButton = document.getElementById('okButton');
+        const datePicker = document.getElementById("datePicker");
+        const submitButton = document.getElementById("submitButton");
+        const moonImage = document.getElementById("moonImage");
+        const moonPhaseName = document.getElementById("moonPhaseName");
+        const weatherDescription = document.getElementById("weatherDescription");
+        const temperature = document.getElementById("temperature");
+        const locationDisplay = document.getElementById("location");
+        const newsList = document.getElementById("newsList");
+        const body = document.querySelector("body");
 
-        letterCover.addEventListener('click', () => {
-            letterCover.classList.add('hidden');
-            textContainer.classList.add('show');
-            myAudio.src = "kabhi-kabhi.mp3";
-            myAudio.play();
+        // --- Background Music (Tone.js) ---
+        const music = new Audio('iraady.mp3'); // Replace with your music file
+        music.loop = true;
+        let musicPlaying = false;
+
+        const moonPhases = [
+            { name: "New Moon", imageUrl: "https://moon-watch.com/images/moon-phases/new-moon.png" },
+            { name: "Waxing Crescent", imageUrl: "https://moon-watch.com/images/moon-phases/waxing-crescent.png" },
+            { name: "First Quarter", imageUrl: "https://moon-watch.com/images/moon-phases/first-quarter.png" },
+            { name: "Waxing Gibbous", imageUrl: "https://moon-watch.com/images/moon-phases/waxing-gibbous.png" },
+            { name: "Full Moon", imageUrl: "https://moon-watch.com/images/moon-phases/full-moon.png" },
+            { name: "Waning Gibbous", imageUrl: "https://moon-watch.com/images/moon-phases/waning-gibbous.png" },
+            { name: "Last Quarter", imageUrl: "https://moon-watch.com/images/moon-phases/last-quarter.png" },
+            { name: "Waning Crescent", imageUrl: "https://moon-watch.com/images/moon-phases/waning-crescent.png" },
+        ];
+
+        // Simplified Moon Phase Calculation
+        function getMoonPhase(date) {
+            const dayOfYear = (date - new Date(date.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24;
+            const phase = Math.floor((dayOfYear % 29.53) / 3.7);
+            return moonPhases[phase] || moonPhases[0];
+        }
+
+        // Weather API Key
+        const weatherApiKey = "YOUR_WEATHER_API_KEY";
+
+        // Function to fetch weather data
+        async function getWeatherData(date) {
+            if (!weatherApiKey) {
+                console.error("Weather API key is missing. Please provide a valid API key.");
+                weatherDescription.textContent = "Weather information is unavailable.";
+                temperature.textContent = "";
+                locationDisplay.textContent = "";
+                return;
+            }
+            const city = "Gondia";
+            const formattedDate = date.toISOString().split("T")[0];
+            const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${weatherApiKey}&units=metric&dt=${Math.floor(date.getTime() / 1000)}`;
+
+            try {
+                const response = await fetch(apiUrl);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                console.log(data);
+                weatherDescription.textContent = `Weather: ${data.weather[0].description}`;
+                temperature.textContent = `Temperature: ${data.main.temp}°C`;
+                locationDisplay.textContent = `Location: ${data.name}, ${data.sys.country}`;
+            } catch (error) {
+                console.error("Error fetching weather data:", error);
+                weatherDescription.textContent = "Weather information is unavailable.";
+                temperature.textContent = "";
+                locationDisplay.textContent = "";
+            }
+        }
+
+        // News API Key
+        const newsApiKey = "YOUR_NEWS_API_KEY";
+
+        // Function to fetch astronomy news
+        async function getAstronomyNews() {
+            if (!newsApiKey) {
+                console.error("News API key is missing. Please provide a valid API key.");
+                newsList.innerHTML = "<li>News unavailable.</li>";
+                return;
+            }
+            const apiUrl = `https://newsapi.org/v2/everything?q=astronomy&apiKey=${newsApiKey}&sortBy=publishedAt&pageSize=5`;
+
+            try {
+                const response = await fetch(apiUrl);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                console.log(data);
+                newsList.innerHTML = "";
+                data.articles.forEach(article => {
+                    const listItem = document.createElement("li");
+                    listItem.innerHTML = `<a href="${article.url}" target="_blank">${article.title}</a><br><span class="text-muted">${article.publishedAt}</span>`;
+                    newsList.appendChild(listItem);
+                });
+            } catch (error) {
+                console.error("Error fetching news:", error);
+                newsList.innerHTML = "<li>News unavailable.</li>";
+            }
+        }
+
+        submitButton.addEventListener("click", () => {
+            const selectedDate = new Date(datePicker.value);
+            if (isNaN(selectedDate.getTime())) {
+                alert("Please select a valid date.");
+                return;
+            }
+
+            // --- Play Music on Button Click ---
+            if (!musicPlaying) {
+                music.play().then(() => {
+                    musicPlaying = true;
+                }).catch(error => {
+                    console.error("Playback prevented:", error);
+                });
+            }
+
+            const moonPhase = getMoonPhase(selectedDate);
+            moonImage.src = moonPhase.imageUrl;
+            moonPhaseName.textContent = moonPhase.name;
+
+            getWeatherData(selectedDate);
+            getAstronomyNews();
         });
 
-        closeButton.addEventListener('click', () => {
-            letterCover.classList.remove('hidden');
-            textContainer.classList.remove('show');
-            myAudio.pause();
-            myAudio.src = "";
-        });
-
-        okButton.addEventListener('click', () => {
-            window.location.href = "no1.html";
-        });
-
+        // Initial news load
+        getAstronomyNews();
     </script>
 </body>
 </html>
-
-
-
-
-
-<div class="tenor-gif-embed" data-postid="24483566"
-  data-share-method="host" data-aspect-ratio="0.96875" 
-  data-width="80%"><a href="https://tenor.com/view/boba-gif-24483566">Boba Sticker</a>from 
-  <a href="https://tenor.com/search/boba-stickers">Boba Stickers</a></div> <script type="text/javascript" 
-  async src="https://tenor.com/embed.js"></script>
-
-
-   
