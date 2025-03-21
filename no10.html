@@ -277,12 +277,12 @@
                     This web application allows you to discover the celestial conditions on your birthdate.  Enter your birthdate to see the phase of the moon, and some interesting information about it.
                     <br>
                     <br>
-                    Created and developed by Yuvraj on 19-12-2024.
+                    Created and developed by Yuvraj on 20-03-2025.
                 </p>
             </div>
         </div>
         <div class="next-page-button">
-            <a href="no11.html">next page</a>
+            <a href="no11.html">Go to next page</a>
         </div>
     </div>
 
@@ -299,7 +299,7 @@
         const body = document.querySelector("body");
 
         // --- Background Music (Tone.js) ---
-        const music = new Audio('Farq Hai.mp3');
+        const music = new Audio('iraady.mp3');
         music.loop = true;
         let musicPlaying = false;
 
@@ -333,8 +333,8 @@
         function getZodiacSign(date) {
             const day = date.getDate();
             const month = date.getMonth();
-            if ((month === 3 && day >= 23) || (month === 3 && day <= 19)) return "Aries";
-            if ((month === 3 && day >= 20) || (month === 12 && day <= 19)) return "Taurus";
+            if ((month === 2 && day >= 21) || (month === 3 && day <= 19)) return "Aries";
+            if ((month === 3 && day >= 20) || (month === 4 && day <= 20)) return "Taurus";
             if ((month === 4 && day >= 21) || (month === 5 && day <= 20)) return "Gemini";
             if ((month === 5 && day >= 21) || (month === 6 && day <= 22)) return "Cancer";
             if ((month === 6 && day >= 23) || (month === 7 && day <= 22)) return "Leo";
@@ -362,14 +362,14 @@
         }
 
         const moonFacts = [
-            "The Moon look like you always buetifull🌚.",
-            "The Moon show buety of universe.",
-            "The Moon's rival is you.",
-            "The Moon is moving away from Earth at a rate of about 3.8 cm per year. like you and me",
-            "A person who is gorgeous than moon is you.",
-            "The Moon is always see you and think why this pretty angle living on earth.",
-            "The Moon influences Earth's tides. like you did to my heart",
-            "TU muskuraa to de chaand bhi sharma jayega",
+            "The Moon has no atmosphere.",
+            "The Moon is tidally locked to Earth, showing us the same side always.",
+            "The Moon's surface is covered in craters.",
+            "The Moon is moving away from Earth at a rate of about 3.8 cm per year.",
+            "A person weighs less on the Moon than on Earth.",
+            "The Moon is thought to have formed from a giant impact between Earth and another Mars-sized body.",
+            "The Moon influences Earth's tides.",
+            "The Moon is the fifth largest moon in our solar system.",
         ];
 
         function getRandomMoonFact() {
@@ -408,6 +408,8 @@
         // Initialize the date picker
         flatpickr(datePicker, {
             dateFormat: "Y-m-d",
+            // This ensures the date picker works on mobile devices
+            disableMobile: false
         });
 
         submitButton.addEventListener("click", () => {
