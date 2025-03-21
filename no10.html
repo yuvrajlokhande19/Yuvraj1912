@@ -21,7 +21,7 @@
         <a href="index.html">maybe</a>
       </div>
 
-     <!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -35,15 +35,17 @@
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
-            overflow-y: auto; /* Enable vertical scrolling */
+            overflow-y: auto;
+            position: relative;
         }
 
         .letter-cover {
             font-size: 5em;
             cursor: pointer;
             margin-top: 50px;
+            z-index: 2;
         }
 
         .letter-cover.hidden {
@@ -52,7 +54,7 @@
 
         .text-container {
             display: none;
-            position: absolute;
+            position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
@@ -61,14 +63,15 @@
             border: 1px solid #ccc;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             z-index: 1000;
-            max-width: 100%; /* Make it responsive */
-            max-height: 80%;
+            max-width: 95%;
+            max-height: 90%;
             overflow-y: auto;
             font-family: 'Caveat', cursive;
-            font-size: 1.2em;  /* Responsive font size */
+            font-size: 1.2em;
             color: black;
             line-height: 1.6;
             text-align: center;
+            box-sizing: border-box;
         }
 
         .text-container.show {
@@ -77,11 +80,19 @@
 
         @media (max-width: 480px) {
             .text-container {
-                font-size: 1em; /* Smaller font on very small screens */
-                padding: 10px;
-                max-width: 150%;
+                font-size: 1em;
+                padding: 15px;
+                max-width: 100%;
+                max-height: 100%;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                transform: translate(0, 0);
+                overflow-y: auto;
             }
-            .letter-cover{
+
+            .letter-cover {
                 font-size: 4em;
             }
         }
@@ -89,6 +100,7 @@
         .scroll-down {
             margin-top: 20px;
             text-align: center;
+            z-index: 2;
         }
 
         .scroll-down a {
@@ -96,13 +108,19 @@
             color: #333;
             font-weight: bold;
         }
-       .close-button {
+
+        .close-button {
             position: absolute;
             top: 10px;
-            right: 15px;
-            font-size: 1em;
+            right: 10px;
+            font-size: 2em;
             cursor: pointer;
             color: #555;
+        }
+
+        #myAudio {
+            width: calc(100% - 40px);
+            margin-top: 20px;
         }
 
         @import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
@@ -117,20 +135,15 @@
 
     <div class="text-container" id="textContainer">
         <span class="close-button" id="closeButton">❌</span>
-        <p>Isn't it Amazing🩶 na how one day someone walks into your life👀 and you can't stop thinking about that person{YOU❤️},
-    tula mahit ahe palak?👀meeting you was like listening to a song🎶 for first time and knowing it would be my favorite!✨.If someone
-    asks me about my happiest memory so I remember The prittiest girl i met ❤️‍🩹.
-    You are the reason I believe in Magic✨ like butterflies🦋 can't see their own wings,
-    but everyone else admires their beauty! You are the same✨💝.(press yes-no and volume up ⬆️). . . . ..</p>
+        <p>Dear recipient,</p>
+        <p>This is a secret note just for you.</p>
+        <p>I hope you enjoy the song that accompanies this message.</p>
+        <p>With warm regards,</p>
+        <p>Your secret admirer.</p>
+        <audio id="myAudio"  preload="auto"></audio>
     </div>
 
-    <audio id="myAudio"  style="width: 100%;" preload="auto">
-        <source src="kabhi-kabhi.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-
     <div id="content" style="margin-top: 200px; padding: 20px;">
-        
     </div>
 
     <script>
@@ -142,6 +155,7 @@
         letterCover.addEventListener('click', () => {
             letterCover.classList.add('hidden');
             textContainer.classList.add('show');
+            myAudio.src = "agar tum kaho.mp3";
             myAudio.play();
         });
 
@@ -149,12 +163,13 @@
             letterCover.classList.remove('hidden');
             textContainer.classList.remove('show');
             myAudio.pause();
-            myAudio.currentTime = 0;
+            myAudio.src = "";
         });
 
     </script>
 </body>
 </html>
+
 
 
 <div class="tenor-gif-embed" data-postid="24483566"
