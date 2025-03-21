@@ -1,1 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Greeting</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #fff 0%, #000 100%);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Caveat', cursive;
+            padding-bottom: 70px;
+            box-sizing: border-box;
+            position: relative;
+            text-align: center;
+        }
+
+        .letter-emoji-button {
+            font-size: 5em;
+            cursor: pointer;
+            border: none;
+            background: none;
+            padding: 0;
+            transition: transform 0.2s ease;
+            margin-bottom: 10px; /* Reduced default margin-bottom */
+        }
+
+        .letter-emoji-button:hover {
+            transform: scale(1.1);
+        }
+
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            color: #000;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            display: none;
+            text-align: center;
+            font-size: 1.2em;
+            animation: fadeIn 0.3s ease-in-out;
+            max-width: 80%;
+            max-height: 80%;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .popup h2 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-family: 'Caveat', cursive;
+        }
+
+        .popup p {
+            font-size: 1.5em;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            text-align: center;
+            font-family: 'Caveat', cursive;
+        }
+
+        .popup .signature {
+            font-size: 1.8em;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 20px;
+            font-family: 'Caveat', cursive;
+        }
+
+        #nextButton {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px 20px;
+            background-color: #fffacd;
+            color: #000;
+            border: 2px solid #000;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.5em;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+            text-align: center;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+            font-family: 'Caveat', cursive;
+        }
+
+        #nextButton:hover {
+            background-color: #ffffba;
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.4);
+            transform: translateY(-2px);
+        }
+
+        #closePopup {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #888;
+            border: none;
+            background: none;
+            padding: 5px;
+            line-height: 1;
+        }
+
+        #closePopup:hover {
+            color: #666;
+        }
+
+        .touch-me-text {
+            font-size: 1.2em;
+            color: #fff;
+            margin-top: 5px; /* Added margin to separate emoji and text */
+            font-family: 'Caveat', cursive;
+        }
+
+    </style>
+</head>
+<body>
+    <button class="letter-emoji-button" id="openPopup">&#9993;</button>  <div class="touch-me-text">Touch Me</div>
+    <div class="popup" id="birthdayPopup">
+        <button id="closePopup">&#10060;</button>
+        <h2>Happy Birthday!</h2>
+        <p>Wishing you a day filled with joy, laughter, and all your favorite things. May this year bring you happiness and success!
+        Wishing you a day filled with joy, laughter, and all your favorite things. May this year bring you happiness and success!
+        Wishing you a day filled with joy, laughter, and all your favorite things. May this year bring you happiness and success!</p>
+        <p class="signature">Best wishes,</p>
+        <p class="signature">Your Friend yuvraj</p>
+    </div>
+
+    <button id="nextButton">Next</button>
+
+    <audio id="birthdaySong" src="Ajab Si.mp3"></audio>
+
+    <script>
+        const openPopupBtn = document.getElementById('openPopup');
+        const birthdayPopup = document.getElementById('birthdayPopup');
+        const nextButton = document.getElementById('nextButton');
+        const birthdaySong = document.getElementById('birthdaySong');
+        const closePopupBtn = document.getElementById('closePopup');
+
+        openPopupBtn.addEventListener('click', () => {
+            birthdayPopup.style.display = 'block';
+            birthdaySong.play();
+        });
+
+        nextButton.addEventListener('click', () => {
+            window.location.href = "new.html";
+        });
+
+        closePopupBtn.addEventListener('click', () => {
+            birthdayPopup.style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === birthdayPopup) {
+                birthdayPopup.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
 
