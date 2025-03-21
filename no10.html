@@ -116,7 +116,7 @@
             transform: scale(1.1);
         }
 
-        #weatherInfo {
+        #birthInfo {
             text-align: center;
             margin-bottom: 1.5rem;
             padding: 1.2rem;
@@ -126,23 +126,23 @@
             box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
         }
 
-        #weatherInfo p {
+        #birthInfo p {
             font-size: 1.1rem;
             line-height: 1.8;
             color: #eee;
         }
 
-        #news астрономия {
+        #astrologyNews {
             margin-bottom: 1.5rem;
         }
 
-        #news астрономия ul {
+        #astrologyNews ul {
             list-style: none;
             padding: 0;
             margin: 0;
         }
 
-        #news астрономия li {
+        #astrologyNews li {
             margin-bottom: 1rem;
             padding-bottom: 1rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -151,20 +151,20 @@
             color: #eee;
         }
 
-        #news астрономия li:last-child {
+        #astrologyNews li:last-child {
             border-bottom: none;
             padding-bottom: 0;
             margin-bottom: 0;
         }
 
-        #news астрономия a {
+        #astrologyNews a {
             color: #b4c6ff;
             text-decoration: none;
             transition: color 0.2s ease;
             font-weight: 500;
         }
 
-        #news астрономия a:hover {
+        #astrologyNews a:hover {
             color: #d0e1ff;
         }
 
@@ -280,15 +280,16 @@
             <p id="moonPhaseName" class="mt-2"></p>
         </div>
 
-        <div id="weatherInfo" class="text-center">
-            <h2>Weather on Your Birthdate</h2>
-            <p id="weatherDescription"></p>
-            <p id="temperature"></p>
-            <p id="location"></p>
+        <div id="birthInfo" class="text-center">
+            <h2>Information about Your Birthdate</h2>
+            <p id="dayOfWeek"></p>
+            <p id="zodiacSign"></p>
+            <p id="birthStone"></p>
+            <p id="birthFlower"></p>
         </div>
 
-        <div id="news астрономия">
-            <h2>Astronomy News</h2>
+        <div id="astrologyNews">
+            <h2>Astrology News</h2>
             <ul id="newsList" class="list-group">
             </ul>
         </div>
@@ -296,12 +297,12 @@
             <div class="card-body">
                 <h2 class="card-title">About this App</h2>
                 <p class="card-text">
-                    This web application allows you to discover the celestial conditions on your birthdate.  Enter your birthdate to see the phase of the moon, the weather conditions, and read relevant astronomy news.
+                    This web application allows you to discover the celestial conditions on your birthdate.  Enter your birthdate to see the phase of the moon, and  astrology news.
                 </p>
             </div>
         </div>
         <div class="next-page-button">
-            <a href="no11.html">Go to next page</a>
+            <a href="no11.html">next page</a>
         </div>
     </div>
 
@@ -310,14 +311,15 @@
         const submitButton = document.getElementById("submitButton");
         const moonImage = document.getElementById("moonImage");
         const moonPhaseName = document.getElementById("moonPhaseName");
-        const weatherDescription = document.getElementById("weatherDescription");
-        const temperature = document.getElementById("temperature");
-        const locationDisplay = document.getElementById("location");
+        const  dayOfWeekDisplay = document.getElementById("dayOfWeek");
+        const zodiacSignDisplay = document.getElementById("zodiacSign");
+        const birthStoneDisplay = document.getElementById("birthStone");
+        const birthFlowerDisplay = document.getElementById("birthFlower");
         const newsList = document.getElementById("newsList");
         const body = document.querySelector("body");
 
         // --- Background Music (Tone.js) ---
-        const music = new Audio('iraady.mp3'); // Replace with your music file
+        const music = new Audio('agar tum kaho new.mp3'); // Replace with your music file
         music.loop = true;
         let musicPlaying = false;
 
@@ -339,69 +341,69 @@
             return moonPhases[phase] || moonPhases[0];
         }
 
-        // Weather API Key
-        const weatherApiKey = "YOUR_WEATHER_API_KEY";
 
-        // Function to fetch weather data
-        async function getWeatherData(date) {
-            if (!weatherApiKey) {
-                console.error("Weather API key is missing. Please provide a valid API key.");
-                weatherDescription.textContent = "Weather information is unavailable.";
-                temperature.textContent = "";
-                locationDisplay.textContent = "";
-                return;
-            }
-            const city = "Gondia";
-            const formattedDate = date.toISOString().split("T")[0];
-            const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${weatherApiKey}&units=metric&dt=${Math.floor(date.getTime() / 1000)}`;
+
+        // Function to fetch astrology news
+        async function getAstrologyNews() {
+            const apiUrl = `https://www.astrology.com/us/editorial/rss/daily-horoscope.xml`;
 
             try {
                 const response = await fetch(apiUrl);
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                const data = await response.json();
-                console.log(data);
-                weatherDescription.textContent = `Weather: ${data.weather[0].description}`;
-                temperature.textContent = `Temperature: ${data.main.temp}°C`;
-                locationDisplay.textContent = `Location: ${data.name}, ${data.sys.country}`;
-            } catch (error) {
-                console.error("Error fetching weather data:", error);
-                weatherDescription.textContent = "Weather information is unavailable.";
-                temperature.textContent = "";
-                locationDisplay.textContent = "";
-            }
-        }
+                const text = await response.text();
+                const xmlDoc = new DOMParser().parseFromString(text, "text/xml");
+                const items = xmlDoc.querySelectorAll("item");
 
-        // News API Key
-        const newsApiKey = "YOUR_NEWS_API_KEY";
-
-        // Function to fetch astronomy news
-        async function getAstronomyNews() {
-            if (!newsApiKey) {
-                console.error("News API key is missing. Please provide a valid API key.");
-                newsList.innerHTML = "<li>News unavailable.</li>";
-                return;
-            }
-            const apiUrl = `https://newsapi.org/v2/everything?q=astronomy&apiKey=${newsApiKey}&sortBy=publishedAt&pageSize=5`;
-
-            try {
-                const response = await fetch(apiUrl);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                const data = await response.json();
-                console.log(data);
                 newsList.innerHTML = "";
-                data.articles.forEach(article => {
+                items.forEach(item => {
+                    const title = item.querySelector("title").textContent;
+                    const link = item.querySelector("link").textContent;
+                    const pubDate = item.querySelector("pubDate").textContent;
+
                     const listItem = document.createElement("li");
-                    listItem.innerHTML = `<a href="${article.url}" target="_blank">${article.title}</a><br><span class="text-muted">${article.publishedAt}</span>`;
+                    listItem.innerHTML = `<a href="${link}" target="_blank">${title}</a><br><span class="text-muted">${pubDate}</span>`;
                     newsList.appendChild(listItem);
                 });
             } catch (error) {
-                console.error("Error fetching news:", error);
+                console.error("Error fetching astrology news:", error);
                 newsList.innerHTML = "<li>News unavailable.</li>";
             }
+        }
+
+        function getDayOfWeek(date) {
+            const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            return days[date.getDay()];
+        }
+
+        function getZodiacSign(date) {
+            const day = date.getDate();
+            const month = date.getMonth() + 1;
+            if ((month === 3 && day >= 21) || (month === 4 && day <= 19)) return "Aries";
+            if ((month === 4 && day >= 20) || (month === 5 && day <= 20)) return "Taurus";
+            if ((month === 5 && day >= 21) || (month === 6 && day <= 20)) return "Gemini";
+            if ((month === 6 && day >= 21) || (month === 7 && day <= 22)) return "Cancer";
+            if ((month === 7 && day >= 23) || (month === 8 && day <= 22)) return "Leo";
+            if ((month === 8 && day >= 23) || (month === 9 && day <= 22)) return "Virgo";
+            if ((month === 9 && day >= 23) || (month === 10 && day <= 22)) return "Libra";
+            if ((month === 10 && day >= 23) || (month === 11 && day <= 21)) return "Scorpio";
+            if ((month === 11 && day >= 22) || (month === 12 && day <= 21)) return "Sagittarius";
+            if ((month === 12 && day >= 22) || (month === 1 && day <= 19)) return "Capricorn";
+            if ((month === 1 && day >= 20) || (month === 2 && day <= 18)) return "Aquarius";
+            return "Pisces";
+        }
+
+        function getBirthStone(month) {
+            const stones = ["Garnet", "Amethyst", "Aquamarine", "Diamond", "Emerald", "Pearl",
+                            "Ruby", "Peridot", "Sapphire", "Opal", "Topaz", "Tanzanite"];
+            return stones[month];
+        }
+
+        function getBirthFlower(month) {
+            const flowers = ["Carnation", "Violet", "Daffodil", "Daisy", "Lily of the Valley", "Rose",
+                             "Water Lily", "Gladiolus", "Aster", "Marigold", "Chrysanthemum", "Poinsettia"];
+            return flowers[month];
         }
 
         submitButton.addEventListener("click", () => {
@@ -424,12 +426,22 @@
             moonImage.src = moonPhase.imageUrl;
             moonPhaseName.textContent = moonPhase.name;
 
-            getWeatherData(selectedDate);
-            getAstronomyNews();
+            const dayOfWeek = getDayOfWeek(selectedDate);
+            const zodiacSign = getZodiacSign(selectedDate);
+            const birthStone = getBirthStone(selectedDate.getMonth());
+            const birthFlower = getBirthFlower(selectedDate.getMonth());
+
+            dayOfWeekDisplay.textContent = `Day of the Week: ${dayOfWeek}`;
+            zodiacSignDisplay.textContent = `Zodiac Sign: ${zodiacSign}`;
+            birthStoneDisplay.textContent = `Birth Stone: ${birthStone}`;
+            birthFlowerDisplay.textContent = `Birth Flower: ${birthFlower}`;
+
+
+            getAstrologyNews();
         });
 
         // Initial news load
-        getAstronomyNews();
+        getAstrologyNews();
     </script>
 </body>
 </html>
