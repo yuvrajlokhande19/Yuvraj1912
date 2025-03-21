@@ -102,19 +102,17 @@
             background-color: #f5b7b1;
             overflow: auto;
             margin: 0;
-            border-right: 1px dotted black; /* Added dotted border */
+            border-right: 1px dotted black;
         }
 
         .page:last-child {
-            border-right: none; /* Remove border from the last page */
+            border-right: none;
         }
 
         .left-page {
-           /* border-right: 2px solid black;  Removed individual page borders */
         }
 
         .right-page {
-           /* border-left: 2px solid black; Removed individual page borders */
         }
 
         .wishes-content {
@@ -169,13 +167,33 @@
         }
 
         @media (max-width: 480px) {
+            html, body {
+                overflow-x: hidden;
+                width: 100%;
+            }
+
+            body {
+                position: relative;
+            }
+
             .card-container {
                 width: 98%;
                 transform: rotate(0);
             }
 
+            .card {
+                width: 100%;
+                 height: auto;
+            }
+
+            .card-face {
+                width: 100%;
+                height: auto;
+            }
+
             .card-front {
                 font-size: 1.4em;
+                 padding: 20px;
             }
 
             .heart-emoji {
@@ -189,6 +207,8 @@
             .card-back {
                 flex-direction: column;
                 border-left: 1px dotted black;
+                 width: 100%;
+                 height: auto;
             }
 
             .page {
@@ -198,16 +218,23 @@
                 border-left: none;
                 border-right: none;
                 border-bottom: 1px dotted black;
+                 height: auto;
             }
-             .page:last-child {
+
+            .page:last-child {
                 border-bottom: none;
             }
 
             .left-page, .right-page {
                 margin: 0;
                 border-bottom:  1px dotted black;
+                 width: 100%;
+                 height: auto;
             }
-
+           .image-container{
+             width: 95%;
+             height: auto;
+           }
 
             .wishes-content {
                 font-size: 1.1em;
@@ -216,6 +243,11 @@
             .image-container {
                 width: 95%;
                 max-height: 95%;
+            }
+
+            #nextButton {
+                width: 90%;
+                max-width: 300px;
             }
         }
     </style>
@@ -246,7 +278,7 @@
 
     <button id="nextButton">Next</button>
 
-    <audio id="birthdaySong" src="agar tum kaho.mp3"></audio>
+    <audio id="birthdaySong" src="happy_birthday.mp3"></audio>
 
     <script>
         const card = document.getElementById('myCard');
