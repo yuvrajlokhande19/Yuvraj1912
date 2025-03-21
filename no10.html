@@ -61,7 +61,7 @@
             border: 1px solid #ccc;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             z-index: 1000;
-            max-width: 90%; /* Make it responsive */
+            max-width: 150%; /* Make it responsive */
             max-height: 80%;
             overflow-y: auto;
             font-family: 'Caveat', cursive;
@@ -82,7 +82,7 @@
                 max-width: 95%;
             }
             .letter-cover{
-                font-size: 4em;
+                font-size: 2em;
             }
         }
 
@@ -99,8 +99,8 @@
        .close-button {
             position: absolute;
             top: 10px;
-            right: 10px;
-            font-size: 2em;
+            right: 12px;
+            font-size: 1em;
             cursor: pointer;
             color: #555;
         }
@@ -165,52 +165,3 @@
 
 
    
-<style>
-  #playPauseButton {
-    position: fixed;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 3em;
-    border: none;
-    background: none;
-    cursor: pointer;
-    z-index: 1000;
-  }
-
-  #myAudio {
-    display: none;
-  }
-
-  #touchMeText {
-    position: fixed;
-    top: 80px; /* Adjust as needed, based on button size */
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 1.2em; /* Adjust font size */
-    color: #333; /* Adjust text color */
-    z-index: 999; /* Place it below the button */
-  }
-</style>
-
-<button id="playPauseButton">❤️</button>
-<div id="touchMeText">Touch this heart</div>
-<audio id="myAudio" src="kabhi-kabhi.mp3"></audio>
-
-<script>
-  const audio = document.getElementById("myAudio");
-  const playPauseButton = document.getElementById("playPauseButton");
-  let isPlaying = false;
-
-  playPauseButton.addEventListener("click", () => {
-    if (isPlaying) {
-      audio.pause();
-      isPlaying = false;
-      playPauseButton.textContent = "❤️";
-    } else {
-      audio.play();
-      isPlaying = true;
-      playPauseButton.textContent = "🩶";
-    }
-  });
-</script>
