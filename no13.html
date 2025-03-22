@@ -38,6 +38,7 @@
             flex-direction: column;
             align-items: center;
             margin-bottom: 20px;
+            width: fit-content;
         }
 
         #text-container:hover {
@@ -45,8 +46,7 @@
         }
 
         #text-container span {
-            font-size: 3em;
-            transition: opacity 0.3s ease;
+            font-size: 4em;
         }
 
         #text-container.clicked span {
@@ -54,7 +54,7 @@
         }
 
         #text-container div {
-            font-size: 0.8em;
+            font-size: 1em;
             margin-top: 5px;
         }
 
@@ -84,10 +84,10 @@
         }
 
         #next-button {
-            position: absolute;
-            bottom: 20px;
+            position: fixed;
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translate(-50%, -50%);
             padding: 10px 20px;
             background-color: #f48fb1;
             color: white;
@@ -96,6 +96,7 @@
             cursor: pointer;
             font-size: 1em;
             transition: background-color 0.3s ease;
+            z-index: 1000;
         }
 
         #next-button:hover {
@@ -139,7 +140,7 @@
         }
 
         #revealed-text h2 {
-            font-size: 1.5em;
+            font-size: 1.2em;
             color: #006400;
             margin-bottom: 10px;
             text-align: center;
@@ -147,6 +148,7 @@
 
         #revealed-text p{
            text-align: left;
+           font-size: 0.9em;
         }
 
         #close-button {
@@ -164,13 +166,37 @@
             color: #333;
         }
 
+        @media screen and (max-width: 600px) {
+            #text-container span {
+                font-size: 3em;
+            }
+             #revealed-text h2{
+                font-size: 1em;
+             }
+             #revealed-text p{
+                font-size: 0.8em;
+             }
+            .letter-box {
+                width: 98%;
+                height: 90%;
+            }
+            .letter-box.fullscreen {
+                width: 100%;
+                height: 100%;
+            }
+            #next-button{
+               font-size: 0.9em;
+               padding: 8px 15px;
+               top: 50%;
+            }
+        }
     </style>
 </head>
 <body>
 
     <div id="text-container">
         <span>✉️</span>
-        <div>me</div>
+        <div>Touch Me</div>
     </div>
 
     <div class="letter-box">
@@ -186,48 +212,42 @@
     </div>
 
     <audio class="audio-player" id="myAudio"  style="display: none;">
-        <source src="your_music_file.mp3" type="audio/mpeg">
+        <source src="iraady.mp3" type="audio/mpeg">
     </audio>
 
-    <button id="next-button" onclick="location.href='new.html'">Next Page</button>
+    <button id="next-button" onclick="location.href='no14.html'">Next Page</button>
 
 
     <script>
         const textContainer = document.getElementById('text-container');
         const revealedText = document.getElementById('revealed-text');
         const audio = document.getElementById('myAudio');
-        const originalText = "Hello World! This is the content of the letter.  You can add a lot of text here, and it will scroll if it overflows.  The letter is now sized to accommodate more content.  We are using a light yellow background as requested. The font is cursive and the color is dark green. The Next button is at the bottom of the screen.";
-        let revealed = false;
+        const originalText = "<h2>Heading of the Letter</h2><p>Hello World! This is the content of the letter.  You can add a lot of text here, and it will scroll if it overflows.  The letter is now sized to accommodate more content.  We are using a light yellow background as requested. The font is cursive and the color is dark green. The Next button is at the bottom of the screen.</p><p>More content can be added here.  This is an example of a longer paragraph to demonstrate the scrolling capability.  The container will expand in fullscreen mode.</p><p>More content can be added here.  This is an example of a longer paragraph to demonstrate the scrolling capability.  The container will expand in fullscreen mode.</p><p>More content can be added here.  This is an example of a longer paragraph to demonstrate the scrolling capability.  The container will expand in fullscreen mode.</p><p>More content can be added here.  This is an example of a longer paragraph to demonstrate the scrolling capability.  The container will expand in fullscreen mode.</p>";
         let isFullscreen = false;
         const letterBox = document.querySelector('.letter-box');
         const closeButton = document.getElementById('close-button');
         let isPlaying = false;
+        let revealed = false;
+
 
         textContainer.addEventListener('click', () => {
-            if (!revealed) {
-                revealedText.innerHTML =  `<h2>Heading of the Letter</h2><p>${originalText}</p>`;
-                revealedText.style.opacity = 1;
+            revealedText.innerHTML = originalText;
+            revealedText.style.opacity = 1;
+            if (isPlaying) {
+                audio.pause();
+                isPlaying = false;
+            } else {
                 audio.play();
                 isPlaying = true;
-                createBlossoms();
-                revealed = true;
-                document.body.classList.add('fullscreen');
-                isFullscreen = true;
-                letterBox.classList.add('fullscreen');
-                letterBox.classList.add('show');
-                textContainer.classList.add('clicked');
             }
-            else{
-                 if (isFullscreen) {
-                    document.body.classList.remove('fullscreen');
-                    isFullscreen = false;
-                    letterBox.classList.remove('fullscreen');
-                    letterBox.classList.remove('show');
-                     textContainer.classList.remove('clicked');
-                     audio.pause();
-                     isPlaying = false;
-                }
-            }
+            createBlossoms();
+            document.body.classList.add('fullscreen');
+            isFullscreen = true;
+            letterBox.classList.add('fullscreen');
+            letterBox.classList.add('show');
+            textContainer.classList.add('clicked');
+            revealed = true;
+
         });
 
         function createBlossoms() {
@@ -250,6 +270,9 @@
             textContainer.classList.remove('clicked');
             audio.pause();
             isPlaying = false;
+            revealedText.style.opacity = 0;
+            revealed = false;
+
         });
 
         letterBox.addEventListener('click', () => {
@@ -266,4 +289,3 @@
 
 </body>
 </html>
-
