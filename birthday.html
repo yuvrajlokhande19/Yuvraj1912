@@ -80,29 +80,6 @@
             text-shadow: 0 0 0.25rem #fa8bff;
         }
 
-        #next-page-button {
-            padding: 0.75rem 1.5rem;
-            font-size: 1rem;
-            color: #fff;
-            background-color: #f0f;
-            border: none;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
-            bottom: 0;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            text-shadow: 0 0 0.5rem #f0f;
-            box-shadow: 0 0 0.75rem #f0f;
-            margin-top: 24rem;
-        }
-
-        #next-page-button:hover {
-            background-color: #f0f;
-            box-shadow: 0 0 0.75rem #f0f;
-        }
-
         .balloon {
             position: absolute;
             width: 3rem;
@@ -163,33 +140,124 @@
             0 0 21px rgba(255, 255, 255, 0.8);
         }
 
+        #next-page-button {
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            color: #fff;
+            background-color: #f0f;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            text-shadow: 0 0 0.5rem #f0f;
+            box-shadow: 0 0 0.75rem #f0f;
+            margin-top: 26rem;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        #next-page-button:hover {
+            background-color: #f0f;
+            box-shadow: 0 0 0.75rem #f0f;
+        }
+
+        #input-container {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 11;
+            opacity: 0;
+            transition: opacity 1s ease;
+            text-align: center;
+        }
+
+        #input-container textarea {
+            padding: 0.8rem;
+            font-size: 1.2rem;
+            border: 0.15rem solid #8a2be2;
+            border-radius: 0.5rem;
+            width: 80%;
+            max-width: 400px;
+            height: 80px;
+            margin-bottom: 1rem;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #input-container button {
+            padding: 0.7rem 1.5rem;
+            font-size: 1rem;
+            color: #fff;
+            background-color: #8a2be2;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 0 0.5rem #9c27b0;
+        }
+
+        #input-container button:hover {
+            background-color: #9c27b0;
+            box-shadow: 0 0 0.75rem #9c27b0;
+        }
+
+        #close-button {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            font-size: 1.5rem;
+            color: #fff;
+            cursor: pointer;
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.5rem;
+            background-color: #f00;
+        }
+
+        .text-box-neon {
+            color: #fff;
+            text-shadow:
+              0 0 7px #fff,
+              0 0 10px #fff,
+              0 0 21px #fff;
+        }
+
     </style>
 </head>
 <body>
     <canvas id="fireworks-canvas"></canvas>
     <button id="touch-button">Touch Me</button>
+    <button id="next-page-button">Next Page</button>
     <div id="birthday-message-container">
         <h2 class="neon-text">Happy Birthday</h2>
         <p class="neon-text">Wishing you a fantastic day filled with joy, love, and laughter!</p>
-        <p class="neon-text">May all your dreams come true. Happy Birthday happy birth my cute ay this eyerar we can 
-            meet  i hope you will happy all the time thamks for stay with me!</p>
-         <p class="neon-text">Wishing you a fantastic day filled with joy, love, and laughter!</p>
-             <button id="next-page-button">Next Page</button>
+        <p class="neon-text">May all your dreams come true. Happy Birthday!</p>    </div>
+    <audio id="birthday-song" src="iraady.mp3" preload="auto"></audio>
+    <div class="balloon"></div>
+    <div class="balloon"></div>
+    <div class="balloon"></div>
+    <div class="balloon"></div>
+    <div class="balloon"></div>
+    <div id="input-container" style="display: none;">
+        <textarea id="wish-input" placeholder="Enter your birthday wishes here..." class="text-box-neon"></textarea>
+        <button id="submit-wish-button" class="text-box-neon">Submit Wish</button>
+        <div id="close-button" class="text-box-neon">x</div>
     </div>
-    <audio id="birthday-song" src="happy_birthday.mp3" preload="auto"></audio>
-    <div class="balloon"></div>
-    <div class="balloon"></div>
-    <div class="balloon"></div>
-    <div class="balloon"></div>
-    <div class="balloon"></div>
 
     <script>
         const canvas = document.getElementById('fireworks-canvas');
         const ctx = canvas.getContext('2d');
         const button = document.getElementById('touch-button');
-        const birthdayMessageContainer = document.getElementById('birthday-message-container');
         const nextPageButton = document.getElementById('next-page-button');
+        const birthdayMessageContainer = document.getElementById('birthday-message-container');
         const birthdaySong = document.getElementById('birthday-song');
+        const wishInputContainer = document.getElementById('input-container');
+        const wishInput = document.getElementById('wish-input');
+        const submitWishButton = document.getElementById('submit-wish-button');
+        const closeButton = document.getElementById('close-button');
+
 
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
@@ -201,7 +269,7 @@
         let isFireworksActive = false;
         let animationFrameId;
         let fireworksIntervalId;
-        let fireworksCount = 0; // Keep track of fireworks count
+        let fireworksCount = 0;
 
         function rand(min, max) {
             return Math.random() * (max - min) + min;
@@ -220,11 +288,11 @@
                 type: 'rocket',
                 trail: [],
                 trailLength: 10,
-                brightness: 0, // Initial brightness
-                fadeSpeed: 0.02, // Fade speed
+                brightness: 0,
+                fadeSpeed: 0.02,
             };
             fireworks.push(rocket);
-            fireworksCount++; // Increment the count
+            fireworksCount++;
         }
 
         function createExplosion(x, y, color) {
@@ -262,9 +330,8 @@
                         }
                     }
                 }
-                // Increase brightness over time
                 fw.brightness += fw.fadeSpeed;
-                if (fw.brightness > 1) fw.brightness = 1; // Clamp brightness
+                if (fw.brightness > 1) fw.brightness = 1;
             }
         }
 
@@ -292,7 +359,7 @@
                     ctx.fill();
                 }
                 ctx.beginPath();
-                const drawColor = fw.color.replace(/hsl\(([\d\.]+), ([\d\.]+%), ([\d\.]+)\)/, `hsl($1, $2, ${parseInt(fw.brightness * 100)}%)`); // Adjust brightness
+                const drawColor = fw.color.replace(/hsl\(([\d\.]+), ([\d\.]+%), ([\d\.]+)\)/, `hsl($1, $2, ${parseInt(fw.brightness * 100)}%)`);
                 ctx.arc(fw.x, fw.y, fw.radius, 0, Math.PI * 2);
                 ctx.fillStyle = drawColor;
                 ctx.fill();
@@ -322,25 +389,35 @@
                     const x = rand(canvas.width / 10, canvas.width * 9 / 10);
                     const y = rand(canvas.height / 10, canvas.height / 2);
                     createFirework(x, y);
-                }, 500); // Increased frequency - every 500ms
+                }, 500);
             }
         }
-
-
 
         button.addEventListener('click', () => {
             startFireworks();
             birthdaySong.play();
             birthdayMessageContainer.style.opacity = 1;
-            for (let i = 0; i < 15; i++) {
-                const x = rand(canvas.width / 10, canvas.width * 9 / 10);
-                const y = rand(canvas.height / 10, canvas.height / 2);
-                createFirework(x, y);
+            wishInputContainer.style.opacity = 1;
+        });
+
+        nextPageButton.addEventListener('click', () => {
+            window.location.href = 'no1.html';
+        });
+
+        submitWishButton.addEventListener('click', () => {
+            const wishText = wishInput.value;
+            if (wishText.trim() !== "") {
+                console.log("Wish submitted:", wishText);
+                wishInput.value = "";
+                wishInputContainer.style.opacity = 0;
+            } else {
+                alert("Please enter your wish before submitting.");
             }
         });
 
-        next-Page-Button.addEventListener('click', () => {
-            window.location.href = 'new.html';
+        closeButton.addEventListener('click', () => {
+            wishInputContainer.style.opacity = 0;
+            wishInput.style.value = "";
         });
 
         window.addEventListener('resize', () => {
