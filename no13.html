@@ -20,7 +20,7 @@
         }
 
         body.fullscreen {
-            height: 80vh;
+            height: 100vh;
             width: 100vw;
             position: fixed;
             top: 0;
@@ -107,6 +107,7 @@
             background-color: #c2185b;
         }
 
+
         .letter-box {
             position: fixed;
             top: 50%;
@@ -166,6 +167,35 @@
             color: #333;
         }
 
+        /* btn styles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 0.5rem;
+            color: white;
+            background-color: #f48fb1;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border: none;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.2);
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .btn:hover {
+            background-color: #ec407a;
+        }
+
+        .btn:active {
+            background-color: #c2185b;
+            box-shadow: 0 0.0625rem 0.125rem rgba(0, 0, 0, 0.3);
+            transform: translateY(0.0625rem);
+        }
+
         @media screen and (max-width: 600px) {
             #text-container span {
                 font-size: 3em;
@@ -189,6 +219,7 @@
                padding: 8px 15px;
                top: 50%;
             }
+
         }
     </style>
 </head>
@@ -203,7 +234,7 @@
         <span id="close-button">&times;</span>
         <div id="revealed-text">
             <h2>Heading of the Letter</h2>
-            <p>Hello World! This is the content of the letter.  You can add a lot of text here, and it will scroll if it overflows.  The letter is now sized to accommodate more content.  We are using a light yellow background as requested. The font is cursive and the color is dark green. The Next button will take you to no1.html.</p>
+            <p>Hello World! This is the content of the letter.  You can add a lot of text here, and it will scroll if it overflows.  We are using a light yellow background as requested. The font is cursive and the color is dark green. The Next button will take you to the next page.</p>
             <p>More content can be added here.  This is an example of a longer paragraph to demonstrate the scrolling capability.  The container will expand in fullscreen mode.</p>
              <p>More content can be added here.  This is an example of a longer paragraph to demonstrate the scrolling capability.  The container will expand in fullscreen mode.</p>
               <p>More content can be added here.  This is an example of a longer paragraph to demonstrate the scrolling capability.  The container will expand in fullscreen mode.</p>
@@ -212,17 +243,17 @@
     </div>
 
     <audio class="audio-player" id="myAudio"  style="display: none;">
-        <source src="Jaadui.mp3" type="audio/mpeg">
+        <source src="iraady.mp3" type="audio/mpeg">
     </audio>
 
-    <button id="next-button" onclick="location.href='no1.html'">Next Page</button>
+    <button id="next-button" class="btn" onclick="window.location.href='no14.html'">Next Page</button>
 
 
     <script>
         const textContainer = document.getElementById('text-container');
         const revealedText = document.getElementById('revealed-text');
         const audio = document.getElementById('myAudio');
-        const originalText = "<h2>Heading of the Letter</h2><p>Hello World! This is the content of the letter.  You can add a lot of text here, and it will scroll if it overflows.  The letter is now sized to accommodate more content.  We are using a light yellow background as requested. The font is cursive and the color is dark green. The Next button will take you to no1.html.</p><p>More content can be added here.  This is an example of a longer paragraph to demonstrate the scrolling capability.  The container will expand in fullscreen mode.</p><p>More content can be added here.  This is an example of a longer paragraph to demonstrate the scrolling capability.  The container will expand in fullscreen mode.</p><p>More content can be added here.  This is an example of a longer paragraph to demonstrate the scrolling capability.  The container will expand in fullscreen mode.</p><p>More content can be added here.  This is an example of a longer paragraph to demonstrate the scrolling capability.  The container will expand in fullscreen mode.</p>";
+        const originalText = "<h2>Heading of the Letter</h2><p>Hello World! This is the content of the letter.  You can add a lot of text here, and it will scroll if it overflows.  We are using a light yellow background as requested. The font is cursive and the color is dark green. The Next button will take you to the next page.</p><p>More content can be added here.  This is an example of a longer paragraph to demonstrate the scrolling capability.  The container will expand in fullscreen mode.</p><p>More content can be added here.  This is an example of a longer paragraph to demonstrate the scrolling capability.  The container will expand in fullscreen mode.</p><p>More content can be added here.  This is an example of a longer paragraph to demonstrate the scrolling capability.  The container will expand in fullscreen mode.</p><p>More content can be added here.  This is an example of a longer paragraph to demonstrate the scrolling capability.  The container will expand in fullscreen mode.</p>";
         let isFullscreen = false;
         const letterBox = document.querySelector('.letter-box');
         const closeButton = document.getElementById('close-button');
@@ -275,7 +306,6 @@
             revealed = false;
 
         });
-
 
 
     </script>
