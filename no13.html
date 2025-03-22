@@ -262,29 +262,55 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Next Page Button</title>
+<title>Unique Button</title>
 <style>
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
+/* Style the button to look different */
+.unique-button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px; /* Rounded corners */
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); /* Add a shadow */
+  transition-duration: 0.4s; /* Add transition effect */
 }
 
-button {
-  padding: 15px 30px;
-  font-size: 16px;
-  cursor: pointer;
-  background-color: lightyellow; /* light yellow background */
-  border: 1px solid #ddd; /*optional light border*/
-  border-radius: 5px; /*optional rounded corners*/
+/* Hover effect */
+.unique-button:hover {
+  background-color: white;
+  color: black;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+/* Example of other page styles, for clarity */
+body {
+  font-family: sans-serif;
+  background-color: #f0f0f0;
+}
+
+h1 {
+  color: #333;
 }
 </style>
 </head>
 <body>
 
-<button onclick="location.href='no14.html'">Next</button>
+<h1>My Main Page</h1>
+<p>This is the main page content.</p>
+
+<button class="unique-button" onclick="openNewPage()">Open New Page</button>
+
+<script>
+function openNewPage() {
+  window.open('newpage.html', '_blank'); // Open in a new tab/window
+}
+</script>
 
 </body>
 </html>
