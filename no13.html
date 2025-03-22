@@ -83,29 +83,6 @@
             margin-top: 20px;
         }
 
-        #next-button {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 10px 20px;
-            background-color: #f48fb1;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: background-color 0.3s ease;
-            z-index: 1000;
-        }
-
-        #next-button:hover {
-            background-color: #ec407a;
-        }
-
-        #next-button:active {
-            background-color: #c2185b;
-        }
 
 
         .letter-box {
@@ -167,34 +144,7 @@
             color: #333;
         }
 
-        /* btn styles */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.75rem 1.5rem;
-            font-size: 1rem;
-            font-weight: 500;
-            border-radius: 0.5rem;
-            color: white;
-            background-color: #f48fb1;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            border: none;
-            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.2);
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-        }
 
-        .btn:hover {
-            background-color: #ec407a;
-        }
-
-        .btn:active {
-            background-color: #c2185b;
-            box-shadow: 0 0.0625rem 0.125rem rgba(0, 0, 0, 0.3);
-            transform: translateY(0.0625rem);
-        }
 
         @media screen and (max-width: 600px) {
             #text-container span {
@@ -214,11 +164,7 @@
                 width: 100%;
                 height: 100%;
             }
-            #next-button{
-               font-size: 0.9em;
-               padding: 8px 15px;
-               top: 50%;
-            }
+
 
         }
     </style>
@@ -243,11 +189,9 @@
     </div>
 
     <audio class="audio-player" id="myAudio"  style="display: none;">
-        <source src="iraady.mp3" type="audio/mpeg">
+        <source src="agar tum kaho new.mp3" type="audio/mpeg">
     </audio>
 
-    <button id="next-button" class="btn" onclick="window.
-        location.href='no1.html'">Next Page</button>
 
 
     <script>
