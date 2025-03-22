@@ -1,23 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Animated Letter</title>
+<title>Animated Envelope</title>
 <style>
 body {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh; /* Ensure the body takes up at least the full viewport */
   margin: 0;
   background-color: #f0f0f0;
+  padding: 20px; /* Add some padding for content spacing */
 }
 
-#letter {
-  font-size: 5em;
+#envelope {
+  font-size: 3em;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+#letter-container {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2em;
   opacity: 0;
   position: relative;
   transition: opacity 1s, top 1s;
+  text-align: center;
+  max-width: 800px; /* Limit paragraph width */
 }
 
 button {
@@ -29,25 +38,44 @@ button {
   border-radius: 5px;
   margin-top: 20px;
 }
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+p{
+  text-align: justify;
+}
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<button onclick="animateLetter()">Show Letter</button>
+<div id="envelope" onclick="animateLetter()">✉️ Touch Envelope ✉️</div>
 
-<div id="letter">A</div>
+<div id="letter-container">
+  <h1>A Special Message</h1>
+  <p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. This is a longer paragraph to showcase how the content will wrap and behave on a larger page. We can add more text to make the page scrollable if needed.
+  </p>
+  <p>
+      Another paragraph with more information. You can add as much text as you'd like here. This page is designed to accomodate a larger amount of text.
+  </p>
+</div>
 
-<audio id="music" src="iraady.mp3"></audio>
+<audio id="music" src="iraaady.mp3"></audio>
 
 <button onclick="location.href='new.html'">Next Page</button>
 
 <script>
 function animateLetter() {
-  const letter = document.getElementById('letter');
+  const letterContainer = document.getElementById('letter-container');
   const music = document.getElementById('music');
 
-  letter.style.opacity = 1;
-  letter.style.top = '-100px'; // Move the letter from above
+  letterContainer.style.opacity = 1;
+  letterContainer.style.top = '0'; // Start at the current position
 
   music.play();
 }
