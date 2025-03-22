@@ -169,7 +169,7 @@
     <canvas id="fireworks-canvas"></canvas>
     <button id="touch-button">Touch Me</button>
     <div id="birthday-message-container">
-        <h2 class="neon-text">Happy Birthday✨</h2>
+        <h2 class="neon-text">Happy Birthday💗</h2>
         <p class="neon-text">Wishing you a fantastic day filled with joy, love, and laughter!</p>
         <p class="neon-text">May all your dreams come true. Happy Birthday!</p>
         <button id="next-page-button">Next Page</button>
@@ -350,6 +350,7 @@
         });
 
         nextPageButton.addEventListener('click', () => {
+            stopFireworks();
             window.location.href = 'no1.html';
         });
 
