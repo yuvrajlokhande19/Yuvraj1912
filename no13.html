@@ -3,314 +3,290 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Text Reveal</title>
+    <title>Cherry Blossom Animation</title>
     <style>
         body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            min-height: 100vh;
             margin: 0;
-            background-color: #f8f0fb;
-            overflow: hidden;
-            font-family: sans-serif;
-            transition: all 0.5s ease;
-            position: relative;
-        }
-
-        body.fullscreen {
             height: 100vh;
-            width: 100vw;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 1000;
-            background-color: rgba(248, 240, 251, 0.8);
-        }
-
-        #text-container {
-            cursor: pointer;
-            user-select: none;
-            position: relative;
-            transition: transform 0.2s ease;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            margin-bottom: 20px;
-            width: fit-content;
+            background-color: #f8f0fb; /* Light pink background */
+            overflow: hidden; /* Prevent scrollbars */
+            font-family: 'Caviar Dreams', cursive;
         }
 
-        #text-container:hover {
-            transform: scale(1.1);
+        @font-face {
+            font-family: 'Caviar Dreams';
+            src: url('https://www.cufonfonts.com/images/character_sets/15075/Caviar_Dreams.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
         }
 
-        #text-container span {
-            font-size: 4em;
-        }
-
-        #text-container.clicked span {
-            opacity: 0;
-        }
-
-        #text-container div {
-            font-size: 1em;
-            margin-top: 5px;
-        }
-
-        #revealed-text {
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-            font-size: 1.2em;
-            color: #006400;
-            width: 90%;
+        #page {
+            width: 80%;
+            height: 80%;
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            font-family: cursive;
+            font-size: 2em;
+            color: lightblue; /* Light blue text */
+            cursor: pointer;
+            transition: transform 0.6s; /* Flip transition */
+            transform-style: preserve-3d;
+            position: relative; /* Needed for absolute positioning of lines */
+        }
+
+        #page.flipped {
+            transform: rotateY(180deg);
+        }
+
+        #page-front, #page-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden; /* Hide the back of the element */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            flex-direction: column; /* For vertical alignment of elements on back */
+        }
+
+        #page-front {
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+        }
+
+        #page-back {
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+            transform: rotateY(180deg); /* Rotate the back side */
+            padding-top: 20px;
+            padding-bottom: 20px;
+            text-align: center; /* Center the text on the back */
         }
 
         .blossom {
             position: absolute;
-            width: 40px;
-            height: 40px;
-            background-image: url('cherry-blossom.png');
-            background-size: contain;
-            transform: rotate(45deg);
-            animation: float 5s linear infinite;
-            pointer-events: none;
+            width: 20px; /* Make leaves bigger */
+            height: 20px;
+            /*background-color: pink;  No background color, use emoji */
+            border-radius: 50%;
+            pointer-events: none; /* Allows clicks to go through */
+            animation: fall 5s linear infinite, drift 3s infinite alternate;
+            font-size: 1.5em;  /* Adjust size of emoji */
         }
 
-        .audio-player {
-            margin-top: 20px;
+        @keyframes fall {
+            from {
+                top: -10%;
+            }
+            to {
+                top: 110%;
+            }
         }
 
-
-
-        .letter-box {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 95%;
-            height: 80%;
-            background-color: #fffacd;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-top: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out, width 0.5s ease, height 0.5s ease;
-            z-index: 1001;
-            padding-top: 20px;
-            overflow-y: auto;
+        @keyframes drift {
+             0% {
+                left: 0%;
+                transform: rotate(0deg);
+            }
+            25% {
+                left: 25%;
+                transform: rotate(20deg);
+            }
+            50% {
+                left: 50%;
+                transform: rotate(0deg);
+            }
+            75% {
+                left: 75%;
+                transform: rotate(-20deg);
+            }
+            100% {
+                left: 100%;
+                transform: rotate(0deg);
+            }
         }
 
-        .letter-box.fullscreen {
-            width: 98%;
-            height: 95%;
-            opacity: 1;
+        #next-page {
+            position: absolute;
+            bottom: 20px;
+            padding: 10px 20px;
+            background-color: #f48fb1; /* Pink button */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+            font-family: 'Caviar Dreams', cursive;
         }
 
-        .letter-box.show {
-            opacity: 1;
+        #next-page:hover {
+            background-color: #e91e63; /* Darker pink on hover */
+        }
+        .text-wrapper {
+            position: relative;
+            display: inline-block;
+            padding-top: 0.1em;
+            padding-right: 0.15em;
+            padding-bottom: 0.1em;
+            line-height: 1em;
+        }
+        .letters {
+          display: inline-block;
+          pointer-events: none;
+          cursor: default;
         }
 
-        #revealed-text h2 {
+        .page-line {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: lightgray;
+            top: 25%; /* 25% from the top */
+        }
+
+        .page-date {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            font-size: 0.8em;
+            color: #888;
+        }
+
+        .page-number {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 0.8em;
+            color: #888;
+        }
+
+        .flower {
+            position: absolute;
+            width: 25px;
+            height: 25px;
             font-size: 1.2em;
-            color: #006400;
+            pointer-events: none;
+            animation: move 4s infinite alternate;
+        }
+
+        @keyframes move {
+             0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(10px, -10px) rotate(30deg);
+            }
+            50% {
+                transform: translate(20px, 0px) rotate(0deg);
+            }
+            75% {
+                transform: translate(10px, 10px) rotate(-30deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+        }
+        #wishes{
+            font-size: 1.2em;
+            color: #e91e63;
+            font-family: 'Dancing Script', cursive;
+            text-align: center;
             margin-bottom: 10px;
+        }
+        #happy-birthday-heading {
+            font-size: 2em;
+            color: #f48fb1;
+            font-family: 'Caviar Dreams', cursive;
+            margin-bottom: 20px;
             text-align: center;
         }
 
-        #revealed-text p{
-           text-align: left;
-           font-size: 0.9em;
-        }
-
-        #close-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 2em;
-            cursor: pointer;
-            color: #888;
-            transition: color 0.2s ease;
-            z-index: 1002;
-        }
-
-        #close-button:hover {
-            color: #333;
-        }
-
-
-
-        @media screen and (max-width: 600px) {
-            #text-container span {
-                font-size: 3em;
-            }
-             #revealed-text h2{
-                font-size: 1em;
-             }
-             #revealed-text p{
-                font-size: 0.8em;
-             }
-            .letter-box {
-                width: 98%;
-                height: 90%;
-            }
-            .letter-box.fullscreen {
-                width: 100%;
-                height: 100%;
-            }
-
-
-        }
     </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Caviar+Dreams&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
 </head>
 <body>
-
-    <div id="text-container">
-        <span>✉️</span>
-        <div>Touch Me</div>
-    </div>
-
-    <div class="letter-box">
-        <span id="close-button">&times;</span>
-        <div id="revealed-text">
-            <h2>Heading of the Letter</h2>
-            <p>Hello World! This is the content of the letter.  You can add a lot of text here, and it will scroll if it overflows.  We are using a light yellow background as requested. The font is cursive and the color is dark green. The Next button will take you to the next page.</p>
-            <p>More content can be added here.  This is an example of a longer paragraph to demonstrate the scrolling capability.  The container will expand in fullscreen mode.</p>
-             <p>More content can be added here.  This is an example of a longer paragraph to demonstrate the scrolling capability.  The container will expand in fullscreen mode.</p>
-              <p>More content can be added here.  This is an example of a longer paragraph to demonstrate the scrolling capability.  The container will expand in fullscreen mode.</p>
-               <p>More content can be added here.  This is an example of a longer paragraph to demonstrate the scrolling capability.  The container will expand in fullscreen mode.</p>
+    <div id="page" onclick="flipPage()">
+        <div id="page-front">Touch Me</div>
+        <div id="page-back">
+             <div id="happy-birthday-heading">Happy Birthday!</div>
+             <div id="wishes">
+                May your day be filled with joy,<br>
+                And your life with happiness.
+             </div>
+             <div class="page-line"></div>
+             <div class="page-date">23th March 2025</div>
+             <div class="page-number">Page 2</div>
         </div>
     </div>
-
-    <audio class="audio-player" id="myAudio"  style="display: none;">
-        <source src="agar tum kaho new.mp3" type="audio/mpeg">
-    </audio>
-
-
+    <audio id="music" src="Jaadui.mp3"></audio>
+    <button id="next-page" onclick="location.href='birthday.html'">Next Page</button>
 
     <script>
-        const textContainer = document.getElementById('text-container');
-        const revealedText = document.getElementById('revealed-text');
-        const audio = document.getElementById('myAudio');
-        const originalText = "<h2>Heading of the Letter</h2><p>Hello World! This is the content of the letter.  You can add a lot of text here, and it will scroll if it overflows.  We are using a light yellow background as requested. The font is cursive and the color is dark green. The Next button will take you to the next page.</p><p>More content can be added here.  This is an example of a longer paragraph to demonstrate the scrolling capability.  The container will expand in fullscreen mode.</p><p>More content can be added here.  This is an example of a longer paragraph to demonstrate the scrolling capability.  The container will expand in fullscreen mode.</p><p>More content can be added here.  This is an example of a longer paragraph to demonstrate the scrolling capability.  The container will expand in fullscreen mode.</p><p>More content can be added here.  This is an example of a longer paragraph to demonstrate the scrolling capability.  The container will expand in fullscreen mode.</p>";
-        let isFullscreen = false;
-        const letterBox = document.querySelector('.letter-box');
-        const closeButton = document.getElementById('close-button');
-        let isPlaying = false;
-        let revealed = false;
+        const page = document.getElementById('page');
+        const music = document.getElementById('music');
+        const body = document.body;
+        const flowers = ['🌸', '🌷', '🌹', '🌼', '🌻'];
+
+        function createBlossom() {
+            const blossom = document.createElement('div');
+            blossom.className = 'blossom';
+            blossom.textContent = '🌸'; /* Cherry blossom  emoji */
+            blossom.style.left = Math.random() * 100 + '%';
+            blossom.style.animationDuration = Math.random() * 4 + 3 + 's';
+            blossom.style.animationDelay = Math.random() * 2 + 's';
+            body.appendChild(blossom);
+
+            blossom.addEventListener('animationend', () => {
+                blossom.remove();
+            });
+        }
+
+        function createFlower() {
+            const flower = document.createElement('div');
+            flower.className = 'flower';
+            flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+            flower.style.left = Math.random() * 100 + '%';
+            flower.style.top = Math.random() * 100 + '%';
+            flower.style.animationDelay = Math.random() * 3 + 's';
+            body.appendChild(flower);
+
+            flower.addEventListener('animationend', () => {
+                flower.remove();
+            });
+        }
 
 
-        textContainer.addEventListener('click', () => {
-            revealedText.innerHTML = originalText;
-            revealedText.style.opacity = 1;
-            if (isPlaying) {
-                audio.pause();
-                isPlaying = false;
-            } else {
-                audio.play();
-                isPlaying = true;
+
+        function flipPage() {
+            page.classList.toggle('flipped');
+            music.play();
+
+
+            // Create multiple blossoms
+            for (let i = 0; i < 20; i++) {
+                setTimeout(createBlossom, i * 200);
             }
-            createBlossoms();
-            document.body.classList.add('fullscreen');
-            isFullscreen = true;
-            letterBox.classList.add('fullscreen');
-            letterBox.classList.add('show');
-            textContainer.classList.add('clicked');
-            revealed = true;
-        });
-
-
-
-        function createBlossoms() {
-            const numBlossoms = 15;
-            for (let i = 0; i < numBlossoms; i++) {
-                const blossom = document.createElement('div');
-                blossom.classList.add('blossom');
-                blossom.style.left = `${Math.random() * 100}vw`;
-                blossom.style.animationDelay = `${Math.random() * 3}s`;
-                blossom.style.setProperty('--random-x', `${Math.random()}`);
-                document.body.appendChild(blossom);
+             for (let i = 0; i < 10; i++) {
+              setTimeout(createFlower, i * 300);
             }
         }
 
-        closeButton.addEventListener('click', () => {
-            document.body.classList.remove('fullscreen');
-            isFullscreen = false;
-            letterBox.classList.remove('fullscreen');
-            letterBox.classList.remove('show');
-            textContainer.classList.remove('clicked');
-            audio.pause();
-            isPlaying = false;
-            revealedText.style.opacity = 0;
-            revealed = false;
-
-        });
-
-
+        // Create initial blossoms
+        for (let i = 0; i < 15; i++) {
+            setTimeout(createBlossom, i * 300);
+        }
+         for (let i = 0; i < 10; i++) {
+             setTimeout(createFlower, i * 300);
+        }
     </script>
-
-</body>
-</html>
-
-
-<!DOCTYPE html>
-<html>
-<head>
-<title>Unique Button</title>
-<style>
-/* Style the button to look different */
-.unique-button {
-  background-color: #4CAF50; /* Green */
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 12px; /* Rounded corners */
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); /* Add a shadow */
-  transition-duration: 0.4s; /* Add transition effect */
-}
-
-/* Hover effect */
-.unique-button:hover {
-  background-color: white;
-  color: black;
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-}
-
-/* Example of other page styles, for clarity */
-body {
-  font-family: sans-serif;
-  background-color: #f0f0f0;
-}
-
-h1 {
-  color: #333;
-}
-</style>
-</head>
-<body>
-
-<h1>My Main Page</h1>
-<p>This is the main page content.</p>
-
-<button class="unique-button" onclick="openNewPage()">Open New Page</button>
-
-<script>
-function openNewPage() {
-  window.open('newpage.html', '_blank'); // Open in a new tab/window
-}
-</script>
-
 </body>
 </html>
