@@ -171,10 +171,8 @@
     <div id="birthday-message-container">
         <h2 class="neon-text">Happy Birthday</h2>
         <p class="neon-text">Wishing you a fantastic day filled with joy, love, and laughter!</p>
-        <p class="neon-text">May all your dreams come true. Happy Birthday!</p>
-        <p class="neon-text">May all your dreams come true. Happy Birthday!</p>
-        <p class="neon-text">May all your dreams come true. Happy Birthday!</p>
-        <p class="neon-text">May all your dreams come true. Happy Birthday!</p>
+        <p class="neon-text">May all your dreams come true. Happy Birthday happy birth my cute ay this eyerar we can 
+            meet  i hope you will happy all the time thamks for stay with me!</p>
         <button id="next-page-button">Next Page</button>
     </div>
     <audio id="birthday-song" src="happy_birthday.mp3" preload="auto"></audio>
@@ -327,19 +325,7 @@
             }
         }
 
-        function stopFireworks() {
-            isFireworksActive = false;
-            if (animationFrameId) {
-                cancelAnimationFrame(animationFrameId);
-            }
-            if (fireworksIntervalId) {
-                clearInterval(fireworksIntervalId);
-            }
-            fireworks = [];
-            particles = [];
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            fireworksCount = 0; // Reset count
-        }
+
 
         button.addEventListener('click', () => {
             startFireworks();
