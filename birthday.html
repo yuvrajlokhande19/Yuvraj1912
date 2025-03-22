@@ -3,42 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Birthday Surprise</title>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+    <title>Happy Birthday Fireworks</title>
     <style>
         body {
             margin: 0;
             overflow: hidden;
             background-color: #000;
-            font-family: sans-serif;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            justify-content: flex-start;
-            min-height: 100vh;
-            position: relative;
+            height: 100vh;
+            font-family: sans-serif;
         }
 
-        #play-song-button {
+        #fireworks-canvas {
             position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #008CBA;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            transition: background-color 0.3s ease;
-            z-index: 1000;
-        }
-
-        #play-song-button:hover {
-            background-color: #007ba7;
-            opacity: 0.9;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
         }
 
         #touch-button {
@@ -46,322 +31,332 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            padding: 16px 32px;
-            font-size: 20px;
-            background-color: #4CAF50;
+            padding: 1rem 2rem;
+            font-size: 1.5rem;
             color: white;
+            background-color: #4299e1;
             border: none;
+            border-radius: 0.5rem;
             cursor: pointer;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            transition: background-color 0.3s ease;
-            z-index: 1000;
+            box-shadow: 0 0 0.5rem #4299e1;
+            transition: background-color 0.3s ease, box-shadow 0 0 0.75rem #3182ce;
+            z-index: 10;
         }
 
         #touch-button:hover {
-            background-color: #45a049;
-        }
-
-        #fireworks-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 100;
-        }
-
-        #balloon-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 200;
-        }
-
-        .balloon {
-            position: absolute;
-            width: 15px;
-            height: 25px;
-            border-radius: 50%;
-            background-color: red;
-            bottom: -50px;
-            animation: floatUp 8s infinite;
-            opacity: 0;
-            transform-origin: bottom;
-            pointer-events: none;
-        }
-
-        @keyframes floatUp {
-            from {
-                transform: translateY(0) scale(1);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(-100vh) scale(1.2);
-                opacity: 0.8;
-            }
+            background-color: #3182ce;
+            box-shadow: 0 0 0.75rem #3182ce;
         }
 
         #birthday-message-container {
             position: absolute;
-            top: 30%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 500;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-
-        #birthday-message {
-            font-size: 2.5em;
-            color: #fff;
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 16px rgba(255, 255, 255, 0.6);
-            opacity: 0;
-            transition: opacity 1s ease, text-shadow 1s ease;
-            white-space: nowrap;
-            font-family: 'Caveat', cursive;
-            padding: 10px 20px;
-            background-color: rgba(0, 0, 0, 0.7);
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-
-        .neon {
-            color: #fff;
-            text-shadow:
-                0 0 5px #fff,
-                0 0 10px #fff,
-                0 0 20px #fff,
-                0 0 30px #0fa,
-                0 0 40px #0fa,
-                0 0 50px #0fa,
-                0 0 60px #0fa,
-                0 0 70px #0fa;
-        }
-
-        #next-button {
-            position: fixed;
-            bottom: 20px;
+            top: 20%;
             left: 50%;
             transform: translateX(-50%);
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #008CBA;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            transition: background-color 0.3s ease, opacity 0.3s ease;
-            opacity: 0;
-            z-index: 1000;
-        }
-
-        #next-button:hover {
-            background-color: #007ba7;
-            opacity: 0.9;
-        }
-
-        #display-area {
-            position: absolute;
-            top: 60%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 400;
-            color: white;
-            font-size: 1.2em;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 2rem;
+            border-radius: 0.5rem;
             text-align: center;
-            padding: 10px;
+            color: white;
+            z-index: 10;
             opacity: 0;
             transition: opacity 1s ease;
-            max-width: 80%;
-            word-wrap: break-word;
+            pointer-events: none;
+            box-shadow: 0 0 1rem rgba(255, 255, 255, 0.8);
+            border: 0.2rem solid white;
         }
 
-        @media screen and (max-width: 768px) {
-            #touch-button {
-                padding: 12px 24px;
-                font-size: 18px;
+        #birthday-message-container h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #ffdb58;
+            text-shadow: 0 0 0.25rem #ffdb58;
+        }
+
+        #birthday-message-container p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: #fa8bff;
+            text-shadow: 0 0 0.25rem #fa8bff;
+        }
+
+        #next-page-button {
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            color: #fff;
+            background-color: #f0f;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            bottom: 0;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            text-shadow: 0 0 0.5rem #f0f;
+            box-shadow: 0 0 0.75rem #f0f;
+            margin-top: 24rem;
+        }
+
+        #next-page-button:hover {
+            background-color: #f0f;
+            box-shadow: 0 0 0.75rem #f0f;
+        }
+
+        .balloon {
+            position: absolute;
+            width: 3rem;
+            height: 4rem;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            background-color: red;
+            opacity: 0;
+            bottom: -5rem;
+            animation: float 5s infinite, rise 8s ease-in-out forwards;
+            z-index: 2;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-1rem); }
+        }
+
+        @keyframes rise {
+            0% {
+                bottom: -5rem;
+                opacity: 0;
             }
-            #birthday-message {
-                font-size: 2em;
-            }
-            .balloon {
-                width: 10px;
-                height: 20px;
-            }
-            #display-area{
-                font-size: 1em;
-                max-width: 90%;
+            10% { opacity: 0.3; }
+            100% {
+                bottom: calc(100vh + 5rem);
+                opacity: 1;
             }
         }
+
+        .balloon:nth-child(2) {
+            background-color: #f6d061;
+            left: 20%;
+            animation-delay: 1s;
+        }
+
+        .balloon:nth-child(3) {
+            background-color: #a7f3d0;
+            left: 40%;
+            animation-delay: 2s;
+        }
+
+        .balloon:nth-child(4) {
+            background-color: #f9a8d4;
+            left: 60%;
+            animation-delay: 0.5s;
+        }
+
+        .balloon:nth-child(5) {
+            background-color: #38bdf8;
+            left: 80%;
+            animation-delay: 1.5s;
+        }
+        .neon-text {
+          color: #fff;
+          text-shadow:
+            0 0 7px rgba(255, 255, 255, 0.8),
+            0 0 10px rgba(255, 255, 255, 0.8),
+            0 0 21px rgba(255, 255, 255, 0.8);
+        }
+
     </style>
 </head>
 <body>
-    <button id="play-song-button">Play Song</button>
+    <canvas id="fireworks-canvas"></canvas>
     <button id="touch-button">Touch Me</button>
-    <div id="fireworks-container"></div>
-    <div id="balloon-container"></div>
     <div id="birthday-message-container">
-        <div id="birthday-message" class="neon">Happy Birthday!</div>
+        <h2 class="neon-text">Happy Birthday</h2>
+        <p class="neon-text">Wishing you a fantastic day filled with joy, love, and laughter!</p>
+        <p class="neon-text">May all your dreams come true. Happy Birthday!</p>
+        <button id="next-page-button">Next Page</button>
     </div>
-    <div id="display-area"></div>
-    <button id="next-button">Next Page</button>
+    <audio id="birthday-song" src="Chaand Baaliyan.mp3" preload="auto"></audio>
+    <div class="balloon"></div>
+    <div class="balloon"></div>
+    <div class="balloon"></div>
+    <div class="balloon"></div>
+    <div class="balloon"></div>
+
     <script>
-        const playSongButton = document.getElementById('play-song-button');
-        const touchButton = document.getElementById('touch-button');
-        const fireworksContainer = document.getElementById('fireworks-container');
-        const balloonContainer = document.getElementById('balloon-container');
-        const birthdayMessage = document.getElementById('birthday-message');
-        const nextButton = document.getElementById('next-button');
-        let fireworksInterval;
-        let balloonsInterval;
-        let songPlaying = false;
-        const displayArea = document.getElementById('display-area');
+        const canvas = document.getElementById('fireworks-canvas');
+        const ctx = canvas.getContext('2d');
+        const button = document.getElementById('touch-button');
+        const birthdayMessageContainer = document.getElementById('birthday-message-container');
+        const nextPageButton = document.getElementById('next-page-button');
+        const birthdaySong = document.getElementById('birthday-song');
 
-        const audio = new Audio('your-song-path.mp3');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
 
-        playSongButton.addEventListener('click', () => {
-            if (songPlaying) {
-                audio.pause();
-                songPlaying = false;
-                playSongButton.textContent = 'Play Song';
-            } else {
-                audio.play().then(() => {
-                    songPlaying = true;
-                    playSongButton.textContent = 'Pause Song';
-                }).catch(error => {
-                    console.error("Playback failed:", error);
-                    alert("Failed to play song. Check the path and ensure autoplay is allowed.");
-                });
-            }
-        });
+        let fireworks = [];
+        let particles = [];
+        const gravity = 0.05;
+        const explosionSize = 200;
+        let isFireworksActive = false;
+        let animationFrameId;
+        let fireworksIntervalId;
+        let fireworksCount = 0; // Keep track of fireworks count
 
-        function createFirework() {
-            const firework = document.createElement('div');
-            firework.style.position = 'absolute';
-            firework.style.left = Math.random() * window.innerWidth + 'px';
-            firework.style.bottom = '0px';
-            firework.style.width = '10px';
-            firework.style.height = '10px';
-            firework.style.backgroundColor = '#fff';
-            firework.style.borderRadius = '50%';
-            fireworksContainer.appendChild(firework);
+        function rand(min, max) {
+            return Math.random() * (max - min) + min;
+        }
 
-            const particlesCount = 80 + Math.random() * 60;
-            const particles = [];
+        function createFirework(x, y) {
+            const color = `hsl(${rand(0, 360)}, 100%, ${rand(60, 100)}%)`;
+            const rocket = {
+                x: x,
+                y: canvas.height,
+                destX: x,
+                destY: y,
+                speed: rand(8, 12),
+                color: color,
+                radius: 3,
+                type: 'rocket',
+                trail: [],
+                trailLength: 10,
+                brightness: 0, // Initial brightness
+                fadeSpeed: 0.02, // Fade speed
+            };
+            fireworks.push(rocket);
+            fireworksCount++; // Increment the count
+        }
 
-            for (let i = 0; i < particlesCount; i++) {
-                const particle = document.createElement('div');
-                particle.style.position = 'absolute';
-                particle.style.width = '4px';
-                particle.style.height = '4px';
-                particle.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
-                particle.style.borderRadius = '50%';
-                particle.style.left = '0px';
-                particle.style.top = '0px';
-                firework.appendChild(particle);
-
-                const angle = Math.random() * Math.PI * 2;
-                const speed = Math.random() * 6 + 3;
-                const velocityX = Math.cos(angle) * speed;
-                const velocityY = Math.sin(angle) * speed;
-                const gravity = 0.05;
-                let life = 2 + Math.random() * 1.5;
-
+        function createExplosion(x, y, color) {
+            for (let i = 0; i < explosionSize; i++) {
+                const speed = rand(1, 5);
                 particles.push({
-                    element: particle,
-                    velocityX: velocityX,
-                    velocityY: velocityY,
-                    gravity: gravity,
-                    life: life,
-                    opacity: 1,
-                    decayRate: 0.03 + Math.random() * 0.02
+                    x: x,
+                    y: y,
+                    color: color,
+                    radius: rand(1, 4),
+                    speedX: rand(-speed, speed),
+                    speedY: rand(-speed, speed),
+                    alpha: 1,
+                    decay: 0.015,
+                    type: 'particle',
                 });
             }
+        }
 
-            function updateParticles() {
-                let alive = false;
-
-                for (let i = 0; i < particles.length; i++) {
-                    const particle = particles[i];
-                    particle.velocityX *= 0.99;
-                    particle.velocityY += particle.gravity;
-                    particle.element.style.left = parseFloat(particle.element.style.left) + particle.velocityX + 'px';
-                    particle.element.style.top = parseFloat(particle.element.style.top) + particle.velocityY + 'px';
-                    particle.life -= particle.decayRate;
-                    particle.opacity = Math.max(0, particle.life / (2 + Math.random() * 1.5));
-                    particle.element.style.opacity = particle.opacity;
-
-                    if (particle.life > 0) {
-                        alive = true;
+        function updateFireworks() {
+            for (let i = fireworks.length - 1; i >= 0; i--) {
+                const fw = fireworks[i];
+                if (fw.type === 'rocket') {
+                    fw.y -= fw.speed;
+                    const dx = fw.destX - fw.x;
+                    const dy = fw.destY - fw.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < 10) {
+                        createExplosion(fw.x, fw.y, fw.color);
+                        fireworks.splice(i, 1);
                     } else {
-                        particle.element.remove();
-                        particles.splice(i, 1);
-                        i--;
+                        fw.trail.push({ x: fw.x, y: fw.y, color: fw.color, alpha: 1 });
+                        if (fw.trail.length > fw.trailLength) {
+                            fw.trail.shift();
+                        }
                     }
                 }
+                // Increase brightness over time
+                fw.brightness += fw.fadeSpeed;
+                if (fw.brightness > 1) fw.brightness = 1; // Clamp brightness
+            }
+        }
 
-                if (alive) {
-                    requestAnimationFrame(updateParticles);
+        function updateParticles() {
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const p = particles[i];
+                p.x += p.speedX;
+                p.y += p.speedY + gravity;
+                p.alpha -= p.decay;
+                if (p.alpha <= 0) {
+                    particles.splice(i, 1);
                 }
             }
+        }
 
+        function drawFireworks() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            fireworks.forEach(fw => {
+                for (let j = 0; j < fw.trail.length; j++) {
+                    const point = fw.trail[j];
+                    const opacity = j / fw.trail.length;
+                    ctx.beginPath();
+                    ctx.arc(point.x, point.y, 2, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(${parseInt(fw.color.substring(4, 7))}, ${parseInt(fw.color.substring(9, 12))}, ${parseInt(fw.color.substring(14, 17))}, ${opacity})`;
+                    ctx.fill();
+                }
+                ctx.beginPath();
+                const drawColor = fw.color.replace(/hsl\(([\d\.]+), ([\d\.]+%), ([\d\.]+)\)/, `hsl($1, $2, ${parseInt(fw.brightness * 100)}%)`); // Adjust brightness
+                ctx.arc(fw.x, fw.y, fw.radius, 0, Math.PI * 2);
+                ctx.fillStyle = drawColor;
+                ctx.fill();
+            });
+            particles.forEach(p => {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                const color = p.color.replace(/hsl\(([\d\.]+), ([\d\.]+%), ([\d\.]+)\)/, `hsla($1, $2, $3, ${p.alpha})`);
+                ctx.fillStyle = color;
+                ctx.fill();
+            });
+        }
+
+        function animate() {
+            if (!isFireworksActive) return;
+            updateFireworks();
             updateParticles();
+            drawFireworks();
+            animationFrameId = requestAnimationFrame(animate);
         }
 
-        function createBalloon() {
-            const balloon = document.createElement('div');
-            balloon.className = 'balloon';
-            balloon.style.left = Math.random() * window.innerWidth + 'px';
-            balloon.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 50%)`;
-            const animationDuration = 6 + Math.random() * 4;
-            balloon.style.animationDuration = `${animationDuration}s`;
-            balloon.style.opacity = 0;
-
-            const delay = Math.random() * 2;
-            balloon.style.animationDelay = `${delay}s`;
-
-            balloonContainer.appendChild(balloon);
-
-            setTimeout(() => {
-                balloon.style.opacity = 0.8;
-            }, delay * 1000);
-
-            setTimeout(() => {
-                balloon.remove();
-            }, (animationDuration + delay) * 1000);
+        function startFireworks() {
+            if (!isFireworksActive) {
+                isFireworksActive = true;
+                animate();
+                fireworksIntervalId = setInterval(() => {
+                    const x = rand(canvas.width / 10, canvas.width * 9 / 10);
+                    const y = rand(canvas.height / 10, canvas.height / 2);
+                    createFirework(x, y);
+                }, 500); // Increased frequency - every 500ms
+            }
         }
 
-        touchButton.addEventListener('click', () => {
-            touchButton.style.display = 'none';
-            fireworksInterval = setInterval(createFirework, 200);
-            balloonsInterval = setInterval(createBalloon, 800);
-            let text = `
-                Coder's Text:
-                Happy Birthday!
-                Best wishes on your special day!
-                May your day be filled with joy and laughter.
-                Wishing you a fantastic birthday celebration!
-                Hope you have a wonderful birthday!
-            `;
-            displayArea.textContent = text;
-            displayArea.style.opacity = 1;
-            setTimeout(() => {
-                nextButton.style.opacity = 1;
-            }, 2000);
+        function stopFireworks() {
+            isFireworksActive = false;
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+            }
+            if (fireworksIntervalId) {
+                clearInterval(fireworksIntervalId);
+            }
+            fireworks = [];
+            particles = [];
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            fireworksCount = 0; // Reset count
+        }
+
+        button.addEventListener('click', () => {
+            startFireworks();
+            birthdaySong.play();
+            birthdayMessageContainer.style.opacity = 1;
+            for (let i = 0; i < 15; i++) {
+                const x = rand(canvas.width / 10, canvas.width * 9 / 10);
+                const y = rand(canvas.height / 10, canvas.height / 2);
+                createFirework(x, y);
+            }
         });
 
-        nextButton.addEventListener('click', () => {
-            window.location.href = 'nextpage.html';
+        nextPageButton.addEventListener('click', () => {
+            window.location.href = 'yes.html';
+        });
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
         });
     </script>
 </body>
 </html>
-
