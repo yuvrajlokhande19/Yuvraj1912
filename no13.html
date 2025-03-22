@@ -1,1 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Text Reveal</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f8f0fb;
+            overflow: hidden;
+            font-family: sans-serif;
+            transition: all 0.5s ease;
+            position: relative;
+        }
+
+        body.fullscreen {
+            height: 100vh;
+            width: 100vw;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            background-color: rgba(248, 240, 251, 0.8);
+        }
+
+        #text-container {
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+            transition: transform 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        #text-container:hover {
+            transform: scale(1.1);
+        }
+
+        #text-container span {
+            font-size: 3em;
+            transition: opacity 0.3s ease;
+        }
+
+        #text-container.clicked span {
+            opacity: 0;
+        }
+
+        #text-container div {
+            font-size: 0.8em;
+            margin-top: 5px;
+        }
+
+        #revealed-text {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            font-size: 1.2em;
+            color: #006400;
+            width: 90%;
+            text-align: center;
+            font-family: cursive;
+        }
+
+        .blossom {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background-image: url('cherry-blossom.png');
+            background-size: contain;
+            transform: rotate(45deg);
+            animation: float 5s linear infinite;
+            pointer-events: none;
+        }
+
+        .audio-player {
+            margin-top: 20px;
+        }
+
+        #next-button {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            background-color: #f48fb1;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+
+        #next-button:hover {
+            background-color: #ec407a;
+        }
+
+        #next-button:active {
+            background-color: #c2185b;
+        }
+
+        .letter-box {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 95%;
+            height: 80%;
+            background-color: #fffacd;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out, width 0.5s ease, height 0.5s ease;
+            z-index: 1001;
+            padding-top: 20px;
+            overflow-y: auto;
+        }
+
+        .letter-box.fullscreen {
+            width: 98%;
+            height: 95%;
+            opacity: 1;
+        }
+
+        .letter-box.show {
+            opacity: 1;
+        }
+
+        #revealed-text h2 {
+            font-size: 1.5em;
+            color: #006400;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        #revealed-text p{
+           text-align: left;
+        }
+
+        #close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 2em;
+            cursor: pointer;
+            color: #888;
+            transition: color 0.2s ease;
+            z-index: 1002;
+        }
+
+        #close-button:hover {
+            color: #333;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="text-container">
+        <span>✉️</span>
+        <div>me</div>
+    </div>
+
+    <div class="letter-box">
+        <span id="close-button">&times;</span>
+        <div id="revealed-text">
+            <h2>Heading of the Letter</h2>
+            <p>Hello World! This is the content of the letter.  You can add a lot of text here, and it will scroll if it overflows.  The letter is now sized to accommodate more content.  We are using a light yellow background as requested. The font is cursive and the color is dark green. The Next button is at the bottom of the screen.</p>
+            <p>More content can be added here.  This is an example of a longer paragraph to demonstrate the scrolling capability.  The container will expand in fullscreen mode.</p>
+             <p>More content can be added here.  This is an example of a longer paragraph to demonstrate the scrolling capability.  The container will expand in fullscreen mode.</p>
+              <p>More content can be added here.  This is an example of a longer paragraph to demonstrate the scrolling capability.  The container will expand in fullscreen mode.</p>
+               <p>More content can be added here.  This is an example of a longer paragraph to demonstrate the scrolling capability.  The container will expand in fullscreen mode.</p>
+        </div>
+    </div>
+
+    <audio class="audio-player" id="myAudio"  style="display: none;">
+        <source src="your_music_file.mp3" type="audio/mpeg">
+    </audio>
+
+    <button id="next-button" onclick="location.href='new.html'">Next Page</button>
+
+
+    <script>
+        const textContainer = document.getElementById('text-container');
+        const revealedText = document.getElementById('revealed-text');
+        const audio = document.getElementById('myAudio');
+        const originalText = "Hello World! This is the content of the letter.  You can add a lot of text here, and it will scroll if it overflows.  The letter is now sized to accommodate more content.  We are using a light yellow background as requested. The font is cursive and the color is dark green. The Next button is at the bottom of the screen.";
+        let revealed = false;
+        let isFullscreen = false;
+        const letterBox = document.querySelector('.letter-box');
+        const closeButton = document.getElementById('close-button');
+        let isPlaying = false;
+
+        textContainer.addEventListener('click', () => {
+            if (!revealed) {
+                revealedText.innerHTML =  `<h2>Heading of the Letter</h2><p>${originalText}</p>`;
+                revealedText.style.opacity = 1;
+                audio.play();
+                isPlaying = true;
+                createBlossoms();
+                revealed = true;
+                document.body.classList.add('fullscreen');
+                isFullscreen = true;
+                letterBox.classList.add('fullscreen');
+                letterBox.classList.add('show');
+                textContainer.classList.add('clicked');
+            }
+            else{
+                 if (isFullscreen) {
+                    document.body.classList.remove('fullscreen');
+                    isFullscreen = false;
+                    letterBox.classList.remove('fullscreen');
+                    letterBox.classList.remove('show');
+                     textContainer.classList.remove('clicked');
+                     audio.pause();
+                     isPlaying = false;
+                }
+            }
+        });
+
+        function createBlossoms() {
+            const numBlossoms = 15;
+            for (let i = 0; i < numBlossoms; i++) {
+                const blossom = document.createElement('div');
+                blossom.classList.add('blossom');
+                blossom.style.left = `${Math.random() * 100}vw`;
+                blossom.style.animationDelay = `${Math.random() * 3}s`;
+                blossom.style.setProperty('--random-x', `${Math.random()}`);
+                document.body.appendChild(blossom);
+            }
+        }
+
+        closeButton.addEventListener('click', () => {
+            document.body.classList.remove('fullscreen');
+            isFullscreen = false;
+            letterBox.classList.remove('fullscreen');
+            letterBox.classList.remove('show');
+            textContainer.classList.remove('clicked');
+            audio.pause();
+            isPlaying = false;
+        });
+
+        letterBox.addEventListener('click', () => {
+            if (isPlaying) {
+                audio.pause();
+                isPlaying = false;
+            } else {
+                audio.play();
+                isPlaying = true;
+            }
+        });
+
+    </script>
+
+</body>
+</html>
 
